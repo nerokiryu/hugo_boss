@@ -322,12 +322,12 @@ if __name__ == '__main__':
     display.flip();print(menu.__doc__)
 
     while True:
-        resp = menu(['play',
-                     'armory',
-                     'stats',
+        resp = menu(['Jouer',
+                     'Armurerie',
+                     'Stats',
                      '',
-                     'options',
-                     'quit::good bye'],
+                     'Options',
+                     'Quitter::good bye'],
                      font1      = font.Font(join(here,'Berry Rotunda.ttf'),20),
                      font2      = font.Font(join(here,'Berry Rotunda.ttf'),25),
                      tooltipfont= font.Font(join(here,"Berry Rotunda.ttf"),12),
