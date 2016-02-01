@@ -306,6 +306,7 @@ if __name__ == '__main__':
                      cursor_img = image.load('mouse.png'),
                      hotspot    = (0,0)) # décalage pointeur souris
 
-        if resp[0] != "": break
+        if resp[0] == "quitter": break
+    	elif resp[0] == "jouer": execfile('animations.py')
     print(resp)
     quit()
