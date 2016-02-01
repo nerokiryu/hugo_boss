@@ -291,7 +291,7 @@ if __name__ == '__main__':
     while True:
         scr.blit(bg,bg.get_rect(center=scr.get_rect().center))
         #~ scr.fill(-1)
-        display.flip();print(menu.__doc__)    
+        display.flip();print(menu.__doc__)
         resp = menu(['jouer',
                      'armurerie',
                      'stats',
@@ -312,7 +312,7 @@ if __name__ == '__main__':
 
         if resp[0] == "quitter": break
 
-    	elif resp[0] == "jouer": execfile('animations.py')
+        elif resp[0] == "jouer": execfile('animations.py')
 
         if resp[0] == 'options':
             scr.blit(bg,bg.get_rect(center=scr.get_rect().center))
@@ -334,7 +334,7 @@ if __name__ == '__main__':
         elif resp[0] == u'crédit':
             scr.blit(bg,bg.get_rect(center=scr.get_rect().center))
             #~ scr.fill(-1)
-            display.flip();print(menu.__doc__)            
+            display.flip();print(menu.__doc__)
             resp3 = menu([u'Jeu créé par :',
                     'Nicolas Viviani',
                     'Corentin Bedoni',
@@ -354,7 +354,7 @@ if __name__ == '__main__':
                     hotspot    = (0,0))
 
 
-            
+
         elif resp[0] != "": break
     print(resp)
     quit()
