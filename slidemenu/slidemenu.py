@@ -326,7 +326,7 @@ if __name__ == '__main__':
 
             #if
 
-        elif resp[0] == 'credit': resp3 = menu(['Jeu créé par :','Nicolas Viviani', 'Corentin Bedoni', 'Hugo Gros d''Aillon', 'Humbert Moreaux', 'Julien Herment', 'Swann Glieres' ],
+        elif resp[0] == 'credit': resp3 = menu(['Jeu cree par :','Nicolas Viviani', 'Corentin Bedoni', 'Hugo Gros d''Aillon', 'Humbert Moreaux', 'Julien Herment', 'Swann Glieres', 'retour::good bye'],
         font1      = font.Font(join(here,'Berry Rotunda.ttf'),20),
         font2      = font.Font(join(here,'Berry Rotunda.ttf'),25),
         tooltipfont= font.Font(join(here,"Berry Rotunda.ttf"),12),
