@@ -337,7 +337,8 @@ if __name__ == '__main__':
            	#~ scr.fill(-1)
             	display.flip();print(menu.__doc__)
             	resp3 = menu(['retour::good bye'],
-
+		x = 1500,
+		y = 1000,
                 font1      = font.Font(join(here,'Berry Rotunda.ttf'),20),
                 font2      = font.Font(join(here,'Berry Rotunda.ttf'),25),
                 tooltipfont= font.Font(join(here,"Berry Rotunda.ttf"),12),
