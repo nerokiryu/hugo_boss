@@ -16,7 +16,7 @@ def menu(
          interline  = 5,                # int: items spacing
          justify    = True,             # boolean
          light      = 5,                # int in range [-10,10]: use if color2 is None
-         speed      = 0,              # int (0 = no sliding): anim speed
+         speed      = 0,                # int (0 = no sliding): anim speed
          lag        = 30,               # int in range [0,90]
          neon       = True,             # boolean: set neon effect
          tooltipfont= None,             # font object|None(pygame default font)
@@ -306,6 +306,23 @@ if __name__ == '__main__':
                      cursor_img = image.load('mouse.png'),
                      hotspot    = (0,0)) # décalage pointeur souris
 
-        if resp[0] != "": break
+        if resp[0] == 'options':
+            resp2 = menu(['image',
+                     'son',
+                     'retour::good bye'],
+
+                     font1      = font.Font(join(here,'Berry Rotunda.ttf'),20),
+                     font2      = font.Font(join(here,'Berry Rotunda.ttf'),25),
+                     tooltipfont= font.Font(join(here,"Berry Rotunda.ttf"),12),
+                     color1     = (255,80,40),
+                     light      = 9,
+                     tooltiptime= 1000,
+                     cursor_img = image.load('mouse.png'),
+                     hotspot    = (0,0)) # décalage pointeur souris
+
+            #if
+
+
+        elif resp[0] != "": break
     print(resp)
     quit()
