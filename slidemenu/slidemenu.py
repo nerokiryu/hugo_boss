@@ -341,7 +341,7 @@ if __name__ == '__main__':
                     'Hugo Gros d''Aillon',
                     'Humbert Moreaux',
                     'Julien Herment',
-                    'Swann Glieres',
+                    'Swann Gliere',
                     'retour::good bye'],
 
                     font1      = font.Font(join(here,'Berry Rotunda.ttf'),20),
