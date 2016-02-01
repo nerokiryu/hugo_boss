@@ -294,7 +294,7 @@ if __name__ == '__main__':
                      'stats',
                      '',
                      'options',
-                     'credit',
+                     u'crédit',
                      'quitter::good bye'],
 
                      font1      = font.Font(join(here,'Berry Rotunda.ttf'),20),
@@ -311,30 +311,39 @@ if __name__ == '__main__':
     	elif resp[0] == "jouer": execfile('animations.py')
 
         if resp[0] == 'options':
-            resp2 = menu(['image',
-                     'son',
+            resp2 = menu([u'vidéo',
+                     'audio',
                      'retour::good bye'],
 
-                     font1      = font.Font(join(here,'Berry Rotunda.ttf'),20),
-                     font2      = font.Font(join(here,'Berry Rotunda.ttf'),25),
-                     tooltipfont= font.Font(join(here,"Berry Rotunda.ttf"),12),
-                     color1     = (255,80,40),
-                     light      = 9,
-                     tooltiptime= 1000,
-                     cursor_img = image.load('mouse.png'),
-                     hotspot    = (0,0)) # décalage pointeur souris
+                    font1      = font.Font(join(here,'Berry Rotunda.ttf'),20),
+                    font2      = font.Font(join(here,'Berry Rotunda.ttf'),25),
+                    tooltipfont= font.Font(join(here,"Berry Rotunda.ttf"),12),
+                    color1     = (255,80,40),
+                    light      = 9,
+                    tooltiptime= 1000,
+                    cursor_img = image.load('mouse.png'),
+                    hotspot    = (0,0)) # décalage pointeur souris
 
             #if
 
-        elif resp[0] == 'credit': resp3 = menu(['Jeu cree par :','Nicolas Viviani', 'Corentin Bedoni', 'Hugo Gros d''Aillon', 'Humbert Moreaux', 'Julien Herment', 'Swann Glieres', 'retour::good bye'],
-        font1      = font.Font(join(here,'Berry Rotunda.ttf'),20),
-        font2      = font.Font(join(here,'Berry Rotunda.ttf'),25),
-        tooltipfont= font.Font(join(here,"Berry Rotunda.ttf"),12),
-        color1     = (255,80,40),
-        light      = 9,
-        tooltiptime= 1000,
-        cursor_img = image.load('mouse.png'),
-        hotspot    = (0,0))
+        elif resp[0] == u'crédit':
+            resp3 = menu([u'Jeu créé par :',
+                    'Nicolas Viviani',
+                    'Corentin Bedoni',
+                    'Hugo Gros d''Aillon',
+                    'Humbert Moreaux',
+                    'Julien Herment',
+                    'Swann Glieres',
+                    'retour::good bye'],
+
+                    font1      = font.Font(join(here,'Berry Rotunda.ttf'),20),
+                    font2      = font.Font(join(here,'Berry Rotunda.ttf'),25),
+                    tooltipfont= font.Font(join(here,"Berry Rotunda.ttf"),12),
+                    color1     = (255,80,40),
+                    light      = 9,
+                    tooltiptime= 1000,
+                    cursor_img = image.load('mouse.png'),
+                    hotspot    = (0,0))
 
         elif resp[0] != "": break
     print(resp)
