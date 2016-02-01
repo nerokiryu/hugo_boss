@@ -335,7 +335,7 @@ if __name__ == '__main__':
                      light      = 9,
                      tooltiptime= 1000,
                      cursor_img = image.load('mouse.png'),
-                     hotspot    = (70,30)) # décalage pointeur souris
+                     hotspot    = (0,0)) # décalage pointeur souris
 
         if resp[0] != "re-show": break
     print(resp)
