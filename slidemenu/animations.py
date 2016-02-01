@@ -12,8 +12,8 @@ from myhero import MyHero
 from display import *
 
 def game_loop():
-	speed = [1, 1]
-	invader = Invader(0, 0, "InvaderA_00.png", "InvaderA_01.png", speed)
+	speed = [10, 0]
+	invader = Invader(width-48, height-48, "InvaderA_00.png", "InvaderA_01.png", speed)
 
 	# Idem, on cree notre hero en tant qu'objet MyHero
 	my_hero = MyHero(width/2, height/2, "../Graphics/Character/V2/Walk_1.png", "../Graphics/Character/V2/Walk_2.png")
@@ -52,8 +52,8 @@ size = width, height = 1280, 720
 screen = pygame.display.set_mode(size)
 
 # Lance la musique
-pygame.mixer.music.load('music.mp3')
-pygame.mixer.music.play(10)
+"""pygame.mixer.music.load('music.mp3')
+pygame.mixer.music.play(10)"""
 
 # Charge l'image de fond
 background_image = load_image("../Graphics/Forest.png")
