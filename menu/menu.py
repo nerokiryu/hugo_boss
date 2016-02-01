@@ -333,8 +333,8 @@ if __name__ == '__main__':
                     tooltiptime= 1000,
                     cursor_img = image.load('mouse.png'),
                     hotspot    = (0,0)) # décalage pointeur souris
-	
-	elif resp[0] == 'armurerie':
+
+	elif resp[0] == u'armurerie':
 		bg = image.load(join(here,'inventaire.png'))
 		scr.blit(bg,bg.get_rect(center=scr.get_rect().center))
            	#~ scr.fill(-1)
@@ -350,7 +350,7 @@ if __name__ == '__main__':
                 tooltiptime= 1000,
                 cursor_img = image.load('mouse.png'),
                 hotspot    = (0,0))
-		
+
 		if resp3[0] == 'retour': bg = image.load(join(here,'Fond.png'))
 
         elif resp[0] == u'crédit':
