@@ -16,7 +16,7 @@ def menu(
          interline  = 5,                # int: items spacing
          justify    = True,             # boolean
          light      = 5,                # int in range [-10,10]: use if color2 is None
-         speed      = 300,              # int (0 = no sliding): anim speed
+         speed      = 0,              # int (0 = no sliding): anim speed
          lag        = 30,               # int in range [0,90]
          neon       = True,             # boolean: set neon effect
          tooltipfont= None,             # font object|None(pygame default font)
@@ -37,40 +37,7 @@ def menu(
          centerx    = None,
          centery    = None
         ):
-    """
-    menu(
-         menu,                          # iterable of str as ("item",) or ("item::tooltip",)
-         font1      = None,             # font object|None(pygame default font): unhighlighted item font
-         font2      = None,             # font object|None(font1): highlighted item font
-         color1     = (128,128,128),    # (int,int,int)|color object: unhighlighted item color
-         color2     = None,             # (int,int,int)|color object|None(calculated from the light arg): highlighted/neon item color
-         interline  = 5,                # int: items spacing
-         justify    = True,             # boolean
-         light      = 5,                # int in range [-10,10]: use if color2 is None
-         speed      = 300,              # int (0 = no sliding): anim speed
-         lag        = 30,               # int in range [0,90]
-         neon       = True,             # boolean: set neon effect
-         tooltipfont= None,             # font object|None(pygame default font)
-         tooltiptime= 2000              # int
-         cursor_img = None,
-         hotspot    = (0,0),
-         x          = None,
-         y          = None,
-         topleft    = None,
-         midtop     = None,
-         topright   = None,
-         midleft    = None,
-         center     = None,
-         midright   = None,
-         bottomleft = None,
-         midbottom  = None,
-         bottomright= None,
-         centerx    = None,
-         centery    = None
 
-    return: (None,None) if hit escape else (item,index)
-
-    """
     global hold_bg_cursor
     shad = 100 # test
 
@@ -316,18 +283,20 @@ if __name__ == '__main__':
     from os.path import dirname,join
     here = dirname(__file__)
     scr = display.set_mode((0,0),FULLSCREEN)
-    bg = image.load(join(here,'bg.png'))
+    bg = image.load(join(here,'Fond.png'))
     scr.blit(bg,bg.get_rect(center=scr.get_rect().center))
     #~ scr.fill(-1)
     display.flip();print(menu.__doc__)
 
     while True:
-        resp = menu(['Jouer',
-                     'Armurerie',
-                     'Stats',
+        resp = menu(['jouer',
+                     'armurerie',
+                     'stats',
                      '',
-                     'Options',
-                     'Quitter::good bye'],
+                     'options',
+                     'credit',
+                     'quitter::good bye'],
+
                      font1      = font.Font(join(here,'Berry Rotunda.ttf'),20),
                      font2      = font.Font(join(here,'Berry Rotunda.ttf'),25),
                      tooltipfont= font.Font(join(here,"Berry Rotunda.ttf"),12),
@@ -337,6 +306,6 @@ if __name__ == '__main__':
                      cursor_img = image.load('mouse.png'),
                      hotspot    = (0,0)) # décalage pointeur souris
 
-        if resp[0] != "re-show": break
+        if resp[0] != "": break
     print(resp)
     quit()
