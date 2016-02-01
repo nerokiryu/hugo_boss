@@ -292,13 +292,13 @@ if __name__ == '__main__':
         scr.blit(bg,bg.get_rect(center=scr.get_rect().center))
         #~ scr.fill(-1)
         display.flip();print(menu.__doc__)
-        resp = menu(['jouer',
-                     'armurerie',
-                     'stats',
+        resp = menu([u'jouer::Commencer une partie',
+                     u'armurerie::Voir votre armurerie',
+                     u'stats::Jeter un œil à vos statistiques',
                      '',
-                     'options',
-                     u'crédit',
-                     'quitter::good bye'],
+                     u'options::Modifier les options',
+                     u'crédit::Féliciter les créateurs du jeu',
+                     u'quitter::Quitter le jeu'],
 
                      font1      = font.Font(join(here,'Berry Rotunda.ttf'),20),
                      font2      = font.Font(join(here,'Berry Rotunda.ttf'),25),
@@ -310,17 +310,20 @@ if __name__ == '__main__':
                      hotspot    = (0,0)) # décalage pointeur souris
 
 
-        if resp[0] == "quitter": break
+        if resp[0] == u'quitter':
+            break
 
-        elif resp[0] == "jouer": execfile('animations.py')
+        elif resp[0] == u'jouer':
+            execfile('animations.py')
 
-        if resp[0] == 'options':
+        if resp[0] == u'options':
             scr.blit(bg,bg.get_rect(center=scr.get_rect().center))
             #~ scr.fill(-1)
             display.flip();print(menu.__doc__)
-            resp2 = menu([u'vidéo',
-                     'audio',
-                     'retour::good bye'],
+            resp2 = menu([u'vidéo::Modifier les paramètres vidéos',
+                     u'audio::Modifier les paramètres audios',
+                     '',
+                     u'retour::Retour au menu'],
 
                     font1      = font.Font(join(here,'Berry Rotunda.ttf'),20),
                     font2      = font.Font(join(here,'Berry Rotunda.ttf'),25),
@@ -336,13 +339,14 @@ if __name__ == '__main__':
             #~ scr.fill(-1)
             display.flip();print(menu.__doc__)
             resp3 = menu([u'Jeu créé par :',
-                    'Nicolas Viviani',
-                    'Corentin Bedoni',
-                    'Hugo Gros d''Aillon',
-                    'Humbert Moreaux',
-                    'Julien Herment',
-                    'Swann Gliere',
-                    'retour::good bye'],
+                    u'Nicolas Viviani',
+                    u'Corentin Bedoni',
+                    u'Hugo Gros d''Aillon',
+                    u'Humbert Moreaux',
+                    u'Julien Herment',
+                    u'Swann Gliere',
+                    '',
+                    u'retour::Retour au menu'],
 
                     font1      = font.Font(join(here,'Berry Rotunda.ttf'),20),
                     font2      = font.Font(join(here,'Berry Rotunda.ttf'),25),
@@ -355,6 +359,7 @@ if __name__ == '__main__':
 
 
 
-        elif resp[0] != "": break
+        elif resp[0] != "":
+            break
     print(resp)
     quit()
