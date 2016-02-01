@@ -311,6 +311,9 @@ if __name__ == '__main__':
     	elif resp[0] == "jouer": execfile('animations.py')
 
         if resp[0] == 'options':
+            scr.blit(bg,bg.get_rect(center=scr.get_rect().center))
+            #~ scr.fill(-1)
+            display.flip();print(menu.__doc__)
             resp2 = menu(['image',
                      'son',
                      'retour::good bye'],
@@ -323,18 +326,22 @@ if __name__ == '__main__':
                      tooltiptime= 1000,
                      cursor_img = image.load('mouse.png'),
                      hotspot    = (0,0)) # décalage pointeur souris
-
+            
             #if
 
-        elif resp[0] == 'credit': resp3 = menu(['Jeu cree par :','Nicolas Viviani', 'Corentin Bedoni', 'Hugo Gros d''Aillon', 'Humbert Moreaux', 'Julien Herment', 'Swann Glieres', 'retour::good bye'],
-        font1      = font.Font(join(here,'Berry Rotunda.ttf'),20),
-        font2      = font.Font(join(here,'Berry Rotunda.ttf'),25),
-        tooltipfont= font.Font(join(here,"Berry Rotunda.ttf"),12),
-        color1     = (255,80,40),
-        light      = 9,
-        tooltiptime= 1000,
-        cursor_img = image.load('mouse.png'),
-        hotspot    = (0,0))
+        elif resp[0] == 'credit':
+            scr.blit(bg,bg.get_rect(center=scr.get_rect().center))
+            #~ scr.fill(-1)
+            display.flip();print(menu.__doc__)
+            resp3 = menu(['Jeu cree par :','Nicolas Viviani', 'Corentin Bedoni', 'Hugo Gros d''Aillon', 'Humbert Moreaux', 'Julien Herment', 'Swann Glieres', 'retour::good bye'],
+                font1      = font.Font(join(here,'Berry Rotunda.ttf'),20),
+                font2      = font.Font(join(here,'Berry Rotunda.ttf'),25),
+                tooltipfont= font.Font(join(here,"Berry Rotunda.ttf"),12),
+                color1     = (255,80,40),
+                light      = 9,
+                tooltiptime= 1000,
+                cursor_img = image.load('mouse.png'),
+                hotspot    = (0,0))
 
         elif resp[0] != "": break
     print(resp)
