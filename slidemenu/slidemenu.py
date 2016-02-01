@@ -333,7 +333,7 @@ if __name__ == '__main__':
             scr.blit(bg,bg.get_rect(center=scr.get_rect().center))
             #~ scr.fill(-1)
             display.flip();print(menu.__doc__)
-            resp3 = menu(['Jeu cree par :','Nicolas Viviani', 'Corentin Bedoni', 'Hugo Gros d''Aillon', 'Humbert Moreaux', 'Julien Herment', 'Swann Glieres', 'retour::good bye'],
+            resp3 = menu(['Jeu cree par :','Nicolas Viviani', 'Corentin Bedoni', 'Hugo Gros d''Aillon', 'Humbert Moreaux', 'Julien Herment', 'Swann Gliere', 'retour::good bye'],
                 font1      = font.Font(join(here,'Berry Rotunda.ttf'),20),
                 font2      = font.Font(join(here,'Berry Rotunda.ttf'),25),
                 tooltipfont= font.Font(join(here,"Berry Rotunda.ttf"),12),
