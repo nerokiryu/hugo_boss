@@ -10,3 +10,5 @@ Développé avec soin par :
   - Julien Herment
 
 Codé en Python à l'aide de GitHub
+
+Pour lancer le jeu, il suffit d'executer le fichier menu.py situé dans le dossier menu grâce à la commande "python menu.py"
