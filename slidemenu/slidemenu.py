@@ -334,7 +334,7 @@ if __name__ == '__main__':
                      color1     = (255,80,40),
                      light      = 9,
                      tooltiptime= 1000,
-                     cursor_img = image.load(''),
+                     cursor_img = image.load('mouse.png'),
                      hotspot    = (38,15))
 
         if resp[0] != "re-show": break
