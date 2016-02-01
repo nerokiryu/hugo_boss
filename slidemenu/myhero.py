@@ -8,6 +8,7 @@ from display import *
 class MyHero(MySprite):
 	def __init__(self, pos_x, pos_y, image1, image2):
 		MySprite.__init__(self, pos_x, pos_y, image1, image2)
+		self.rect = pygame.Rect(pos_x, pos_y, 48, 80)
 
 	def movement(self, width, height):
 		keys = pygame.key.get_pressed()

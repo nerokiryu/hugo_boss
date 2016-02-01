@@ -31,7 +31,7 @@ def game_loop():
 		# Test de collision
 		# On utilise 'collidepoint', qui test si le centre de 
 		# My_Hero est convenu dans le rectangle de l'Invader
-		if invader.get_rect().collidepoint(my_hero.get_rect().center):
+		if invader.get_rect().colliderect(my_hero.get_rect()):
 			display_game_over(screen, background_image, background_position)
 			sys.exit()
 		else:
@@ -48,7 +48,7 @@ pygame.init()
 
 # Affiche la fenetre
 os.environ['SDL_VIDEO_CENTERED'] = '1'
-size = width, height = 640, 480
+size = width, height = 1280, 720
 screen = pygame.display.set_mode(size)
 
 # Lance la musique
@@ -56,7 +56,7 @@ pygame.mixer.music.load('music.mp3')
 pygame.mixer.music.play(10)
 
 # Charge l'image de fond
-background_image = load_image("background.jpg")
+background_image = load_image("../Graphics/Forest.png")
 background_position = [0, 0]
 
 # lance la boucle de jeu

@@ -12,7 +12,7 @@ class MySprite():
         self.images.append(load_image(image1))
         self.images.append(load_image(image2))
 
-        # Correspond a l'indice de l'image courante 
+        # Correspond a l'indice de l'image courante
         # dans notre tableau images[]
         self.index = 0
 
@@ -21,7 +21,7 @@ class MySprite():
         self.image = self.images[self.index]
 
 		# On part du principe que la taille de l'image est 48x48
-        self.rect = pygame.Rect(pos_x, pos_y, 48, 48)
+        
 
         # Utilise pour savoir quand changer notre image
         self.timeToUpdate = 0
