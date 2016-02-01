@@ -322,12 +322,12 @@ if __name__ == '__main__':
     display.flip();print(menu.__doc__)
 
     while True:
-        resp = menu(['Jouer',
-                     'Armurerie',
-                     'Stats',
+        resp = menu(['jouer',
+                     'armurerie',
+                     'stats',
                      '',
-                     'Options',
-                     'Quitter::good bye'],
+                     'options',
+                     'quitter::adieu'],
                      font1      = font.Font(join(here,'Berry Rotunda.ttf'),20),
                      font2      = font.Font(join(here,'Berry Rotunda.ttf'),25),
                      tooltipfont= font.Font(join(here,"Berry Rotunda.ttf"),12),
@@ -337,6 +337,6 @@ if __name__ == '__main__':
                      cursor_img = image.load('mouse.png'),
                      hotspot    = (70,30)) # décalage pointeur souris
 
-        if resp[0] != "re-show": break
+        if resp[0] != "": break
     print(resp)
     quit()
