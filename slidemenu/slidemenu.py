@@ -289,6 +289,9 @@ if __name__ == '__main__':
     display.flip();print(menu.__doc__)
 
     while True:
+        scr.blit(bg,bg.get_rect(center=scr.get_rect().center))
+        #~ scr.fill(-1)
+        display.flip();print(menu.__doc__)    
         resp = menu(['jouer',
                      'armurerie',
                      'stats',
@@ -308,10 +311,13 @@ if __name__ == '__main__':
 
 
         if resp[0] == "quitter": break
+
     	elif resp[0] == "jouer": execfile('animations.py')
 
         if resp[0] == 'options':
-<<<<<<< HEAD
+            scr.blit(bg,bg.get_rect(center=scr.get_rect().center))
+            #~ scr.fill(-1)
+            display.flip();print(menu.__doc__)
             resp2 = menu([u'vidéo',
                      'audio',
                      'retour::good bye'],
@@ -325,9 +331,10 @@ if __name__ == '__main__':
                     cursor_img = image.load('mouse.png'),
                     hotspot    = (0,0)) # décalage pointeur souris
 
-            #if
-
         elif resp[0] == u'crédit':
+            scr.blit(bg,bg.get_rect(center=scr.get_rect().center))
+            #~ scr.fill(-1)
+            display.flip();print(menu.__doc__)            
             resp3 = menu([u'Jeu créé par :',
                     'Nicolas Viviani',
                     'Corentin Bedoni',
@@ -345,40 +352,9 @@ if __name__ == '__main__':
                     tooltiptime= 1000,
                     cursor_img = image.load('mouse.png'),
                     hotspot    = (0,0))
-=======
-            scr.blit(bg,bg.get_rect(center=scr.get_rect().center))
-            #~ scr.fill(-1)
-            display.flip();print(menu.__doc__)
-            resp2 = menu(['image',
-                     'son',
-                     'retour::good bye'],
 
-                     font1      = font.Font(join(here,'Berry Rotunda.ttf'),20),
-                     font2      = font.Font(join(here,'Berry Rotunda.ttf'),25),
-                     tooltipfont= font.Font(join(here,"Berry Rotunda.ttf"),12),
-                     color1     = (255,80,40),
-                     light      = 9,
-                     tooltiptime= 1000,
-                     cursor_img = image.load('mouse.png'),
-                     hotspot    = (0,0)) # décalage pointeur souris
+
             
-            #if
-
-        elif resp[0] == 'credit':
-            scr.blit(bg,bg.get_rect(center=scr.get_rect().center))
-            #~ scr.fill(-1)
-            display.flip();print(menu.__doc__)
-            resp3 = menu(['Jeu cree par :','Nicolas Viviani', 'Corentin Bedoni', 'Hugo Gros d''Aillon', 'Humbert Moreaux', 'Julien Herment', 'Swann Gliere', 'retour::good bye'],
-                font1      = font.Font(join(here,'Berry Rotunda.ttf'),20),
-                font2      = font.Font(join(here,'Berry Rotunda.ttf'),25),
-                tooltipfont= font.Font(join(here,"Berry Rotunda.ttf"),12),
-                color1     = (255,80,40),
-                light      = 9,
-                tooltiptime= 1000,
-                cursor_img = image.load('mouse.png'),
-                hotspot    = (0,0))
->>>>>>> fb1f64024d9491348791a2735cf1a317038ffe47
-
         elif resp[0] != "": break
     print(resp)
     quit()
