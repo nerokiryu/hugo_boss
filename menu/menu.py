@@ -9,20 +9,20 @@ except: from . import GetEvent
 
 def menu(
          menu,                          # iterable of str as ("item",) or ("item::tooltip",)
-         font1      = None,             # font object|None(pygame default font): unhighlighted item font
-         font2      = None,             # font object|None(font1): highlighted item font
-         color1     = (128,128,128),    # (int,int,int)|color object: unhighlighted item color
+         font1      = font.Font('graphics/font/Berry Rotunda.ttf',20),             # font object|None(pygame default font): unhighlighted item font
+         font2      = font.Font('graphics/font/Berry Rotunda.ttf',25),             # font object|None(font1): highlighted item font
+         color1     = (255,80,40),    # (int,int,int)|color object: unhighlighted item color
          color2     = None,             # (int,int,int)|color object|None(calculated from the light arg): highlighted/neon item color
          interline  = 5,                # int: items spacing
          justify    = True,             # boolean
-         light      = 5,                # int in range [-10,10]: use if color2 is None
+         light      = 9,                # int in range [-10,10]: use if color2 is None
          speed      = 0,                # int (0 = no sliding): anim speed
          lag        = 30,               # int in range [0,90]
          neon       = True,             # boolean: set neon effect
-         tooltipfont= None,             # font object|None(pygame default font)
-         tooltiptime= 2000,             # int
-         cursor_img = None,
-         hotspot    = (0,0),
+         tooltipfont= font.Font("graphics/font/Berry Rotunda.ttf",12),             # font object|None(pygame default font)
+         tooltiptime= 1000,             # int
+         cursor_img = image.load('graphics/mouse.png'),
+         hotspot    = (0,0), # décalage pointeur souris
          x          = None,
          y          = None,
          topleft    = None,
@@ -283,7 +283,7 @@ if __name__ == '__main__':
     from os.path import dirname,join
     here = dirname(__file__)
     scr = display.set_mode((0,0),FULLSCREEN)
-    bg = image.load(join(here,'Fond.png'))
+    bg = image.load(join('./graphics/background','menu.png'))
     scr.blit(bg,bg.get_rect(center=scr.get_rect().center))
     #~ scr.fill(-1)
     display.flip();print(menu.__doc__)
@@ -298,23 +298,13 @@ if __name__ == '__main__':
                      '',
                      u'options::Modifier les options',
                      u'crédit::Féliciter les créateurs du jeu',
-                     u'quitter::Quitter le jeu'],
-
-                     font1      = font.Font(join(here,'Berry Rotunda.ttf'),20),
-                     font2      = font.Font(join(here,'Berry Rotunda.ttf'),25),
-                     tooltipfont= font.Font(join(here,"Berry Rotunda.ttf"),12),
-                     color1     = (255,80,40),
-                     light      = 9,
-                     tooltiptime= 1000,
-                     cursor_img = image.load('mouse.png'),
-                     hotspot    = (0,0)) # décalage pointeur souris
-
+                     u'quitter::Quitter le jeu'])
 
         if resp[0] == u'quitter':
             break
 
         elif resp[0] == u'jouer':
-            execfile('animations.py')
+            execfile('jeu/jeu.py')
 
         if resp[0] == u'options':
             scr.blit(bg,bg.get_rect(center=scr.get_rect().center))
@@ -323,35 +313,18 @@ if __name__ == '__main__':
             resp2 = menu([u'vidéo::Modifier les paramètres vidéos',
                      u'audio::Modifier les paramètres audios',
                      '',
-                     u'retour::Retour au menu'],
-
-                    font1      = font.Font(join(here,'Berry Rotunda.ttf'),20),
-                    font2      = font.Font(join(here,'Berry Rotunda.ttf'),25),
-                    tooltipfont= font.Font(join(here,"Berry Rotunda.ttf"),12),
-                    color1     = (255,80,40),
-                    light      = 9,
-                    tooltiptime= 1000,
-                    cursor_img = image.load('mouse.png'),
-                    hotspot    = (0,0)) # décalage pointeur souris
+                     u'retour::Retour au menu'])
 
 	elif resp[0] == u'armurerie':
-		bg = image.load(join(here,'inventaire.png'))
+		bg = image.load('graphics/inventaire/inventaire.png')
 		scr.blit(bg,bg.get_rect(center=scr.get_rect().center))
            	#~ scr.fill(-1)
             	display.flip();print(menu.__doc__)
             	resp3 = menu(['retour::good bye'],
-		x = 1500,
-		y = 1000,
-                font1      = font.Font(join(here,'Berry Rotunda.ttf'),20),
-                font2      = font.Font(join(here,'Berry Rotunda.ttf'),25),
-                tooltipfont= font.Font(join(here,"Berry Rotunda.ttf"),12),
-                color1     = (255,80,40),
-                light      = 9,
-                tooltiptime= 1000,
-                cursor_img = image.load('mouse.png'),
-                hotspot    = (0,0))
+            		x = 1500,
+            		y = 1000)
 
-		if resp3[0] == 'retour': bg = image.load(join(here,'Fond.png'))
+		if resp3[0] == 'retour': bg = image.load('graphics/background/menu.png')
 
         elif resp[0] == u'crédit':
             scr.blit(bg,bg.get_rect(center=scr.get_rect().center))
@@ -365,16 +338,7 @@ if __name__ == '__main__':
                     u'Julien Herment',
                     u'Swann Gliere',
                     '',
-                    u'retour::Retour au menu'],
-
-                    font1      = font.Font(join(here,'Berry Rotunda.ttf'),20),
-                    font2      = font.Font(join(here,'Berry Rotunda.ttf'),25),
-                    tooltipfont= font.Font(join(here,"Berry Rotunda.ttf"),12),
-                    color1     = (255,80,40),
-                    light      = 9,
-                    tooltiptime= 1000,
-                    cursor_img = image.load('mouse.png'),
-                    hotspot    = (0,0))
+                    u'retour::Retour au menu'])
 
 
 
