@@ -65,12 +65,8 @@ class MySprite():
 			# On remet le compteur a 0
 			self.timeToUpdate = 0
 
-			# on prend la prochaine image du tableau
-			# en verifiant de ne pas depasser sa taille
-			self.index = 2
-
 			# On change l'image qui va s'afficher
-			self.image = self.images[self.index]
+			self.image = self.images[2]
 
 		# On incremente le timer a chaque iteration
 		self.timeToUpdate += 100
