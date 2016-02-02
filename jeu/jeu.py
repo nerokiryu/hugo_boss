@@ -34,6 +34,7 @@ def main():
     entities = pygame.sprite.Group()
     player = Player(32, 32)
     boss = Boss(200, 32)
+    boss.realease()
     arme = Arme(32, 32)
     platforms = []
 
@@ -167,46 +168,42 @@ class Entity(pygame.sprite.Sprite):
         pygame.sprite.Sprite.__init__(self)
 
 class Boss(Entity):
+    coll = False
     def __init__(self, x, y):
         Entity.__init__(self)
         self.image = Surface((32,32))
         self.image.fill(Color("#FF0000"))
         self.onGround = False
         self.image.convert()
-        self.xvel = 200
-        self.yvel = -50
+        self.xvel = x
+        self.yvel = y
         self.rect = Rect(x, y, 32, 32)
+        self.speed = 8
 
+    def realease(self):
+        self.xvel = 8
 
     def update(self, up, down, left, right, running, platforms, player, arme, screen):
-        if up:
-            # only jump if on the ground
-            if self.onGround: self.yvel -= 8
-        if down:
-            pass
-        if running:
-            self.xvel = 12
-        if left:
-            self.xvel = -8
-        if right:
-            self.xvel = 8
         if not self.onGround:
             # only accelerate with gravity if in the air
             self.yvel += 0.3
             # max falling speed
             if self.yvel > 100: self.yvel = 100
-        if not(left or right):
-            self.xvel = 0
         # increment in x direction
         self.rect.left += self.xvel
         # do x-axis collisions
-        self.collide(self.xvel, 0, platforms)
         # increment in y direction
         self.rect.top += self.yvel
         # assuming we're in the air
-        self.onGround = False;
+        self.onGround = False
         # do y-axis collisions
         self.collide(0, self.yvel, platforms)
+
+        self.coll = self.collide(self.xvel, 0, platforms)
+        if self.coll:
+            self.xvel = -self.xvel
+            print (self.xvel)
+            self.coll = False
 
         self.hitbox(0, self.yvel, player, arme, screen)
 
@@ -219,16 +216,20 @@ class Boss(Entity):
                 if xvel > 0:
                     self.rect.right = p.rect.left
                     print "collide right"
+                    return True
                 if xvel < 0:
                     self.rect.left = p.rect.right
                     print "collide left"
+                    return True
                 if yvel > 0:
                     self.rect.bottom = p.rect.top
                     self.onGround = True
                     self.yvel = 0
+                    return False
                 if yvel < 0:
                     self.rect.top = p.rect.bottom
                     print "collide top"
+                    return False
 
     def hitbox(self, xvel, yvel, player,arme, screen):
         if pygame.sprite.collide_rect(self, player):
@@ -342,8 +343,8 @@ class Arme(Entity):
         self.rect = Rect(x, y, 32, 32)
 
     def update(self, up, down, left, right, running, platforms, boss, player, screen):
-        self.rect.top = player.rect.top-5
-        self.rect.left = player.rect.left+5
+        self.rect.top = player.rect.top-8
+        self.rect.left = player.rect.left+18
 
         self.hitbox(0, self.yvel, boss, screen)
 
