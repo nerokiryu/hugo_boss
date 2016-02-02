@@ -7,6 +7,9 @@ import math
 from time import sleep
 
 sys.path.append(os.path.join('pygame'))
+sys.path.append(os.path.join('menu'))
+sys.path.append(os.path.join('jeu'))
+sys.path.append(os.path.join('hugo_boss.py'))
 
 WIN_WIDTH = 800
 WIN_HEIGHT = 640
@@ -242,7 +245,17 @@ class Boss(Entity):
             pygame.display.flip()
             screen.blit
             pygame.time.wait(1000)
-            sys.exit()
+	    while True:
+		scr.blit(bg,bg.get_rect(center=scr.get_rect().center))
+		#~ scr.fill(-1)
+		display.flip();print(menu.__doc__)
+		resp = menu([u'rejouer::Faire une nouvelle partie',
+		             u'retour au menu::Quitter le jeu'])
+
+		if resp[0] == u'retour au menu':		    
+           		execfile("hugoboss.py")
+		elif resp[0] == u'rejouer':
+			execfile("jeu/jeu.py")
         if pygame.sprite.collide_rect(self, arme):
             basicfont = pygame.font.SysFont(None, 48)
             text = basicfont.render('You Win', True, (255, 0, 0))
@@ -253,7 +266,17 @@ class Boss(Entity):
             pygame.display.flip()
             screen.blit
             pygame.time.wait(1000)
-            sys.exit()
+	    while True:
+		scr.blit(bg,bg.get_rect(center=scr.get_rect().center))
+		#~ scr.fill(-1)
+		display.flip();print(menu.__doc__)
+		resp = menu([u'rejouer::Faire une nouvelle partie',
+		             u'retour au menu::Quitter le jeu'])
+
+		if resp[0] == u'retour au menu':		    
+           		execfile("hugoboss.py")
+		elif resp[0] == u'rejouer':
+			execfile("jeu/jeu.py")
 
 class Player(Entity):
     def __init__(self, x, y):
@@ -329,7 +352,17 @@ class Player(Entity):
             pygame.display.flip()
             screen.blit
             pygame.time.wait(1000)
-            sys.exit()
+	    while True:
+		scr.blit(bg,bg.get_rect(center=scr.get_rect().center))
+		#~ scr.fill(-1)
+		display.flip();print(menu.__doc__)
+		resp = menu([u'rejouer::Faire une nouvelle partie',
+		             u'retour au menu::Quitter le jeu'])
+
+		if resp[0] == u'retour au menu':		    
+           		execfile("hugoboss.py")
+		elif resp[0] == u'rejouer':
+			execfile("jeu/jeu.py")
 
 class Arme(Entity):
     def __init__(self, x, y):
@@ -359,7 +392,17 @@ class Arme(Entity):
             pygame.display.flip()
             screen.blit
             pygame.time.wait(1000)
-            sys.exit()
+	    while True:
+		scr.blit(bg,bg.get_rect(center=scr.get_rect().center))
+		#~ scr.fill(-1)
+		display.flip();print(menu.__doc__)
+		resp = menu([u'rejouer::Faire une nouvelle partie',
+		             u'retour au menu::Quitter le jeu'])
+
+		if resp[0] == u'retour au menu':		    
+           		execfile("hugoboss.py")
+		elif resp[0] == u'rejouer':
+			execfile("jeu/jeu.py")
 
 class Platform(Entity):
     def __init__(self, x, y):
