@@ -1,64 +1,339 @@
-import sys
+#! /usr/bin/python
+
 import pygame
-import os
+import sys
+from pygame import *
+import math
+from time import sleep
 
-# Importe la classe Invader and MyHero
-# se trouvant dans les fichiers
-# invader.py et myhero.py
-sys.path.append(os.path.join('jeu'))
-from invader import Invader
-from myhero import MyHero
+sys.path.append(os.path.join('pygame'))
 
-# Importe toute les methodes du module display
-from display import *
+WIN_WIDTH = 800
+WIN_HEIGHT = 640
+HALF_WIDTH = int(WIN_WIDTH / 2)
+HALF_HEIGHT = int(WIN_HEIGHT / 2)
 
-def game_loop():
-	speed = [10, 0]
-	invader = Invader(width-48, height-48, "graphics/character/boss/boss1/InvaderA_00.png", "graphics/character/boss/boss1/InvaderA_01.png", "graphics/character/boss/boss1/InvaderA_01.png", speed)
+DISPLAY = (WIN_WIDTH, WIN_HEIGHT)
+DEPTH = 32
+FLAGS = 0
+CAMERA_SLACK = 30
 
-	# Idem, on cree notre hero en tant qu'objet MyHero
-	my_hero = MyHero(width/2, height/2, "graphics/character/hero/heror.png", "graphics/character/hero/herowr.png", "graphics/character/hero/hero.png")
+def main():
+    global cameraX, cameraY
+    pygame.init()
+    screen = pygame.display.set_mode(DISPLAY, FLAGS, DEPTH)
+    pygame.display.set_caption("Use arrows to move!")
+    timer = pygame.time.Clock()
 
-	# Boucle de jeu
-	while 1:
-		for event in pygame.event.get():
-			if event.type == pygame.QUIT:
-				sys.exit()
+    up = down = left = right = running = False
 
-		# Deplacement
-		invader.movement(width, height)
-		my_hero.movement(width, height)
+########################CREATION LVL##########################
 
-		# Test de collision
-		# On utilise 'collidepoint', qui test si le centre de
-		# My_Hero est convenu dans le rectangle de l'Invader
-		if invader.get_rect().colliderect(my_hero.get_rect()):
-			display_game_over(screen, background_image, background_position)
-			sys.exit()
-		else:
-			# Affichage
-			display(screen, background_image, background_position, invader, my_hero)
+    bg = Surface((32,32))
+    bg.convert()
+    bg.fill(Color("#000000"))
+    entities = pygame.sprite.Group()
+    player = Player(32, 32)
+    boss = Boss(200, 32)
+    platforms = []
 
-############################################
-## POINT D ENTREE DU CODE ##
-# A NOTER : toutes les variables declarees
-# dans une partie non indentee sont globales
+    x = y = 0
+    level = [
+        "PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP",
+        "P                                          P",
+        "P                                          P",
+        "P                                          P",
+        "P                                          P",
+        "P                    PPPPPPPPPPP           P",
+        "P                                          P",
+        "P                                          P",
+        "P    PPPPPPPPPPPPPP                        P",
+        "P                                          P",
+        "P                          PPPPPPP         P",
+        "P                                          P",
+        "P                     P                    P",
+        "P                                          P",
+        "P                                          P",
+        "P         PPPPPPPPP                        P",
+        "P                                          P",
+        "P                                          P",
+        "P                        PPPPPP            P",
+        "P                                          P",
+        "P                                          P",
+        "P                PPPPPP                    P",
+        "P                                          P",
+        "P                                          P",
+        "PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP",]
+    # build the level
+    for row in level:
+        for col in row:
+            if col == "P":
+                p = Platform(x, y)
+                platforms.append(p)
+                entities.add(p)
+            if col == "E":
+                e = ExitBlock(x, y)
+                platforms.append(e)
+                entities.add(e)
+            x += 32
+        y += 32
+        x = 0
 
-# Init pygame modules
-pygame.init()
+    total_level_width  = len(level[0])*32
+    total_level_height = len(level)*32
+    camera = Camera(complex_camera, total_level_width, total_level_height)
+    entities.add(player)
+    entities.add(boss)
 
-# Affiche la fenetre
-os.environ['SDL_VIDEO_CENTERED'] = '1'
-size = width, height = 1280, 720
-screen = pygame.display.set_mode(size)
+#############################################################################
 
-# Lance la musique
-"""pygame.mixer.music.load('music.mp3')
-pygame.mixer.music.play(10)"""
 
-# Charge l'image de fond
-background_image = load_image("graphics/background/forest.png")
-background_position = [0, 0]
+#############################MOUVEMENT#######################################
 
-# lance la boucle de jeu
-game_loop()
+    while 1:
+        timer.tick(60)
+
+        for e in pygame.event.get():
+            if e.type == QUIT: raise SystemExit, "QUIT"
+            if e.type == KEYDOWN and e.key == K_ESCAPE:
+                raise SystemExit, "ESCAPE"
+            if e.type == KEYDOWN and e.key == K_UP:
+                up = True
+            if e.type == KEYDOWN and e.key == K_DOWN:
+                down = True
+            if e.type == KEYDOWN and e.key == K_LEFT:
+                left = True
+            if e.type == KEYDOWN and e.key == K_RIGHT:
+                right = True
+            if e.type == KEYDOWN and e.key == K_SPACE:
+                running = True
+
+            if e.type == KEYUP and e.key == K_UP:
+                up = False
+            if e.type == KEYUP and e.key == K_DOWN:
+                down = False
+            if e.type == KEYUP and e.key == K_RIGHT:
+                right = False
+            if e.type == KEYUP and e.key == K_LEFT:
+                left = False
+            if e.type == KEYDOWN and e.key == K_SPACE:
+                running = True
+
+        # draw background
+        """for y in range(32):
+            for x in range(32):"""
+        screen.blit(pygame.image.load("graphics/background/menu.png"), (0,0))
+
+        camera.update(player)
+
+        # update player, draw everything else
+        player.update(up, down, left, right, running, platforms, boss, screen)
+        boss.update(up, down, left, right, running, platforms, player, screen)
+        for e in entities:
+            screen.blit(e.image, camera.apply(e))
+
+        pygame.display.update()
+
+class Camera(object):
+    def __init__(self, camera_func, width, height):
+        self.camera_func = camera_func
+        self.state = Rect(0, 0, width, height)
+
+    def apply(self, target):
+        return target.rect.move(self.state.topleft)
+
+    def update(self, target):
+        self.state = self.camera_func(self.state, target.rect)
+
+def simple_camera(camera, target_rect):
+    l, t, _, _ = target_rect
+    _, _, w, h = camera
+    return Rect(-l+HALF_WIDTH, -t+HALF_HEIGHT, w, h)
+
+def complex_camera(camera, target_rect):
+    l, t, _, _ = target_rect
+    _, _, w, h = camera
+    l, t, _, _ = -l+HALF_WIDTH, -t+HALF_HEIGHT, w, h
+
+    l = min(0, l)                           # stop scrolling at the left edge
+    l = max(-(camera.width-WIN_WIDTH), l)   # stop scrolling at the right edge
+    t = max(-(camera.height-WIN_HEIGHT), t) # stop scrolling at the bottom
+    t = min(0, t)                           # stop scrolling at the top
+    return Rect(l, t, w, h)
+
+class Entity(pygame.sprite.Sprite):
+    def __init__(self):
+        pygame.sprite.Sprite.__init__(self)
+
+class Boss(Entity):
+    def __init__(self, x, y):
+        Entity.__init__(self)
+        self.image = Surface((32,32))
+        self.image.fill(Color("#FF0000"))
+        self.onGround = False
+        self.image.convert()
+        self.xvel = 200
+        self.yvel = -50
+        self.rect = Rect(x, y, 32, 32)
+
+
+    def update(self, up, down, left, right, running, platforms, player, screen):
+        if up:
+            # only jump if on the ground
+            if self.onGround: self.yvel -= 8
+        if down:
+            pass
+        if running:
+            self.xvel = 12
+        if left:
+            self.xvel = -8
+        if right:
+            self.xvel = 8
+        if not self.onGround:
+            # only accelerate with gravity if in the air
+            self.yvel += 0.3
+            # max falling speed
+            if self.yvel > 100: self.yvel = 100
+        if not(left or right):
+            self.xvel = 0
+        # increment in x direction
+        self.rect.left += self.xvel
+        # do x-axis collisions
+        self.collide(self.xvel, 0, platforms)
+        # increment in y direction
+        self.rect.top += self.yvel
+        # assuming we're in the air
+        self.onGround = False;
+        # do y-axis collisions
+        self.collide(0, self.yvel, platforms)
+
+        self.hitbox(0, self.yvel, player, screen)
+
+
+    def collide(self, xvel, yvel, platforms):
+        for p in platforms:
+            if pygame.sprite.collide_rect(self, p):
+                if isinstance(p, ExitBlock):
+                    pygame.event.post(pygame.event.Event(QUIT))
+                if xvel > 0:
+                    self.rect.right = p.rect.left
+                    print "collide right"
+                if xvel < 0:
+                    self.rect.left = p.rect.right
+                    print "collide left"
+                if yvel > 0:
+                    self.rect.bottom = p.rect.top
+                    self.onGround = True
+                    self.yvel = 0
+                if yvel < 0:
+                    self.rect.top = p.rect.bottom
+                    print "collide top"
+
+    def hitbox(self, xvel, yvel, player, screen):
+        if pygame.sprite.collide_rect(self, player):
+            basicfont = pygame.font.SysFont(None, 48)
+            text = basicfont.render('Game Over', True, (255, 0, 0))
+            textrect = text.get_rect()
+            textrect.centerx = screen.get_rect().centerx
+            textrect.centery = screen.get_rect().centery
+            screen.blit(text, textrect)
+            pygame.display.flip()
+            screen.blit
+            pygame.time.wait(1000)
+            sys.exit()
+
+class Player(Entity):
+    def __init__(self, x, y):
+        Entity.__init__(self)
+        self.xvel = 0
+        self.yvel = 0
+        self.onGround = False
+        self.image = Surface((32,32))
+        self.image.fill(Color("#0000FF"))
+        self.image.convert()
+        self.rect = Rect(x, y, 32, 32)
+
+    def update(self, up, down, left, right, running, platforms, boss, screen):
+        if up:
+            # only jump if on the ground
+            if self.onGround: self.yvel -= 8
+        if down:
+            pass
+        if running:
+            self.xvel = 12
+        if left:
+            self.xvel = -8
+        if right:
+            self.xvel = 8
+        if not self.onGround:
+            # only accelerate with gravity if in the air
+            self.yvel += 0.3
+            # max falling speed
+            if self.yvel > 100: self.yvel = 100
+        if not(left or right):
+            self.xvel = 0
+        # increment in x direction
+        self.rect.left += self.xvel
+        # do x-axis collisions
+        self.collide(self.xvel, 0, platforms)
+        # increment in y direction
+        self.rect.top += self.yvel
+        # assuming we're in the air
+        self.onGround = False;
+        # do y-axis collisions
+        self.collide(0, self.yvel, platforms)
+
+        self.hitbox(0, self.yvel, boss, screen)
+
+    def collide(self, xvel, yvel, platforms):
+        for p in platforms:
+            if pygame.sprite.collide_rect(self, p):
+                if isinstance(p, ExitBlock):
+                    pygame.event.post(pygame.event.Event(QUIT))
+                if xvel > 0:
+                    self.rect.right = p.rect.left
+                    print "collide right"
+                if xvel < 0:
+                    self.rect.left = p.rect.right
+                    print "collide left"
+                if yvel > 0:
+                    self.rect.bottom = p.rect.top
+                    self.onGround = True
+                    self.yvel = 0
+                if yvel < 0:
+                    self.rect.top = p.rect.bottom
+                    print "collide top"
+
+
+    def hitbox(self, xvel, yvel, boss, screen):
+        if pygame.sprite.collide_rect(self, boss):
+            basicfont = pygame.font.SysFont(None, 48)
+            text = basicfont.render('Game Over', True, (255, 0, 0))
+            textrect = text.get_rect()
+            textrect.centerx = screen.get_rect().centerx
+            textrect.centery = screen.get_rect().centery
+            screen.blit(text, textrect)
+            pygame.display.flip()
+            screen.blit
+            pygame.time.wait(1000)
+            sys.exit()
+
+class Platform(Entity):
+    def __init__(self, x, y):
+        Entity.__init__(self)
+        self.image = Surface((32, 32))
+        self.image.convert()
+        self.image.blit(pygame.image.load("graphics/decor/plateforme.png"), (0,0))
+        #screen.blit(pygame.image.load("fond.png"), (0,0))
+        self.rect = Rect(x, y, 32, 32)
+
+    def update(self):
+        pass
+
+class ExitBlock(Platform):
+    def __init__(self, x, y):
+        Platform.__init__(self, x, y)
+        self.image.fill(Color("#0033FF"))
+
+if __name__ == "__main__":
+    main()
