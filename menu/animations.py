@@ -16,7 +16,7 @@ def game_loop():
 	invader = Invader(width-48, height-48, "InvaderA_00.png", "InvaderA_01.png", speed)
 
 	# Idem, on cree notre hero en tant qu'objet MyHero
-	my_hero = MyHero(width/2, height/2, "../graphics/character/hero/herol.png", "../graphics/character/hero/herowl.png")
+	my_hero = MyHero(0, height-100, "../graphics/character/hero/heror.png", "../graphics/character/hero/herowr.png")
 
 	# Boucle de jeu
 	while 1:
@@ -26,7 +26,7 @@ def game_loop():
 
 		# Deplacement
 		invader.movement(width, height)
-		my_hero.movement(width, height)
+		my_hero.on_execute(width, height)
 
 		# Test de collision
 		# On utilise 'collidepoint', qui test si le centre de

@@ -1,5 +1,5 @@
 import sys
-import pygame 
+import pygame
 import os
 from mysprite import MySprite
 from display import *
@@ -8,7 +8,7 @@ from display import *
 class Invader(MySprite):
 	def __init__(self, pos_x, pos_y, image1, image2, speed):
 		MySprite.__init__(self, pos_x, pos_y, image1, image2)
-		self.rect = pygame.Rect(pos_x, pos_y, 28, 30)
+		self.rect = pygame.Rect(pos_x, pos_y, 28, 28)
 		self.speed = speed
 
 	def movement(self, width, height):
@@ -27,6 +27,6 @@ class Invader(MySprite):
 	# On 'flip' l'image courante sans oublier les images
 	# stockees qui seront ensuite utilisee
 	def flip_transfo(self):
-		self.image = pygame.transform.flip(self.image, False, True)
+		"""self.image = pygame.transform.flip(self.image, False, True)
 		self.images[0] = pygame.transform.flip(self.images[0], False, True)
-		self.images[1] = pygame.transform.flip(self.images[1], False, True)
+		self.images[1] = pygame.transform.flip(self.images[1], False, True)"""

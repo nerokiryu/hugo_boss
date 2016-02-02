@@ -1,12 +1,12 @@
 import sys
-import pygame 
+import pygame
 import os
 from display import *
 
 class MySprite():
 	# Constructeur, self correspond +- au 'this'
     def __init__(self, pos_x, pos_y, image1, image2):
-    	# On cree un attribut tableau stockant les 2 
+    	# On cree un attribut tableau stockant les 2
     	# images que notre objet pourra prendre
     	self.images = []
         self.images.append(load_image(image1))
@@ -21,7 +21,7 @@ class MySprite():
         self.image = self.images[self.index]
 
 		# On part du principe que la taille de l'image est 48x48
-        
+
 
         # Utilise pour savoir quand changer notre image
         self.timeToUpdate = 0
@@ -36,14 +36,14 @@ class MySprite():
 
     # Cette methode parcours notre tableau d'images pour
     # changer l'image affichee de l'objet
-    # De plus on utilise un timer pour ne pas changer 
+    # De plus on utilise un timer pour ne pas changer
     # cette image a chaque iteration de notre boucle de jeu
     def change_img(self):
         if self.timeToUpdate > 2000:
         	# On remet le compteur a 0
         	self.timeToUpdate = 0
 
-        	# on prend la prochaine image du tableau 
+        	# on prend la prochaine image du tableau
         	# en verifiant de ne pas depasser sa taille
         	self.index = (self.index + 1) % 2
 
