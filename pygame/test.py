@@ -1,6 +1,7 @@
 #! /usr/bin/python
 
 import pygame
+import sys
 from pygame import *
 import math
 from time import sleep
@@ -124,8 +125,8 @@ def main():
         camera.update(player)
 
         # update player, draw everything else
-        player.update(up, down, left, right, running, platforms, boss)
-        boss.update(up, down, left, right, running, platforms, player)
+        player.update(up, down, left, right, running, platforms, boss, screen)
+        boss.update(up, down, left, right, running, platforms, player, screen)
         for e in entities:
             screen.blit(e.image, camera.apply(e))
 
@@ -174,7 +175,7 @@ class Boss(Entity):
         self.rect = Rect(x, y, 32, 32)
 
 
-    def update(self, up, down, left, right, running, platforms, player):
+    def update(self, up, down, left, right, running, platforms, player, screen):
         if up:
             # only jump if on the ground
             if self.onGround: self.yvel -= 8
@@ -204,7 +205,7 @@ class Boss(Entity):
         # do y-axis collisions
         self.collide(0, self.yvel, platforms)
 
-        self.hitbox(0, self.yvel, player)
+        self.hitbox(0, self.yvel, player, screen)
 
 
     def collide(self, xvel, yvel, platforms):
@@ -226,23 +227,18 @@ class Boss(Entity):
                     self.rect.top = p.rect.bottom
                     print "collide top"
 
-    def hitbox(self, xvel, yvel, player):
+    def hitbox(self, xvel, yvel, player, screen):
         if pygame.sprite.collide_rect(self, player):
-            if isinstance(player, ExitBlock):
-                pygame.event.post(pygame.event.Event(QUIT))
-            if xvel > 0:
-                self.rect.right = player.rect.left
-                print "collide right"
-            if xvel < 0:
-                self.rect.left = player.rect.right
-                print "collide left"
-            if yvel > 0:
-                self.rect.bottom = player.rect.top
-                self.onGround = True
-                self.yvel = 0
-            if yvel < 0:
-                self.rect.top = player.rect.bottom
-                print "collide top"
+            basicfont = pygame.font.SysFont(None, 48)
+            text = basicfont.render('Game Over', True, (255, 0, 0))
+            textrect = text.get_rect()
+            textrect.centerx = screen.get_rect().centerx
+            textrect.centery = screen.get_rect().centery
+            screen.blit(text, textrect)
+            pygame.display.flip()
+            screen.blit
+            pygame.time.wait(1000)
+            sys.exit()
 
 class Player(Entity):
     def __init__(self, x, y):
@@ -255,7 +251,7 @@ class Player(Entity):
         self.image.convert()
         self.rect = Rect(x, y, 32, 32)
 
-    def update(self, up, down, left, right, running, platforms, boss):
+    def update(self, up, down, left, right, running, platforms, boss, screen):
         if up:
             # only jump if on the ground
             if self.onGround: self.yvel -= 8
@@ -285,7 +281,7 @@ class Player(Entity):
         # do y-axis collisions
         self.collide(0, self.yvel, platforms)
 
-        self.hitbox(0, self.yvel, boss)
+        self.hitbox(0, self.yvel, boss, screen)
 
     def collide(self, xvel, yvel, platforms):
         for p in platforms:
@@ -307,30 +303,26 @@ class Player(Entity):
                     print "collide top"
 
 
-    def hitbox(self, xvel, yvel, boss):
+    def hitbox(self, xvel, yvel, boss, screen):
         if pygame.sprite.collide_rect(self, boss):
-            if isinstance(boss, ExitBlock):
-                pygame.event.post(pygame.event.Event(QUIT))
-            if xvel > 0:
-                self.rect.right = boss.rect.left
-                print "collide right"
-            if xvel < 0:
-                self.rect.left = boss.rect.right
-                print "collide left"
-            if yvel > 0:
-                self.rect.bottom = boss.rect.top
-                self.onGround = True
-                self.yvel = 0
-            if yvel < 0:
-                self.rect.top = boss.rect.bottom
-                print "collide top"
+            basicfont = pygame.font.SysFont(None, 48)
+            text = basicfont.render('Game Over', True, (255, 0, 0))
+            textrect = text.get_rect()
+            textrect.centerx = screen.get_rect().centerx
+            textrect.centery = screen.get_rect().centery
+            screen.blit(text, textrect)
+            pygame.display.flip()
+            screen.blit
+            pygame.time.wait(1000)
+            sys.exit()
 
 class Platform(Entity):
     def __init__(self, x, y):
         Entity.__init__(self)
         self.image = Surface((32, 32))
         self.image.convert()
-        self.image.fill(Color("#DDDDDD"))
+        self.image.blit(pygame.image.load("plateforme.png"), (0,0))
+        #screen.blit(pygame.image.load("fond.png"), (0,0))
         self.rect = Rect(x, y, 32, 32)
 
     def update(self):
