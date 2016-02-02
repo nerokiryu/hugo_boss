@@ -181,7 +181,6 @@ class Boss(Entity):
         self.xvel = x
         self.yvel = y
         self.rect = Rect(x, y, 32, 32)
-        self.speed = 8
 
     def realease(self):
         self.xvel = 8
@@ -205,7 +204,6 @@ class Boss(Entity):
         self.coll = self.collide(self.xvel, 0, platforms)
         if self.coll:
             self.xvel = -self.xvel
-            print (self.xvel)
             self.coll = False
 
         self.hitbox(0, self.yvel, player, arme, screen)
@@ -228,11 +226,9 @@ class Boss(Entity):
                     self.rect.bottom = p.rect.top
                     self.onGround = True
                     self.yvel = 0
-                    return False
                 if yvel < 0:
                     self.rect.top = p.rect.bottom
                     print "collide top"
-                    return False
 
     def hitbox(self, xvel, yvel, player,arme, screen):
         if pygame.sprite.collide_rect(self, player):
@@ -252,13 +248,13 @@ class Boss(Entity):
 		resp = menu([u'rejouer::Faire une nouvelle partie',
 		             u'retour au menu::Quitter le jeu'])
 
-		if resp[0] == u'retour au menu':		    
+		if resp[0] == u'retour au menu':
            		execfile("hugoboss.py")
 		elif resp[0] == u'rejouer':
 			execfile("jeu/jeu.py")
         if pygame.sprite.collide_rect(self, arme):
             basicfont = pygame.font.SysFont(None, 48)
-            text = basicfont.render('You Win', True, (255, 0, 0))
+            text = basicfont.render('Win', True, (255, 0, 0))
             textrect = text.get_rect()
             textrect.centerx = screen.get_rect().centerx
             textrect.centery = screen.get_rect().centery
@@ -273,7 +269,7 @@ class Boss(Entity):
 		resp = menu([u'rejouer::Faire une nouvelle partie',
 		             u'retour au menu::Quitter le jeu'])
 
-		if resp[0] == u'retour au menu':		    
+		if resp[0] == u'retour au menu':
            		execfile("hugoboss.py")
 		elif resp[0] == u'rejouer':
 			execfile("jeu/jeu.py")
@@ -359,7 +355,7 @@ class Player(Entity):
 		resp = menu([u'rejouer::Faire une nouvelle partie',
 		             u'retour au menu::Quitter le jeu'])
 
-		if resp[0] == u'retour au menu':		    
+		if resp[0] == u'retour au menu':
            		execfile("hugoboss.py")
 		elif resp[0] == u'rejouer':
 			execfile("jeu/jeu.py")
@@ -399,7 +395,7 @@ class Arme(Entity):
 		resp = menu([u'rejouer::Faire une nouvelle partie',
 		             u'retour au menu::Quitter le jeu'])
 
-		if resp[0] == u'retour au menu':		    
+		if resp[0] == u'retour au menu':
            		execfile("hugoboss.py")
 		elif resp[0] == u'rejouer':
 			execfile("jeu/jeu.py")
