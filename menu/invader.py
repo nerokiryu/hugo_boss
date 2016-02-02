@@ -1,13 +1,13 @@
 import sys
-import pygame 
+import pygame
 import os
 from mysprite import MySprite
 from display import *
 
 # Class Invader herite de 'MySprite'
 class Invader(MySprite):
-	def __init__(self, pos_x, pos_y, image1, image2, speed):
-		MySprite.__init__(self, pos_x, pos_y, image1, image2)
+	def __init__(self, pos_x, pos_y, image1, image2, image3, speed):
+		MySprite.__init__(self, pos_x, pos_y, image1, image2, image3)
 		self.rect = pygame.Rect(pos_x, pos_y, 28, 30)
 		self.speed = speed
 

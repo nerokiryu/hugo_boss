@@ -2,7 +2,7 @@ import sys
 import pygame
 import os
 
-# Importe la classe Invader and MyHero
+# Importe la classe Invader et MyHero
 # se trouvant dans les fichiers
 # invader.py et myhero.py
 from invader import Invader
@@ -13,10 +13,10 @@ from display import *
 
 def game_loop():
 	speed = [10, 0]
-	invader = Invader(width-48, height-48, "InvaderA_00.png", "InvaderA_01.png", speed)
+	invader = Invader(width-48, height-48, "InvaderA_00.png", "InvaderA_01.png", "InvaderA_01.png", speed)
 
 	# Idem, on cree notre hero en tant qu'objet MyHero
-	my_hero = MyHero(width/2, height/2, "../graphics/character/hero/herol.png", "../graphics/character/hero/herowl.png")
+	my_hero = MyHero(width/2, height/2, "../graphics/character/hero/herol.png", "../graphics/character/hero/herowl.png", "../graphics/character/hero/hero.png")
 
 	# Boucle de jeu
 	while 1:
