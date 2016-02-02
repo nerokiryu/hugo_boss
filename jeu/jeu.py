@@ -35,6 +35,7 @@ def main():
     entities = pygame.sprite.Group()
     player = Player(32, 32)
     boss = Boss(200, 32)
+    arme = Arme(32, 32)
     platforms = []
 
     x = y = 0
@@ -84,6 +85,7 @@ def main():
     camera = Camera(complex_camera, total_level_width, total_level_height)
     entities.add(player)
     entities.add(boss)
+    entities.add(arme)
 
 #############################################################################
 
@@ -128,7 +130,8 @@ def main():
 
         # update player, draw everything else
         player.update(up, down, left, right, running, platforms, boss, screen)
-        boss.update(up, down, left, right, running, platforms, player, screen)
+        boss.update(up, down, left, right, running, platforms, player, arme, screen)
+        arme.update(up, down, left, right, running, platforms, player, screen)
         for e in entities:
             screen.blit(e.image, camera.apply(e))
 
@@ -177,7 +180,7 @@ class Boss(Entity):
         self.rect = Rect(x, y, 32, 32)
 
 
-    def update(self, up, down, left, right, running, platforms, player, screen):
+    def update(self, up, down, left, right, running, platforms, player, arme, screen):
         if up:
             # only jump if on the ground
             if self.onGround: self.yvel -= 8
@@ -207,7 +210,7 @@ class Boss(Entity):
         # do y-axis collisions
         self.collide(0, self.yvel, platforms)
 
-        self.hitbox(0, self.yvel, player, screen)
+        self.hitbox(0, self.yvel, player, arme, screen)
 
 
     def collide(self, xvel, yvel, platforms):
@@ -229,10 +232,21 @@ class Boss(Entity):
                     self.rect.top = p.rect.bottom
                     print "collide top"
 
-    def hitbox(self, xvel, yvel, player, screen):
+    def hitbox(self, xvel, yvel, player,arme, screen):
         if pygame.sprite.collide_rect(self, player):
             basicfont = pygame.font.SysFont(None, 48)
             text = basicfont.render('Game Over', True, (255, 0, 0))
+            textrect = text.get_rect()
+            textrect.centerx = screen.get_rect().centerx
+            textrect.centery = screen.get_rect().centery
+            screen.blit(text, textrect)
+            pygame.display.flip()
+            screen.blit
+            pygame.time.wait(1000)
+            sys.exit()
+        if pygame.sprite.collide_rect(self, arme):
+            basicfont = pygame.font.SysFont(None, 48)
+            text = basicfont.render('You Win', True, (255, 0, 0))
             textrect = text.get_rect()
             textrect.centerx = screen.get_rect().centerx
             textrect.centery = screen.get_rect().centery
@@ -317,6 +331,64 @@ class Player(Entity):
             screen.blit
             pygame.time.wait(1000)
             sys.exit()
+
+class Arme(Entity):
+    def __init__(self, x, y):
+        Entity.__init__(self)
+        self.xvel = 0
+        self.yvel = 0
+        self.onGround = False
+        self.image = Surface((90, 90))
+        self.image.convert()
+        self.image.blit(pygame.image.load("graphics/swords/ironsword.png"), (0,0))
+        self.rect = Rect(x+30, y+30, 90, 90)
+
+    def update(self, up, down, left, right, running, platforms, boss, screen):
+        if up:
+            # only jump if on the ground
+            if self.onGround: self.yvel -= 8
+        if down:
+            pass
+        if running:
+            self.xvel = 12
+        if left:
+            self.xvel = -8
+        if right:
+            self.xvel = 8
+        if not self.onGround:
+            # only accelerate with gravity if in the air
+            self.yvel += 0.3
+            # max falling speed
+            if self.yvel > 100: self.yvel = 100
+        if not(left or right):
+            self.xvel = 0
+        # increment in x direction
+        self.rect.left += self.xvel
+        # increment in y direction
+        self.rect.top += self.yvel
+        # assuming we're in the air
+        self.onGround = False;
+        # do y-axis collisions
+        self.collide(0, self.yvel, platforms)
+
+    def collide(self, xvel, yvel, platforms):
+        for p in platforms:
+            if pygame.sprite.collide_rect(self, p):
+                if isinstance(p, ExitBlock):
+                    pygame.event.post(pygame.event.Event(QUIT))
+                if xvel > 0:
+                    self.rect.right = p.rect.left
+                    print "collide right"
+                if xvel < 0:
+                    self.rect.left = p.rect.right
+                    print "collide left"
+                if yvel > 0:
+                    self.rect.bottom = p.rect.top
+                    self.onGround = True
+                    self.yvel = 0
+                if yvel < 0:
+                    self.rect.top = p.rect.bottom
+                    print "collide top"
 
 class Platform(Entity):
     def __init__(self, x, y):
