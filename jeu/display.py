@@ -1,8 +1,5 @@
 import sys
-import os
 import pygame
-
-sys.path.append(os.path.join('jeu'))
 
 # Methode permettant de charger une image
 # et renvoyant l'objet surface associee
@@ -12,8 +9,8 @@ def load_image(name):
 
 def display(screen, background_image, background_position, invader, my_hero):
 	# Essai de changer l'image de nos personnages
-	invader.change_img()
-	my_hero.change_img()
+	invader.change_img_arret()
+	my_hero.change_img_arret()
 
 	# Ajoute nos images a afficher
 	screen.blit(background_image, background_position)
