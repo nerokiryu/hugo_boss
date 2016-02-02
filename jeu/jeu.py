@@ -17,7 +17,7 @@ def game_loop():
 	invader = Invader(width-48, height-48, "graphics/character/boss/boss1/InvaderA_00.png", "graphics/character/boss/boss1/InvaderA_01.png", "graphics/character/boss/boss1/InvaderA_01.png", speed)
 
 	# Idem, on cree notre hero en tant qu'objet MyHero
-	my_hero = MyHero(width/2, height/2, "graphics/character/hero/herol.png", "graphics/character/hero/herowl.png", "graphics/character/hero/herowl.png")
+	my_hero = MyHero(width/2, height/2, "graphics/character/hero/heror.png", "graphics/character/hero/herowr.png", "graphics/character/hero/hero.png")
 
 	# Boucle de jeu
 	while 1:
