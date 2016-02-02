@@ -3,8 +3,14 @@ import pygame
 import os
 from mysprite import MySprite
 from display import *
-
+from pygame.locals import *
+import math
+from time import sleep
 # Class MyHero herite de 'MySprite'
+
+
+
+
 class MyHero(MySprite):
 	mouv = False;
 #--------------------------------------Initialisation--------------------------------------#
@@ -38,6 +44,14 @@ class MyHero(MySprite):
 
 		if not keys[pygame.K_LEFT] and not keys[pygame.K_RIGHT] and not keys[pygame.K_UP] and not keys[pygame.K_DOWN]:
 			self.mouv = False;
+
+		if (keys[K_LSHIFT]):
+			if (self.speed!=10*1.5):
+				self.speed=self.speed*1.5
+			else:
+				self.speed=self.speed
+		else:
+			self.speed=10
 
 		#-------------------------Fonctions COURRIR-------------------#
 		if keys[courir] and keys[pygame.K_LEFT] and self.rect.left > 0:

@@ -27,6 +27,6 @@ class Invader(MySprite):
 	# On 'flip' l'image courante sans oublier les images
 	# stockees qui seront ensuite utilisee
 	def flip_transfo(self):
-		self.image = pygame.transform.flip(self.image, False, True)
+		"""self.image = pygame.transform.flip(self.image, False, True)
 		self.images[0] = pygame.transform.flip(self.images[0], False, True)
-		self.images[1] = pygame.transform.flip(self.images[1], False, True)
+		self.images[1] = pygame.transform.flip(self.images[1], False, True)"""
