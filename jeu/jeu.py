@@ -13,7 +13,8 @@ sys.path.append(os.path.join('hugo_boss.py'))
 
 # Gestion des images #
 # Gestion du hero #
-img_herof="graphics/character/hero/hero.png"
+img_heror="graphics/character/hero/heror.png"
+img_herol="graphics/character/hero/herol.png"
 img_sword="graphics/arme/sword/woodsword.png"
 # Gestion des images #
 
@@ -300,7 +301,7 @@ class Player(Entity):
         self.xvel = 0
         self.yvel = 0
         self.onGround = False
-        self.image = pygame.image.load(img_herof)
+        self.image = pygame.image.load(img_heror)
         (hauteur, largeur) = self.image.get_size()
         self.rect = Rect(x, y, hauteur, largeur)
 
@@ -315,8 +316,10 @@ class Player(Entity):
             self.xvel = 12
         if left:
             self.xvel = -8
+            self.image = pygame.image.load(img_herol)
         if right:
             self.xvel = 8
+            self.image = pygame.image.load(img_heror)
         if not self.onGround:
             # only accelerate with gravity if in the air
             self.yvel += 0.3
