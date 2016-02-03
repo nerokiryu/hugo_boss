@@ -19,8 +19,7 @@ from camera import *
 from exitBlock import *
 
 # Numero du niveau #
-num = 2
-
+num = sys.argv[1]
 
 # Generation des elements du niveau #
 level = generateLvl(num)

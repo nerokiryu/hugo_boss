@@ -12,8 +12,8 @@ sys.path.append(os.path.join('hugo_boss.py'))
 from time import sleep
 from entity import Entity
 
-img_swordr="graphics/arme/sword/woodsword.png"
-img_swordl="graphics/arme/sword/woodswordl.png"
+img_swordr="graphics/arme/sword/ironsword.png"
+img_swordl="graphics/arme/sword/ironswordl.png"
 
 class Arme(Entity):
     atk=30

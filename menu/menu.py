@@ -313,7 +313,22 @@ if __name__ == '__main__':
             sys.exit()
 
         elif resp[0] == u'jouer':
-            execfile('jeu/jeu.py')
+            scr.blit(bg,bg.get_rect(center=scr.get_rect().center))
+            #~ scr.fill(-1)
+            display.flip();print(menu.__doc__)
+            resp1 = menu([u'Niveau 1',
+                     u'Niveau 2',
+                     u'Niveau 3'])
+
+            if resp1[0] == u'Niveau 1' :
+                sys.argv=["toto.py",1]
+                execfile('jeu/jeu.py')
+            if resp1[0] == u'Niveau 2' :
+                sys.argv=["toto.py",2]
+                execfile('jeu/jeu.py')
+            if resp1[0] == u'Niveau 3' :
+                sys.argv=["toto.py",3]
+                execfile('jeu/jeu.py')
 
         if resp[0] == u'options':
             scr.blit(bg,bg.get_rect(center=scr.get_rect().center))
