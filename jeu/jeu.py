@@ -11,6 +11,10 @@ sys.path.append(os.path.join('hugo_boss.py'))
 
 from level import *
 
+# Numero du niveau #
+num = 1
+
+
 # Gestion des images #
 img_heror="graphics/character/hero/heror.png"
 img_herol="graphics/character/hero/herol.png"
@@ -19,9 +23,11 @@ img_swordr="graphics/arme/sword/woodsword.png"
 img_swordl="graphics/arme/sword/woodswordl.png"
 # Gestion des images #
 
-# Gestion des background #
-#fond=
-# Gestion des background #
+# Generation des elements du niveau #
+level = generatelvl(num)
+lvlbg = generatebg(num)
+# Generation des elements du niveau #
+
 
 
 WIN_WIDTH = 800
@@ -60,7 +66,6 @@ def main():
     x = y = 0
 
     #############################################################################
-    level = generatelvl(1)
 
     # build the level
     for row in level :
@@ -125,7 +130,7 @@ def main():
         # draw background
         """for y in range(32):
             for x in range(32):"""
-        screen.blit(pygame.image.load("graphics/background/hell.png"), (0,0))
+        screen.blit(pygame.image.load(lvlbg), (0,0))
 
         camera.update(player)
 
