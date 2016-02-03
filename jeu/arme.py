@@ -67,9 +67,10 @@ class Arme(Entity):
         else:
             self.rect.top = player.rect.top
             self.rect.left = player.rect.left
-
-        return self.hitbox(0, self.yvel, boss, screen)
-
+        if self.atk > 0:
+            return self.hitbox(0, self.yvel, boss, screen)
+        else :
+            return False
 
 
     def hitbox(self, xvel, yvel, boss, screen):
