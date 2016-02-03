@@ -126,7 +126,7 @@ def main():
         # draw background
         """for y in range(32):
             for x in range(32):"""
-        screen.blit(pygame.image.load("graphics/background/menu.png"), (0,0))
+        screen.blit(pygame.image.load("graphics/background/ice.png"), (0,0))
 
         camera.update(player)
 
