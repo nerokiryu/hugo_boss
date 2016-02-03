@@ -1,6 +1,4 @@
 #! /usr/bin/python
-
-import pygame
 import sys
 from random import randint
 from pygame import *
@@ -11,6 +9,8 @@ sys.path.append(os.path.join('menu'))
 sys.path.append(os.path.join('jeu'))
 sys.path.append(os.path.join('hugo_boss.py'))
 
+from level import *
+
 # Gestion des images #
 img_heror="graphics/character/hero/heror.png"
 img_herol="graphics/character/hero/herol.png"
@@ -18,6 +18,11 @@ img_bossf="graphics/character/boss/boss1/boss1l.png"
 img_swordr="graphics/arme/sword/woodsword.png"
 img_swordl="graphics/arme/sword/woodswordl.png"
 # Gestion des images #
+
+# Gestion des background #
+#fond=
+# Gestion des background #
+
 
 WIN_WIDTH = 800
 WIN_HEIGHT = 640
@@ -53,39 +58,12 @@ def main():
     platforms = []
 
     x = y = 0
-    level = [
-        "IPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPI",
-        "N                                                                            O",
-        "N                                                                            O",
-        "N                                                                            O",
-        "N                                                                            O",
-        "N                                                                            O",
-        "N                                                                            O",
-        "N                                                                            O",
-        "N                                                                            O",
-        "N                                                                            O",
-        "N                                                                            O",
-        "N                                                                            O",
-        "N                                                                            O",
-        "N                                                                            O",
-        "N                                                                            O",
-        "N                                                                            O",
-        "N                                                                            O",
-        "N                                                                            O",
-        "N                                                                            O",
-        "N                                                                            O",
-        "N                                                                            O",
-        "N                                                                            O",
-        "N                                                                            O",
-        "N                                                                            O",
-        "N                                                                            O",
-        "N                                                                            O",
-        "N                                                                            O",
-        "N                                                                            O",
-        "IMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMI",]
+
+    level = generatelvl(1)
+
     # build the level
-    for row in level:
-        for col in row:
+    for row in level :
+        for col in row :
             if col >= "A" and col <= "P":
                 p = Platform(x, y, col)
                 platforms.append(p)
@@ -395,7 +373,7 @@ class Arme(Entity):
         (hauteur, largeur) = self.image.get_size()
         self.rect = Rect(x, y, hauteur, largeur)
         self.onGround = False
-        
+
 
     def realease(self):
         self.xvel = 8
