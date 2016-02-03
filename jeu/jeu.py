@@ -2,6 +2,7 @@
 
 import pygame
 import sys
+from random import randint
 from pygame import *
 import math
 from time import sleep
@@ -202,6 +203,12 @@ class Boss(Entity):
         self.xvel = 8
 
     def update(self, up, down, left, right, running, platforms, player, arme, screen):
+
+        rand=randint(0,100)
+        if rand<=15:
+            if self.onGround: self.yvel -= 8
+
+
         if not self.onGround:
             # only accelerate with gravity if in the air
             self.yvel += 0.3
