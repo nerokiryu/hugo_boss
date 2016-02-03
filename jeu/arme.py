@@ -36,6 +36,11 @@ class Arme(Entity):
         self.yvel = 8
 
     def update(self, up, down, left, right, running, platforms, boss, player, screen):
+        if boss.inv % 10 == 5:
+            boss.image = pygame.image.load(boss.img_bossf).convert()
+            boss.image.set_alpha(0)
+        elif boss.inv%10 == 0:
+            boss.image = pygame.image.load(boss.img_bossf)
         print(boss.hp)
         if running==True:
             self.atk=30
@@ -82,12 +87,6 @@ class Arme(Entity):
                 elif boss.xvel < 0:
                     boss.xvel+=boss.speed*2
                 boss.inv = boss.max_inv
-            else:
-                if boss.inv % 10 == 5:
-                    boss.image = pygame.image.load(boss.img_bossf).convert()
-                    boss.image.set_alpha(0)
-                elif boss.inv%10 == 0:
-                    boss.image = pygame.image.load(boss.img_bossf)
 
             if boss.hp==0:
                 basicfont = pygame.font.SysFont(None, 48)

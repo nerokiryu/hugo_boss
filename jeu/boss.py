@@ -43,7 +43,7 @@ class Boss(Entity):
 
 
     def update(self, up, down, left, right, running, platforms, player, arme, screen):
-        if self.inv != 0:
+        if self.inv > 0:
             self.inv-=1
         if not self.onGround:
             # only accelerate with gravity if in the air
