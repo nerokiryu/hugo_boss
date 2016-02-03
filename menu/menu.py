@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from pygame import *
+import sys
 font.init()
 from math import cos,radians
 try: import GetEvent
@@ -301,7 +302,7 @@ if __name__ == '__main__':
                      u'quitter::Quitter le jeu'])
 
         if resp[0] == u'quitter':
-            break
+            sys.exit()
 
         elif resp[0] == u'jouer':
             execfile('jeu/jeu.py')

@@ -5,6 +5,7 @@ import sys
 import os
 from pygame import *
 import math
+from random import randint
 from time import sleep
 
 sys.path.append(os.path.join('menu'))
@@ -202,6 +203,7 @@ class Boss(Entity):
         self.xvel = 8
 
     def update(self, up, down, left, right, running, platforms, player, arme, screen):
+
         if not self.onGround:
             # only accelerate with gravity if in the air
             self.yvel += 0.3
@@ -210,8 +212,12 @@ class Boss(Entity):
         # increment in x direction
         self.rect.left += self.xvel
         # do x-axis collisions
+        rand=randint(0,100)
+        if rand<=15:
+            if self.onGround: self.yvel -= 8
         # increment in y direction
         self.rect.top += self.yvel
+
         # assuming we're in the air
         self.onGround = False
         # do y-axis collisions
