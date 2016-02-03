@@ -437,7 +437,7 @@ class Arme(Entity):
 class Platform(Entity):
     def __init__(self, x, y, col):
         Entity.__init__(self)
-        name = "graphics/decor/terre/"+ col +".png"
+        name = "graphics/decor/glace/"+ col +".png"
         self.image = pygame.image.load(name)
         self.rect = Rect(x, y, 32, 32)
 
