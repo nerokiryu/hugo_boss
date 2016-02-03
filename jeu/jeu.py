@@ -19,16 +19,13 @@ from camera import *
 from exitBlock import *
 
 # Numero du niveau #
-num = 1
+num = 2
 
-
-# Gestion des images #
-
-# Gestion des images #
 
 # Generation des elements du niveau #
-level = generatelvl(num)
-lvlbg = generatebg(num)
+level = generateLvl(num)
+lvlBg = generateBg(num)
+lvlPf = generateTypePlateform(num)
 # Generation des elements du niveau #
 
 
@@ -145,7 +142,7 @@ def main():
         # draw background
         """for y in range(32):
             for x in range(32):"""
-        screen.blit(image.load(lvlbg), (0,0))
+        screen.blit(pygame.image.load(lvlBg), (0,0))
 
         camera.update(player)
 

@@ -303,7 +303,7 @@ if __name__ == '__main__':
         display.flip();print(menu.__doc__)
         resp = menu([u'jouer::Commencer une partie',
                      u'armurerie::Voir votre armurerie',
-                     u'stats::Jeter un œil à vos statistiques',
+                     u'commandes::Les commandes',
                      '',
                      u'options::Modifier les options',
                      u'crédit::Féliciter les créateurs du jeu',
@@ -332,8 +332,17 @@ if __name__ == '__main__':
             	resp3 = menu(['retour::good bye'],
             		x = 350,
             		y = 600)
-
 		if resp3[0] == 'retour': bg = image.load('graphics/background/menu.png')
+	elif resp[0] == u'commandes':
+		bg = image.load('graphics/background/instructions.png')
+		scr.blit(bg,bg.get_rect(center=scr.get_rect().center))
+           	#~ scr.fill(-1)
+            	display.flip();print(menu.__doc__)
+            	resp4 = menu(['retour::good bye'],
+            		x = 350,
+            		y = 600)
+
+		if resp4[0] == 'retour': bg = image.load('graphics/background/menu.png')
 
         elif resp[0] == u'crédit':
             scr.blit(bg,bg.get_rect(center=scr.get_rect().center))

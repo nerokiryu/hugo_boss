@@ -5,7 +5,7 @@ from math import cos,radians
 try: import GetEvent
 except: from . import GetEvent
 
-def generatelvl(num):
+def generateLvl(num):
     #Utilisation des plateform
     #
     # D M E     H   JKL
@@ -100,7 +100,7 @@ def generatelvl(num):
 
     return lvl;
 
-def generatebg(num):
+def generateBg(num):
     if num == 1:
         bg = ("graphics/background/ice.png")
     elif num == 2:
@@ -108,3 +108,10 @@ def generatebg(num):
     else :
         bg = ("graphics/background/darkness.png")
     return bg
+
+def generateTypePlateform(num):
+    if num == 1:
+        typePl = "glace"
+    else:
+        typePl = "terre"
+    return typePl
