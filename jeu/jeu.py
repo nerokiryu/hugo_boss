@@ -15,7 +15,8 @@ sys.path.append(os.path.join('hugo_boss.py'))
 img_heror="graphics/character/hero/heror.png"
 img_herol="graphics/character/hero/herol.png"
 img_bossf="graphics/character/boss/boss1/boss1l.png"
-img_sword="graphics/arme/sword/woodsword.png"
+img_swordr="graphics/arme/sword/woodsword.png"
+img_swordl="graphics/arme/sword/woodswordl.png"
 # Gestion des images #
 
 WIN_WIDTH = 800
@@ -382,7 +383,7 @@ class Arme(Entity):
         Entity.__init__(self)
         self.xvel = x+10
         self.yvel = y+10
-        self.image = pygame.image.load(img_sword)
+        self.image = pygame.image.load(img_swordr)
         (hauteur, largeur) = self.image.get_size()
         self.rect = Rect(x, y, hauteur, largeur)
         self.onGround = False
@@ -395,6 +396,16 @@ class Arme(Entity):
         self.rect.top = player.rect.top+25
         self.rect.left = player.rect.left+45
         self.hitbox(0, self.yvel, boss, screen)
+        if left:
+            self.xvel = -8
+            self.image = pygame.image.load(img_swordl)
+            self.rect.top = player.rect.top+25
+            self.rect.left = player.rect.left-45
+        if right:
+            self.xvel = 8
+            self.image = pygame.image.load(img_swordr)
+            self.rect.top = player.rect.top+25
+            self.rect.left = player.rect.left+45
 
     def hitbox(self, xvel, yvel, boss, screen):
         if pygame.sprite.collide_rect(self, boss):
