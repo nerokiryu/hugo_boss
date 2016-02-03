@@ -63,10 +63,10 @@ def main():
         "P                        P                 P",
         "P                                          P",
         "P                                          P",
+        "PPPPPPPPPPPPPPD                            P",
         "P                                          P",
-        "P         CPPPPPPPD                        P",
         "P                                          P",
-        "P                                PPPPPPPPPPP",
+        "P                       PPPPPPPPPPPPPPPPPPPP",
         "P                                          P",
         "P                                          P",
         "P            PPP                           P",
@@ -211,8 +211,8 @@ class Boss(Entity):
         # increment in x direction
         self.rect.left += self.xvel
         # do x-axis collisions
-        rand=randint(0,100)
-        if rand<=15:
+        rand = randint(0,100)
+        if rand <=10 :
             if self.onGround: self.yvel -= 8
         # increment in y direction
         self.rect.top += self.yvel
