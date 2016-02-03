@@ -419,10 +419,10 @@ class Arme(Entity):
                 self.rect.top = player.rect.top+25
                 self.rect.left = player.rect.left+45
             else:
-                self.xvel = -8
-                self.image = pygame.image.load(img_swordl)
+                self.xvel = 8
+                self.image = pygame.image.load(img_swordr)
                 self.rect.top = player.rect.top+25
-                self.rect.left = player.rect.left-45
+                self.rect.left = player.rect.left+45
             self.atk-=1
 
         else:
