@@ -59,7 +59,9 @@ def main():
 
     x = y = 0
 
+################Génération des platforms du niveau############################
     level = generatelvl(1)
+
 
     # build the level
     for row in level :
@@ -76,6 +78,8 @@ def main():
             x += 32
         y += 32
         x = 0
+#############################################################################
+
 
     total_level_width  = len(level[0])*32
     total_level_height = len(level)*32

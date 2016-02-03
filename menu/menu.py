@@ -330,8 +330,8 @@ if __name__ == '__main__':
            	#~ scr.fill(-1)
             	display.flip();print(menu.__doc__)
             	resp3 = menu(['retour::good bye'],
-            		x = 1500,
-            		y = 1000)
+            		x = 350,
+            		y = 600)
 
 		if resp3[0] == 'retour': bg = image.load('graphics/background/menu.png')
 
