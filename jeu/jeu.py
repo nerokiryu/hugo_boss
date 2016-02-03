@@ -386,9 +386,8 @@ class Arme(Entity):
         self.onGround = False
 
     def update(self, up, down, left, right, running, platforms, boss, player, screen):
-        self.rect.top = player.rect.top
-        self.rect.left = player.rect.left
-
+        self.rect.top = player.rect.top+25
+        self.rect.left = player.rect.left+45
         self.hitbox(0, self.yvel, boss, screen)
 
     def hitbox(self, xvel, yvel, boss, screen):
