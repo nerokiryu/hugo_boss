@@ -4,12 +4,17 @@ import pygame
 import sys
 from pygame import *
 import math
-from random import randint
 from time import sleep
 
 sys.path.append(os.path.join('menu'))
 sys.path.append(os.path.join('jeu'))
 sys.path.append(os.path.join('hugo_boss.py'))
+
+# Gestion des images #
+# Gestion du hero #
+img_herof="graphics/character/hero/hero.png"
+img_sword="graphics/swords/ironsword.png"
+# Gestion des images #
 
 WIN_WIDTH = 800
 WIN_HEIGHT = 640
@@ -52,21 +57,21 @@ def main():
         "P                                          P",
         "P                                          P",
         "P    PPPPPPPPPPPPPP                        P",
-        "P                                          P",
-        "P                          PPPPPPP         P",
-        "P                                          P",
-        "P                     P                    P",
-        "P                                          P",
-        "P                                          P",
-        "P         PPPPPPPPP                        P",
+        "P                                   PPPPPPPP",
+        "P                          PPPPPPPPP       P",
+        "P                        P                 P",
         "P                                          P",
         "P                                          P",
-        "P                        PPPPPP            P",
+        "P                                          P",
+        "P         CPPPPPPPD                        P",
+        "P                                          P",
+        "P                                PPPPPPPPPPP",
         "P                                          P",
         "P                                          P",
-        "P                PPPPPP                    P",
+        "P            PPP                           P",
         "P                                          P",
         "P                                          P",
+        "PPPP                                       P",
         "PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP",]
     # build the level
     for row in level:
@@ -79,6 +84,15 @@ def main():
                 e = ExitBlock(x, y)
                 platforms.append(e)
                 entities.add(e)
+            if col == "C":
+                e = Platform_Left(x, y)
+                platforms.append(e)
+                entities.add(e)
+            if col == "D":
+                e = Platform_Right(x, y)
+                platforms.append(e)
+                entities.add(e)
+
             x += 32
         y += 32
         x = 0
@@ -92,6 +106,8 @@ def main():
 
     #############################################################################
 
+    total_level_width  = len(level[0])*32
+    total_level_height = len(level)*32
     #############################MOUVEMENT#######################################
 
     while 1:
@@ -126,7 +142,7 @@ def main():
         # draw background
         """for y in range(32):
             for x in range(32):"""
-        screen.blit(pygame.image.load("graphics/background/ice.png"), (0,0))
+        screen.blit(pygame.image.load("graphics/background/hell.png"), (0,0))
 
         camera.update(player)
 
@@ -186,7 +202,6 @@ class Boss(Entity):
         self.xvel = 8
 
     def update(self, up, down, left, right, running, platforms, player, arme, screen):
-
         if not self.onGround:
             # only accelerate with gravity if in the air
             self.yvel += 0.3
@@ -195,12 +210,8 @@ class Boss(Entity):
         # increment in x direction
         self.rect.left += self.xvel
         # do x-axis collisions
-        rand=randint(0,100)
-        if rand<=15:
-            if self.onGround: self.yvel -= 8
         # increment in y direction
         self.rect.top += self.yvel
-
         # assuming we're in the air
         self.onGround = False
         # do y-axis collisions
@@ -285,10 +296,9 @@ class Player(Entity):
         self.xvel = 0
         self.yvel = 0
         self.onGround = False
-        self.image = Surface((32,32))
-        self.image.fill(Color("#0000FF"))
-        self.image.convert()
-        self.rect = Rect(x, y, 32, 32)
+        self.image = pygame.image.load(img_herof)
+        (hauteur, largeur) = self.image.get_size()
+        self.rect = Rect(x, y, hauteur, largeur)
 
     def update(self, up, down, left, right, running, platforms, boss, screen):
         if up:
@@ -368,14 +378,12 @@ class Player(Entity):
 class Arme(Entity):
     def __init__(self, x, y):
         Entity.__init__(self)
-        self.image = Surface((30,30))
-        self.image.fill((255,255,255,128), None, pygame.BLEND_RGBA_MULT)
-        self.image.set_alpha(0)
+        self.xvel = 10
+        self.yvel = 10
+        self.image = pygame.image.load(img_sword)
+        (hauteur, largeur) = self.image.get_size()
+        self.rect = Rect(x, y, hauteur, largeur)
         self.onGround = False
-        self.image.convert()
-        self.xvel = 0
-        self.yvel = 0
-        self.rect = Rect(x, y, 32, 32)
 
     def update(self, up, down, left, right, running, platforms, boss, player, screen):
         self.rect.top = player.rect.top
@@ -422,6 +430,22 @@ class ExitBlock(Platform):
     def __init__(self, x, y):
         Platform.__init__(self, x, y)
         self.image.fill(Color("#0033FF"))
+
+class Platform_Left(Entity):
+    def __init__(self, x, y):
+        Entity.__init__(self)
+        self.image = Surface((32, 32))
+        self.image.convert()
+        self.image.blit(pygame.image.load("graphics/decor/plateforme.png"), (0,0))
+        self.rect = Rect(x, y, 32, 32)
+
+class Platform_Right(Entity):
+    def __init__(self, x, y):
+        Entity.__init__(self)
+        self.image = Surface((32, 32))
+        self.image.convert()
+        self.image.blit(pygame.image.load("graphics/decor/plateforme.png"), (0,0))
+        self.rect = Rect(x, y, 32, 32)
 
 if __name__ == "__main__":
     main()
