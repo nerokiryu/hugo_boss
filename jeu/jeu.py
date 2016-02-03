@@ -6,7 +6,6 @@ from pygame import *
 import math
 from time import sleep
 
-sys.path.append(os.path.join('pygame'))
 sys.path.append(os.path.join('menu'))
 sys.path.append(os.path.join('jeu'))
 sys.path.append(os.path.join('hugo_boss.py'))
@@ -35,10 +34,10 @@ def main():
     bg.convert()
     bg.fill(Color("#000000"))
     entities = pygame.sprite.Group()
-    player = Player(32, 32)
+    arme = Arme(32, 32)
     boss = Boss(200, 32)
     boss.realease()
-    arme = Arme(32, 32)
+    player = Player(32, 32)
     platforms = []
 
     x = y = 0
@@ -363,8 +362,9 @@ class Player(Entity):
 class Arme(Entity):
     def __init__(self, x, y):
         Entity.__init__(self)
-        self.image = Surface((32,32))
-        self.image.fill(Color("#00FF00"))
+        self.image = Surface((30,30))
+        self.image.fill((255,255,255,128), None, pygame.BLEND_RGBA_MULT)
+        self.image.set_alpha(0)
         self.onGround = False
         self.image.convert()
         self.xvel = 0
@@ -372,8 +372,8 @@ class Arme(Entity):
         self.rect = Rect(x, y, 32, 32)
 
     def update(self, up, down, left, right, running, platforms, boss, player, screen):
-        self.rect.top = player.rect.top-8
-        self.rect.left = player.rect.left+18
+        self.rect.top = player.rect.top
+        self.rect.left = player.rect.left
 
         self.hitbox(0, self.yvel, boss, screen)
 
