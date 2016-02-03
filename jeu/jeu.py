@@ -25,7 +25,6 @@ num = 2
 # Generation des elements du niveau #
 level = generateLvl(num)
 lvlBg = generateBg(num)
-lvlPf = generateTypePlateform(num)
 # Generation des elements du niveau #
 
 

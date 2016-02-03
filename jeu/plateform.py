@@ -1,16 +1,28 @@
 import sys
+import os
 from random import randint
 from pygame import *
 import math
+
+sys.path.append(os.path.join('jeu'))
+
+from level import *
 
 from time import sleep
 
 from entity import Entity
 
+# Numero du niveau #
+num = 2
+
+lvlPf = generateTypePlateform(num)
+
+
 class Platform(Entity):
+
     def __init__(self, x, y, col):
         Entity.__init__(self)
-        name = "graphics/decor/glace/"+ col +".png"
+        name = "graphics/decor/"+lvlPf+"/"+ col +".png"
         self.image = image.load(name)
         self.rect = Rect(x, y, 32, 32)
 
