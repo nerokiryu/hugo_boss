@@ -61,7 +61,7 @@ def main():
         "P    PPPPPPPPPPPPPP                        P",
         "P                                   PPPPPPPP",
         "P                          PPPPPPPPP       P",
-        "P                        P                 P",
+        "PP                       P                 P",
         "P                                          P",
         "P                                          P",
         "PPPPPPPPPPPPPPD                            P",
@@ -308,7 +308,7 @@ class Player(Entity):
     def update(self, up, down, left, right, running, platforms, boss, screen):
         if up:
             # Jump si sur le sol
-            if self.onGround: self.yvel -= 8
+            if self.onGround: self.yvel -= 9
         if down:
             #Rien ne se passe
             pass
