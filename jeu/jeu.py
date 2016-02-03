@@ -15,7 +15,8 @@ sys.path.append(os.path.join('hugo_boss.py'))
 img_heror="graphics/character/hero/heror.png"
 img_herol="graphics/character/hero/herol.png"
 img_bossf="graphics/character/boss/boss1/boss1l.png"
-img_sword="graphics/arme/sword/woodsword.png"
+img_swordr="graphics/arme/sword/woodsword.png"
+img_swordl="graphics/arme/sword/woodswordl.png"
 # Gestion des images #
 
 WIN_WIDTH = 800
@@ -380,11 +381,13 @@ class Player(Entity):
 
 class Arme(Entity):
     atk=30
+    r = False
+    l = False
     def __init__(self, x, y):
         Entity.__init__(self)
         self.xvel = x+10
         self.yvel = y+10
-        self.image = pygame.image.load(img_sword)
+        self.image = pygame.image.load(img_swordr)
         (hauteur, largeur) = self.image.get_size()
         self.rect = Rect(x, y, hauteur, largeur)
         self.onGround = False
@@ -397,19 +400,41 @@ class Arme(Entity):
     def update(self, up, down, left, right, running, platforms, boss, player, screen):
         if running==True:
             self.atk=30
+        if left:
+            self.l=True
+            self.r=False
+        elif right:
+            self.l=False
+            self.r=True
 
         if  self.atk !=0:
-            self.rect.top = player.rect.top+25
-            self.rect.left = player.rect.left+45
+            if self.l:
+                self.xvel = -8
+                self.image = pygame.image.load(img_swordl)
+                self.rect.top = player.rect.top+25
+                self.rect.left = player.rect.left-45
+            elif self.r:
+                self.xvel = 8
+                self.image = pygame.image.load(img_swordr)
+                self.rect.top = player.rect.top+25
+                self.rect.left = player.rect.left+45
+            else:
+                self.xvel = -8
+                self.image = pygame.image.load(img_swordl)
+                self.rect.top = player.rect.top+25
+                self.rect.left = player.rect.left-45
             self.atk-=1
 
         else:
             self.rect.top = player.rect.top
             self.rect.left = player.rect.left
-        print (running)
-        print (self.atk)
+
         self.hitbox(0, self.yvel, boss, screen)
+
         return self.atk
+
+
+
 
     def hitbox(self, xvel, yvel, boss, screen):
         if pygame.sprite.collide_rect(self, boss):
