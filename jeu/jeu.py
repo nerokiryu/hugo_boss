@@ -48,48 +48,40 @@ def main():
 
     x = y = 0
     level = [
-        "PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP",
-        "P                                          P",
-        "P                                          P",
-        "P       PPPPPPPP                           P",
-        "P                                          P",
-        "P                    PPPPPPPPPPP           P",
-        "P                                          P",
-        "P                                          P",
-        "P    PPPPPPPPPPPPPP                        P",
-        "P                                   PPPPPPPP",
-        "P                          PPPPPPPPP       P",
-        "P                        P                 P",
-        "P                                          P",
-        "P                                          P",
-        "P                                          P",
-        "P         CPPPPPPPD                        P",
-        "P                                          P",
-        "P                                PPPPPPPPPPP",
-        "P                                          P",
-        "P                                          P",
-        "P            PPP                           P",
-        "P                                          P",
-        "P                                          P",
-        "PPPP                                       P",
-        "PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP",]
+        "IPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPI",
+        "N                                          O",
+        "N                                          O",
+        "N       JKKKKKKL                           O",
+        "N                                          O",
+        "N                    JKKKKKKKKKL           O",
+        "N                                          O",
+        "N                                          O",
+        "N    JKKKKKKKKKKKKL                        O",
+        "N                                   JKKKKKKI",
+        "N                          JKKKKKKKKL      O",
+        "N                        A                 O",
+        "N                                          O",
+        "N                                          O",
+        "N                                          O",
+        "N         JKKKKKKKL                        O",
+        "N                                          O",
+        "N                                JKKKKKKKKKI",
+        "N                                          O",
+        "N                                          O",
+        "N            JKL                           O",
+        "N                                          O",
+        "N                                          O",
+        "IMME                                       O",
+        "IIIIMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMI",]
     # build the level
     for row in level:
         for col in row:
-            if col == "P":
-                p = Platform(x, y)
+            if col >= "A" and col <= "P":
+                p = Platform(x, y, col)
                 platforms.append(p)
                 entities.add(p)
-            if col == "E":
+            if col == "Z":
                 e = ExitBlock(x, y)
-                platforms.append(e)
-                entities.add(e)
-            if col == "C":
-                e = Platform_Left(x, y)
-                platforms.append(e)
-                entities.add(e)
-            if col == "D":
-                e = Platform_Right(x, y)
                 platforms.append(e)
                 entities.add(e)
 
@@ -415,12 +407,10 @@ class Arme(Entity):
 			execfile("jeu/jeu.py")
 
 class Platform(Entity):
-    def __init__(self, x, y):
+    def __init__(self, x, y, col):
         Entity.__init__(self)
-        self.image = Surface((32, 32))
-        self.image.convert()
-        self.image.blit(pygame.image.load("graphics/decor/plateforme.png"), (0,0))
-        #screen.blit(pygame.image.load("fond.png"), (0,0))
+        name = "graphics/decor/terre/"+ col +".png"
+        self.image = pygame.image.load(name)
         self.rect = Rect(x, y, 32, 32)
 
     def update(self):
@@ -430,22 +420,6 @@ class ExitBlock(Platform):
     def __init__(self, x, y):
         Platform.__init__(self, x, y)
         self.image.fill(Color("#0033FF"))
-
-class Platform_Left(Entity):
-    def __init__(self, x, y):
-        Entity.__init__(self)
-        self.image = Surface((32, 32))
-        self.image.convert()
-        self.image.blit(pygame.image.load("graphics/decor/plateforme.png"), (0,0))
-        self.rect = Rect(x, y, 32, 32)
-
-class Platform_Right(Entity):
-    def __init__(self, x, y):
-        Entity.__init__(self)
-        self.image = Surface((32, 32))
-        self.image.convert()
-        self.image.blit(pygame.image.load("graphics/decor/plateforme.png"), (0,0))
-        self.rect = Rect(x, y, 32, 32)
 
 if __name__ == "__main__":
     main()
