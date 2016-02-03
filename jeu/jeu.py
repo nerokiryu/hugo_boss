@@ -2,6 +2,7 @@
 
 import pygame
 import sys
+from random import randint
 from pygame import *
 import math
 from time import sleep
@@ -11,9 +12,10 @@ sys.path.append(os.path.join('jeu'))
 sys.path.append(os.path.join('hugo_boss.py'))
 
 # Gestion des images #
-# Gestion du hero #
-img_herof="graphics/character/hero/hero.png"
-img_sword="graphics/swords/ironsword.png"
+img_heror="graphics/character/hero/heror.png"
+img_herol="graphics/character/hero/herol.png"
+img_bossf="graphics/character/boss/boss1/boss1l.png"
+img_sword="graphics/arme/sword/woodsword.png"
 # Gestion des images #
 
 WIN_WIDTH = 800
@@ -41,9 +43,11 @@ def main():
     bg.fill(Color("#000000"))
     entities = pygame.sprite.Group()
     arme = Arme(32, 32)
-    boss = Boss(200, 32)
+    arme.realease()
+    boss = Boss(500, 32)
     boss.realease()
     player = Player(32, 32)
+    player.realease()
     platforms = []
 
     x = y = 0
@@ -51,21 +55,21 @@ def main():
         "IPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPI",
         "N                                          O",
         "N                                          O",
-        "N       JKKKKKKL                           O",
         "N                                          O",
+        "N     JKKKKKKL                             O",
         "N                    JKKKKKKKKKL           O",
         "N                                          O",
         "N                                          O",
         "N    JKKKKKKKKKKKKL                        O",
-        "N                                   JKKKKKKI",
-        "N                          JKKKKKKKKL      O",
+        "N                                   DKKKKKKI",
+        "N                          JKKKKKKKKC      O",
         "N                        A                 O",
         "N                                          O",
         "N                                          O",
         "N                                          O",
         "N         JKKKKKKKL                        O",
         "N                                          O",
-        "N                                JKKKKKKKKKI",
+        "N                       JKKKKKKKKKKKKKKKKKKI",
         "N                                          O",
         "N                                          O",
         "N            JKL                           O",
@@ -182,16 +186,16 @@ class Boss(Entity):
     coll = False
     def __init__(self, x, y):
         Entity.__init__(self)
-        self.image = Surface((32,32))
-        self.image.fill(Color("#FF0000"))
-        self.onGround = False
-        self.image.convert()
         self.xvel = x
         self.yvel = y
-        self.rect = Rect(x, y, 32, 32)
+        self.onGround = False
+        self.image = pygame.image.load(img_bossf)
+        (hauteur, largeur) = self.image.get_size()
+        self.rect = Rect(x, y, hauteur, largeur)
 
     def realease(self):
         self.xvel = 8
+        self.yvel = 8
 
     def update(self, up, down, left, right, running, platforms, player, arme, screen):
         if not self.onGround:
@@ -285,17 +289,21 @@ class Boss(Entity):
 class Player(Entity):
     def __init__(self, x, y):
         Entity.__init__(self)
-        self.xvel = 0
-        self.yvel = 0
+        self.xvel = x
+        self.yvel = y
         self.onGround = False
-        self.image = pygame.image.load(img_herof)
+        self.image = pygame.image.load(img_heror)
         (hauteur, largeur) = self.image.get_size()
         self.rect = Rect(x, y, hauteur, largeur)
+
+    def realease(self):
+        self.xvel = 8
+        self.yvel = 8
 
     def update(self, up, down, left, right, running, platforms, boss, screen):
         if up:
             # Jump si sur le sol
-            if self.onGround: self.yvel -= 8
+            if self.onGround: self.yvel -= 9
         if down:
             #Rien ne se passe
             pass
@@ -303,8 +311,10 @@ class Player(Entity):
             self.xvel = 12
         if left:
             self.xvel = -8
+            self.image = pygame.image.load(img_herol)
         if right:
             self.xvel = 8
+            self.image = pygame.image.load(img_heror)
         if not self.onGround:
             # only accelerate with gravity if in the air
             self.yvel += 0.3
@@ -370,17 +380,20 @@ class Player(Entity):
 class Arme(Entity):
     def __init__(self, x, y):
         Entity.__init__(self)
-        self.xvel = 10
-        self.yvel = 10
+        self.xvel = x+10
+        self.yvel = y+10
         self.image = pygame.image.load(img_sword)
         (hauteur, largeur) = self.image.get_size()
         self.rect = Rect(x, y, hauteur, largeur)
         self.onGround = False
 
-    def update(self, up, down, left, right, running, platforms, boss, player, screen):
-        self.rect.top = player.rect.top
-        self.rect.left = player.rect.left
+    def realease(self):
+        self.xvel = 8
+        self.yvel = 8
 
+    def update(self, up, down, left, right, running, platforms, boss, player, screen):
+        self.rect.top = player.rect.top+25
+        self.rect.left = player.rect.left+45
         self.hitbox(0, self.yvel, boss, screen)
 
     def hitbox(self, xvel, yvel, boss, screen):
