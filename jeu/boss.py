@@ -20,9 +20,8 @@ from arme import *
 from camera import *
 from exitBlock import *
 
-img_bossf="graphics/character/boss/boss1/boss1r.png"
-
 class Boss(Entity):
+    img_bossf="graphics/character/boss/boss1/boss1r.png"
     coll = False
     inv =0
     hp = 3
@@ -34,7 +33,7 @@ class Boss(Entity):
         self.xvel = x
         self.yvel = y
         self.onGround = False
-        self.image = pygame.image.load(img_bossf)
+        self.image = pygame.image.load(self.img_bossf)
         (hauteur, largeur) = self.image.get_size()
         self.rect = Rect(x, y, hauteur, largeur)
 
@@ -105,4 +104,3 @@ class Boss(Entity):
             return True
         else:
             return False
-

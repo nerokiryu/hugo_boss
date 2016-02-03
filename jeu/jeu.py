@@ -149,9 +149,9 @@ def main():
         # update player, draw everything else
         if player.update(up, down, left, right, running, platforms, boss, screen):
             rep = False
-        if boss.update(up, down, left, right, running, platforms, player, arme, screen):
+        if boss.update(up, down, left, right, running, platforms, player, arme, screen) and rep == True:
             rep = False
-        if arme.update(up, down, left, right, running, platforms,boss, player, screen):
+        if arme.update(up, down, left, right, running, platforms,boss, player, screen) and rep == True:
             rep = False
         else:
             atk = arme.atk
