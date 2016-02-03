@@ -177,6 +177,11 @@ class Entity(pygame.sprite.Sprite):
 
 class Boss(Entity):
     coll = False
+    inv =0
+    hp = 3
+    speed = 8
+    max_inv=30
+
     def __init__(self, x, y):
         Entity.__init__(self)
         self.xvel = x
@@ -187,10 +192,12 @@ class Boss(Entity):
         self.rect = Rect(x, y, hauteur, largeur)
 
     def realease(self):
-        self.xvel = 8
-        self.yvel = 8
+        self.xvel = self.speed
+        self.yvel = self.speed
 
     def update(self, up, down, left, right, running, platforms, player, arme, screen):
+        if self.inv != 0:
+            self.inv-=1
         if not self.onGround:
             # only accelerate with gravity if in the air
             self.yvel += 0.3
@@ -246,38 +253,17 @@ class Boss(Entity):
             pygame.display.flip()
             screen.blit
             pygame.time.wait(1000)
-	    while True:
-		scr.blit(bg,bg.get_rect(center=scr.get_rect().center))
-		#~ scr.fill(-1)
-		display.flip();print(menu.__doc__)
-		resp = menu([u'rejouer::Faire une nouvelle partie',
-		             u'retour au menu::Quitter le jeu'])
+    	    while True:
+    		scr.blit(bg,bg.get_rect(center=scr.get_rect().center))
+    		#~ scr.fill(-1)
+    		display.flip();print(menu.__doc__)
+    		resp = menu([u'rejouer::Faire une nouvelle partie',
+    		             u'retour au menu::Quitter le jeu'])
 
-		if resp[0] == u'retour au menu':
-           		execfile("hugoboss.py")
-		elif resp[0] == u'rejouer':
-			execfile("jeu/jeu.py")
-        if pygame.sprite.collide_rect(self, arme):
-            basicfont = pygame.font.SysFont(None, 48)
-            text = basicfont.render('You Win', True, (255, 0, 0))
-            textrect = text.get_rect()
-            textrect.centerx = screen.get_rect().centerx
-            textrect.centery = screen.get_rect().centery
-            screen.blit(text, textrect)
-            pygame.display.flip()
-            screen.blit
-            pygame.time.wait(1000)
-	    while True:
-		scr.blit(bg,bg.get_rect(center=scr.get_rect().center))
-		#~ scr.fill(-1)
-		display.flip();print(menu.__doc__)
-		resp = menu([u'rejouer::Faire une nouvelle partie',
-		             u'retour au menu::Quitter le jeu'])
-
-		if resp[0] == u'retour au menu':
-           		execfile("hugoboss.py")
-		elif resp[0] == u'rejouer':
-			execfile("jeu/jeu.py")
+    		if resp[0] == u'retour au menu':
+               		execfile("hugoboss.py")
+    		elif resp[0] == u'rejouer':
+    			execfile("jeu/jeu.py")
 
 class Player(Entity):
     def __init__(self, x, y):
@@ -359,16 +345,16 @@ class Player(Entity):
             screen.blit
             pygame.time.wait(1000)
 	    while True:
-		scr.blit(bg,bg.get_rect(center=scr.get_rect().center))
-		#~ scr.fill(-1)
-		display.flip();print(menu.__doc__)
-		resp = menu([u'rejouer::Faire une nouvelle partie',
-		             u'retour au menu::Quitter le jeu'])
+    		scr.blit(bg,bg.get_rect(center=scr.get_rect().center))
+    		#~ scr.fill(-1)
+    		display.flip();print(menu.__doc__)
+    		resp = menu([u'rejouer::Faire une nouvelle partie',
+    		             u'retour au menu::Quitter le jeu'])
 
-		if resp[0] == u'retour au menu':
-           		execfile("hugoboss.py")
-		elif resp[0] == u'rejouer':
-			execfile("jeu/jeu.py")
+    		if resp[0] == u'retour au menu':
+               		execfile("hugoboss.py")
+    		elif resp[0] == u'rejouer':
+    			execfile("jeu/jeu.py")
 
 class Arme(Entity):
     atk=30
@@ -389,6 +375,7 @@ class Arme(Entity):
         self.yvel = 8
 
     def update(self, up, down, left, right, running, platforms, boss, player, screen):
+        print(boss.hp)
         if running==True:
             self.atk=30
         if left:
@@ -428,27 +415,42 @@ class Arme(Entity):
 
 
     def hitbox(self, xvel, yvel, boss, screen):
+        
         if pygame.sprite.collide_rect(self, boss):
-            basicfont = pygame.font.SysFont(None, 48)
-            text = basicfont.render('You Win', True, (255, 0, 0))
-            textrect = text.get_rect()
-            textrect.centerx = screen.get_rect().centerx
-            textrect.centery = screen.get_rect().centery
-            screen.blit(text, textrect)
-            pygame.display.flip()
-            screen.blit
-            pygame.time.wait(1000)
-	    while True:
-		scr.blit(bg,bg.get_rect(center=scr.get_rect().center))
-		#~ scr.fill(-1)
-		display.flip();print(menu.__doc__)
-		resp = menu([u'rejouer::Faire une nouvelle partie',
-		             u'retour au menu::Quitter le jeu'])
+            if boss.inv==0:
+                boss.hp-=1
+                if boss.xvel > 0:
+                    boss.xvel-=boss.speed*2
+                if boss.xvel < 0:
+                    boss.xvel+=boss.speed*2
+                boss.inv = boss.max_inv
+            else:
+                if boss.inv % 10 == 5:
+                    boss.image.set_alpha(0)
+                elif boss.inv%10 == 0:
+                    boss.image.set_alpha(255)
 
-		if resp[0] == u'retour au menu':
-           		execfile("hugoboss.py")
-		elif resp[0] == u'rejouer':
-			execfile("jeu/jeu.py")
+            if boss.hp==0:
+                basicfont = pygame.font.SysFont(None, 48)
+                text = basicfont.render('You Win', True, (255, 0, 0))
+                textrect = text.get_rect()
+                textrect.centerx = screen.get_rect().centerx
+                textrect.centery = screen.get_rect().centery
+                screen.blit(text, textrect)
+                pygame.display.flip()
+                screen.blit
+                pygame.time.wait(1000)
+                while True:
+            		scr.blit(bg,bg.get_rect(center=scr.get_rect().center))
+            		#~ scr.fill(-1)
+            		display.flip();print(menu.__doc__)
+            		resp = menu([u'rejouer::Faire une nouvelle partie',
+            		             u'retour au menu::Quitter le jeu'])
+
+            		if resp[0] == u'retour au menu':
+                       		execfile("hugoboss.py")
+            		elif resp[0] == u'rejouer':
+            			execfile("jeu/jeu.py")
 
 class Platform(Entity):
     def __init__(self, x, y, col):
