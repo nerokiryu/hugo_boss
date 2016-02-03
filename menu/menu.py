@@ -332,16 +332,17 @@ if __name__ == '__main__':
             	resp3 = menu(['retour::good bye'],
             		x = 350,
             		y = 600)
+		if resp3[0] == 'retour': bg = image.load('graphics/background/menu.png')
 	elif resp[0] == u'commandes':
 		bg = image.load('graphics/background/instructions.png')
 		scr.blit(bg,bg.get_rect(center=scr.get_rect().center))
            	#~ scr.fill(-1)
             	display.flip();print(menu.__doc__)
-            	resp3 = menu(['retour::good bye'],
+            	resp4 = menu(['retour::good bye'],
             		x = 350,
             		y = 600)
 
-		if resp3[0] == 'retour': bg = image.load('graphics/background/menu.png')
+		if resp4[0] == 'retour': bg = image.load('graphics/background/menu.png')
 
         elif resp[0] == u'crédit':
             scr.blit(bg,bg.get_rect(center=scr.get_rect().center))
