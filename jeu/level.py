@@ -19,6 +19,13 @@ def generatelvl(num):
             "F                                                                       F",
             "F                                                                       F",
             "F                                                                       F",
+            "F                                                                       F",
+            "F                                                                       F",
+            "F                                                                       F",
+            "F                                                                       F",
+            "F                                                                       F",
+            "F                                                                       F",
+            "F                                                                       F",
             "F                             JKKKKKKKKKKKL                             F",
             "F                                                                       F",
             "F         JKKKKKKKKKKKL                           JKKKKKKKKKKKL         F",
@@ -92,3 +99,13 @@ def generatelvl(num):
             "IMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMI",]
 
     return lvl;
+
+    def generatebg(num):
+        if num == 1:
+            bg = ("graphics/background/ice.png")
+        elif num == 2:
+            bg = ("graphics/background/hell.png")
+        else :
+            bg = ("graphics/background/darkness.png")
+
+        return bg
