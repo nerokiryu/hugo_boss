@@ -2,7 +2,6 @@
 
 import pygame
 import sys
-from random import randint
 from pygame import *
 import math
 from time import sleep
@@ -14,7 +13,7 @@ sys.path.append(os.path.join('hugo_boss.py'))
 # Gestion des images #
 # Gestion du hero #
 img_herof="graphics/character/hero/hero.png"
-img_sword="graphics/swords/ironsword.png"
+img_sword="graphics/arme/sword/woodsword.png"
 # Gestion des images #
 
 WIN_WIDTH = 800
@@ -203,12 +202,6 @@ class Boss(Entity):
         self.xvel = 8
 
     def update(self, up, down, left, right, running, platforms, player, arme, screen):
-
-        rand=randint(0,100)
-        if rand<=15:
-            if self.onGround: self.yvel -= 8
-
-
         if not self.onGround:
             # only accelerate with gravity if in the air
             self.yvel += 0.3
