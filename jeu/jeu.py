@@ -56,18 +56,18 @@ def main():
         "N                                          O",
         "N                                          O",
         "N                                          O",
-        "N     JKKKKKKL                             O",
-        "N                    JKKKKKKKKKL           O",
+        "N                                          O",
+        "N                       JKKKKKKKKKL        O",
         "N                                          O",
         "N                                          O",
-        "N    JKKKKKKKKKKKKL                        O",
+        "N    JKKKKKKKKKKKL                         O",
         "N                                   DKKKKKKI",
         "N                          JKKKKKKKKC      O",
         "N                        A                 O",
         "N                                          O",
         "N                                          O",
+        "N         JKKKKKKL                         O",
         "N                                          O",
-        "N         JKKKKKKKL                        O",
         "N                                          O",
         "N                       JKKKKKKKKKKKKKKKKKKI",
         "N                                          O",
@@ -266,7 +266,7 @@ class Boss(Entity):
 			execfile("jeu/jeu.py")
         if pygame.sprite.collide_rect(self, arme):
             basicfont = pygame.font.SysFont(None, 48)
-            text = basicfont.render('Win', True, (255, 0, 0))
+            text = basicfont.render('You Win', True, (255, 0, 0))
             textrect = text.get_rect()
             textrect.centerx = screen.get_rect().centerx
             textrect.centery = screen.get_rect().centery
@@ -399,7 +399,7 @@ class Arme(Entity):
     def hitbox(self, xvel, yvel, boss, screen):
         if pygame.sprite.collide_rect(self, boss):
             basicfont = pygame.font.SysFont(None, 48)
-            text = basicfont.render('Win', True, (255, 0, 0))
+            text = basicfont.render('You Win', True, (255, 0, 0))
             textrect = text.get_rect()
             textrect.centerx = screen.get_rect().centerx
             textrect.centery = screen.get_rect().centery
