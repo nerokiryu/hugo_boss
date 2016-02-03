@@ -36,6 +36,7 @@ def main():
     timer = pygame.time.Clock()
 
     up = down = left = right = running = False
+    atk = 0
 
     ########################CREATION LVL##########################
     bg = Surface((32,32))
@@ -121,7 +122,7 @@ def main():
                 left = True
             if e.type == KEYDOWN and e.key == K_RIGHT:
                 right = True
-            if e.type == KEYDOWN and e.key == K_SPACE:
+            if e.type == KEYDOWN and e.key == K_v :
                 running = True
 
             if e.type == KEYUP and e.key == K_UP:
@@ -132,8 +133,8 @@ def main():
                 right = False
             if e.type == KEYUP and e.key == K_LEFT:
                 left = False
-            if e.type == KEYDOWN and e.key == K_SPACE:
-                running = True
+            if e.type == KEYUP and e.key == K_v or atk !=0:
+                running = False
 
         # draw background
         """for y in range(32):
@@ -145,7 +146,7 @@ def main():
         # update player, draw everything else
         player.update(up, down, left, right, running, platforms, boss, screen)
         boss.update(up, down, left, right, running, platforms, player, arme, screen)
-        arme.update(up, down, left, right, running, platforms,boss, player, screen)
+        atk=arme.update(up, down, left, right, running, platforms,boss, player, screen)
         for e in entities:
             screen.blit(e.image, camera.apply(e))
 
@@ -378,6 +379,7 @@ class Player(Entity):
 			execfile("jeu/jeu.py")
 
 class Arme(Entity):
+    atk=30
     def __init__(self, x, y):
         Entity.__init__(self)
         self.xvel = x+10
@@ -386,15 +388,28 @@ class Arme(Entity):
         (hauteur, largeur) = self.image.get_size()
         self.rect = Rect(x, y, hauteur, largeur)
         self.onGround = False
+        
 
     def realease(self):
         self.xvel = 8
         self.yvel = 8
 
     def update(self, up, down, left, right, running, platforms, boss, player, screen):
-        self.rect.top = player.rect.top+25
-        self.rect.left = player.rect.left+45
+        if running==True:
+            self.atk=30
+
+        if  self.atk !=0:
+            self.rect.top = player.rect.top+25
+            self.rect.left = player.rect.left+45
+            self.atk-=1
+
+        else:
+            self.rect.top = player.rect.top
+            self.rect.left = player.rect.left
+        print (running)
+        print (self.atk)
         self.hitbox(0, self.yvel, boss, screen)
+        return self.atk
 
     def hitbox(self, xvel, yvel, boss, screen):
         if pygame.sprite.collide_rect(self, boss):
