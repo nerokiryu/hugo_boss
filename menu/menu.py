@@ -8,6 +8,14 @@ from math import cos,radians
 try: import GetEvent
 except: from . import GetEvent
 
+
+WIN_WIDTH = 800
+WIN_HEIGHT = 640
+DISPLAY = (WIN_WIDTH, WIN_HEIGHT)
+DEPTH = 32
+FLAGS = 0
+
+
 def menu(
          menu,                          # iterable of str as ("item",) or ("item::tooltip",)
          font1      = font.Font('graphics/font/Berry Rotunda.ttf',20),             # font object|None(pygame default font): unhighlighted item font
@@ -283,7 +291,7 @@ def menu(
 if __name__ == '__main__':
     from os.path import dirname,join
     here = dirname(__file__)
-    scr = display.set_mode((0,0),FULLSCREEN)
+    scr = pygame.display.set_mode(DISPLAY, FLAGS, DEPTH)
     bg = image.load(join('./graphics/background','menu.png'))
     scr.blit(bg,bg.get_rect(center=scr.get_rect().center))
     #~ scr.fill(-1)
