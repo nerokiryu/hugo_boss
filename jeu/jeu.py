@@ -2,6 +2,7 @@
 
 import pygame
 import sys
+from random import randint
 from pygame import *
 import math
 from time import sleep
@@ -210,6 +211,9 @@ class Boss(Entity):
         # increment in x direction
         self.rect.left += self.xvel
         # do x-axis collisions
+        rand=randint(0,100)
+        if rand<=15:
+            if self.onGround: self.yvel -= 8
         # increment in y direction
         self.rect.top += self.yvel
         # assuming we're in the air
