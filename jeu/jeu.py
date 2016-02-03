@@ -12,20 +12,21 @@ sys.path.append(os.path.join('hugo_boss.py'))
 from level import *
 
 # Numero du niveau #
-num = 1
+num = 2
 
 
 # Gestion des images #
 img_heror="graphics/character/hero/heror.png"
 img_herol="graphics/character/hero/herol.png"
 img_bossf="graphics/character/boss/boss1/boss1l.png"
-img_swordr="graphics/arme/sword/woodsword.png"
-img_swordl="graphics/arme/sword/woodswordl.png"
+img_swordr="graphics/arme/sword/ironsword.png"
+img_swordl="graphics/arme/sword/ironswordl.png"
 # Gestion des images #
 
 # Generation des elements du niveau #
-level = generatelvl(num)
-lvlbg = generatebg(num)
+level = generateLvl(num)
+lvlBg = generateBg(num)
+lvlPf = generateTypePlateform(num)
 # Generation des elements du niveau #
 
 
@@ -130,7 +131,7 @@ def main():
         # draw background
         """for y in range(32):
             for x in range(32):"""
-        screen.blit(pygame.image.load(lvlbg), (0,0))
+        screen.blit(pygame.image.load(lvlBg), (0,0))
 
         camera.update(player)
 
@@ -217,8 +218,6 @@ class Boss(Entity):
             self.xvel = -self.xvel
             self.coll = False
 
-        self.hitbox(0, self.yvel, player, arme, screen)
-
 
     def collide(self, xvel, yvel, platforms):
         for p in platforms:
@@ -241,28 +240,6 @@ class Boss(Entity):
                     self.rect.top = p.rect.bottom
                     print "collide top"
 
-    def hitbox(self, xvel, yvel, player,arme, screen):
-        if pygame.sprite.collide_rect(self, player):
-            basicfont = pygame.font.SysFont(None, 48)
-            text = basicfont.render('Game Over', True, (255, 0, 0))
-            textrect = text.get_rect()
-            textrect.centerx = screen.get_rect().centerx
-            textrect.centery = screen.get_rect().centery
-            screen.blit(text, textrect)
-            pygame.display.flip()
-            screen.blit
-            pygame.time.wait(1000)
-    	    while True:
-    		scr.blit(bg,bg.get_rect(center=scr.get_rect().center))
-    		#~ scr.fill(-1)
-    		display.flip();print(menu.__doc__)
-    		resp = menu([u'rejouer::Faire une nouvelle partie',
-    		             u'retour au menu::Quitter le jeu'])
-
-    		if resp[0] == u'retour au menu':
-               		execfile("hugoboss.py")
-    		elif resp[0] == u'rejouer':
-    			execfile("jeu/jeu.py")
 
 class Player(Entity):
     def __init__(self, x, y):
@@ -333,27 +310,28 @@ class Player(Entity):
                     print "collide top"
 
     def hitbox(self, xvel, yvel, boss, screen):
-        if pygame.sprite.collide_rect(self, boss):
-            basicfont = pygame.font.SysFont(None, 48)
-            text = basicfont.render('Game Over', True, (255, 0, 0))
-            textrect = text.get_rect()
-            textrect.centerx = screen.get_rect().centerx
-            textrect.centery = screen.get_rect().centery
-            screen.blit(text, textrect)
-            pygame.display.flip()
-            screen.blit
-            pygame.time.wait(1000)
-	    while True:
-    		scr.blit(bg,bg.get_rect(center=scr.get_rect().center))
-    		#~ scr.fill(-1)
-    		display.flip();print(menu.__doc__)
-    		resp = menu([u'rejouer::Faire une nouvelle partie',
-    		             u'retour au menu::Quitter le jeu'])
+        if boss.inv <= 0:        
+            if pygame.sprite.collide_rect(self, boss):
+                basicfont = pygame.font.SysFont(None, 48)
+                text = basicfont.render('Game Over', True, (255, 0, 0))
+                textrect = text.get_rect()
+                textrect.centerx = screen.get_rect().centerx
+                textrect.centery = screen.get_rect().centery
+                screen.blit(text, textrect)
+                pygame.display.flip()
+                screen.blit
+                pygame.time.wait(1000)
+                while True:
+            		scr.blit(bg,bg.get_rect(center=scr.get_rect().center))
+            		#~ scr.fill(-1)
+            		display.flip();print(menu.__doc__)
+            		resp = menu([u'rejouer::Faire une nouvelle partie',
+            		             u'retour au menu::Quitter le jeu'])
 
-    		if resp[0] == u'retour au menu':
-               		execfile("hugoboss.py")
-    		elif resp[0] == u'rejouer':
-    			execfile("jeu/jeu.py")
+            		if resp[0] == u'retour au menu':
+                       		execfile("hugoboss.py")
+            		elif resp[0] == u'rejouer':
+            			execfile("jeu/jeu.py")
 
 class Arme(Entity):
     atk=30
@@ -367,7 +345,7 @@ class Arme(Entity):
         (hauteur, largeur) = self.image.get_size()
         self.rect = Rect(x, y, hauteur, largeur)
         self.onGround = False
-
+        self.image.set_alpha(0)
 
     def realease(self):
         self.xvel = 8
@@ -454,7 +432,7 @@ class Arme(Entity):
 class Platform(Entity):
     def __init__(self, x, y, col):
         Entity.__init__(self)
-        name = "graphics/decor/glace/"+ col +".png"
+        name = "graphics/decor/"+lvlPf+"/"+ col +".png"
         self.image = pygame.image.load(name)
         self.rect = Rect(x, y, 32, 32)
 
