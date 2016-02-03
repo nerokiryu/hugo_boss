@@ -12,9 +12,8 @@ sys.path.append(os.path.join('jeu'))
 sys.path.append(os.path.join('hugo_boss.py'))
 
 # Gestion des images #
-# Gestion du hero #
-img_heror="graphics/character/hero/heror.png"
-img_herol="graphics/character/hero/herol.png"
+img_herof="graphics/character/hero/hero.png"
+img_bossf="graphics/character/boss/boss1/boss1l.png"
 img_sword="graphics/arme/sword/woodsword.png"
 # Gestion des images #
 
@@ -43,9 +42,11 @@ def main():
     bg.fill(Color("#000000"))
     entities = pygame.sprite.Group()
     arme = Arme(32, 32)
-    boss = Boss(200, 32)
+    arme.realease()
+    boss = Boss(500, 32)
     boss.realease()
     player = Player(32, 32)
+    player.realease()
     platforms = []
 
     x = y = 0
@@ -53,15 +54,15 @@ def main():
         "PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP",
         "P                                          P",
         "P                                          P",
-        "P       PPPPPPPP                           P",
         "P                                          P",
+        "P         PPPPP                            P",
         "P                    PPPPPPPPPPP           P",
         "P                                          P",
         "P                                          P",
         "P    PPPPPPPPPPPPPP                        P",
         "P                                   PPPPPPPP",
         "P                          PPPPPPPPP       P",
-        "PP                       P                 P",
+        "P                        P                 P",
         "P                                          P",
         "P                                          P",
         "PPPPPPPPPPPPPPD                            P",
@@ -192,16 +193,16 @@ class Boss(Entity):
     coll = False
     def __init__(self, x, y):
         Entity.__init__(self)
-        self.image = Surface((32,32))
-        self.image.fill(Color("#FF0000"))
-        self.onGround = False
-        self.image.convert()
         self.xvel = x
         self.yvel = y
-        self.rect = Rect(x, y, 32, 32)
+        self.onGround = False
+        self.image = pygame.image.load(img_bossf)
+        (hauteur, largeur) = self.image.get_size()
+        self.rect = Rect(x, y, hauteur, largeur)
 
     def realease(self):
         self.xvel = 8
+        self.yvel = 8
 
     def update(self, up, down, left, right, running, platforms, player, arme, screen):
         if not self.onGround:
@@ -212,9 +213,6 @@ class Boss(Entity):
         # increment in x direction
         self.rect.left += self.xvel
         # do x-axis collisions
-        rand = randint(0,100)
-        if rand <=10 :
-            if self.onGround: self.yvel -= 8
         # increment in y direction
         self.rect.top += self.yvel
         # assuming we're in the air
@@ -298,17 +296,21 @@ class Boss(Entity):
 class Player(Entity):
     def __init__(self, x, y):
         Entity.__init__(self)
-        self.xvel = 0
-        self.yvel = 0
+        self.xvel = x
+        self.yvel = y
         self.onGround = False
-        self.image = pygame.image.load(img_heror)
+        self.image = pygame.image.load(img_herof)
         (hauteur, largeur) = self.image.get_size()
         self.rect = Rect(x, y, hauteur, largeur)
+
+    def realease(self):
+        self.xvel = 8
+        self.yvel = 8
 
     def update(self, up, down, left, right, running, platforms, boss, screen):
         if up:
             # Jump si sur le sol
-            if self.onGround: self.yvel -= 9
+            if self.onGround: self.yvel -= 8
         if down:
             #Rien ne se passe
             pass
@@ -316,10 +318,8 @@ class Player(Entity):
             self.xvel = 12
         if left:
             self.xvel = -8
-            self.image = pygame.image.load(img_herol)
         if right:
             self.xvel = 8
-            self.image = pygame.image.load(img_heror)
         if not self.onGround:
             # only accelerate with gravity if in the air
             self.yvel += 0.3
@@ -385,12 +385,16 @@ class Player(Entity):
 class Arme(Entity):
     def __init__(self, x, y):
         Entity.__init__(self)
-        self.xvel = 10
-        self.yvel = 10
+        self.xvel = x+10
+        self.yvel = y+10
         self.image = pygame.image.load(img_sword)
         (hauteur, largeur) = self.image.get_size()
         self.rect = Rect(x, y, hauteur, largeur)
         self.onGround = False
+
+    def realease(self):
+        self.xvel = 8
+        self.yvel = 8
 
     def update(self, up, down, left, right, running, platforms, boss, player, screen):
         self.rect.top = player.rect.top+25
