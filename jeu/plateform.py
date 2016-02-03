@@ -13,10 +13,8 @@ from time import sleep
 from entity import Entity
 
 # Numero du niveau #
-num = 2
-
+num = sys.argv[1]
 lvlPf = generateTypePlateform(num)
-
 
 class Platform(Entity):
 
