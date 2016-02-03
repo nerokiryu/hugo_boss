@@ -217,8 +217,6 @@ class Boss(Entity):
             self.xvel = -self.xvel
             self.coll = False
 
-        self.hitbox(0, self.yvel, player, arme, screen)
-
 
     def collide(self, xvel, yvel, platforms):
         for p in platforms:
@@ -241,28 +239,6 @@ class Boss(Entity):
                     self.rect.top = p.rect.bottom
                     print "collide top"
 
-    def hitbox(self, xvel, yvel, player,arme, screen):
-        if pygame.sprite.collide_rect(self, player):
-            basicfont = pygame.font.SysFont(None, 48)
-            text = basicfont.render('Game Over', True, (255, 0, 0))
-            textrect = text.get_rect()
-            textrect.centerx = screen.get_rect().centerx
-            textrect.centery = screen.get_rect().centery
-            screen.blit(text, textrect)
-            pygame.display.flip()
-            screen.blit
-            pygame.time.wait(1000)
-    	    while True:
-    		scr.blit(bg,bg.get_rect(center=scr.get_rect().center))
-    		#~ scr.fill(-1)
-    		display.flip();print(menu.__doc__)
-    		resp = menu([u'rejouer::Faire une nouvelle partie',
-    		             u'retour au menu::Quitter le jeu'])
-
-    		if resp[0] == u'retour au menu':
-               		execfile("hugoboss.py")
-    		elif resp[0] == u'rejouer':
-    			execfile("jeu/jeu.py")
 
 class Player(Entity):
     def __init__(self, x, y):
@@ -333,27 +309,28 @@ class Player(Entity):
                     print "collide top"
 
     def hitbox(self, xvel, yvel, boss, screen):
-        if pygame.sprite.collide_rect(self, boss):
-            basicfont = pygame.font.SysFont(None, 48)
-            text = basicfont.render('Game Over', True, (255, 0, 0))
-            textrect = text.get_rect()
-            textrect.centerx = screen.get_rect().centerx
-            textrect.centery = screen.get_rect().centery
-            screen.blit(text, textrect)
-            pygame.display.flip()
-            screen.blit
-            pygame.time.wait(1000)
-	    while True:
-    		scr.blit(bg,bg.get_rect(center=scr.get_rect().center))
-    		#~ scr.fill(-1)
-    		display.flip();print(menu.__doc__)
-    		resp = menu([u'rejouer::Faire une nouvelle partie',
-    		             u'retour au menu::Quitter le jeu'])
+        if boss.inv <= 0:        
+            if pygame.sprite.collide_rect(self, boss):
+                basicfont = pygame.font.SysFont(None, 48)
+                text = basicfont.render('Game Over', True, (255, 0, 0))
+                textrect = text.get_rect()
+                textrect.centerx = screen.get_rect().centerx
+                textrect.centery = screen.get_rect().centery
+                screen.blit(text, textrect)
+                pygame.display.flip()
+                screen.blit
+                pygame.time.wait(1000)
+                while True:
+            		scr.blit(bg,bg.get_rect(center=scr.get_rect().center))
+            		#~ scr.fill(-1)
+            		display.flip();print(menu.__doc__)
+            		resp = menu([u'rejouer::Faire une nouvelle partie',
+            		             u'retour au menu::Quitter le jeu'])
 
-    		if resp[0] == u'retour au menu':
-               		execfile("hugoboss.py")
-    		elif resp[0] == u'rejouer':
-    			execfile("jeu/jeu.py")
+            		if resp[0] == u'retour au menu':
+                       		execfile("hugoboss.py")
+            		elif resp[0] == u'rejouer':
+            			execfile("jeu/jeu.py")
 
 class Arme(Entity):
     atk=30
