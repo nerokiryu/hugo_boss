@@ -56,6 +56,19 @@ def generateLvl(num):
             "N                                                                            O",
             "N                                                                            O",
             "N                                                                            O",
+            "N                                                                            O",
+            "N                                                                            O",
+            "N                                                                            O",
+            "N                                                                            O",
+            "N                                                                            O",
+            "N                                                                            O",
+            "N                                                                            O",
+            "N                                                                            O",
+            "N                                                                            O",
+            "N                                                                            O",
+            "N                                                                            O",
+            "N                                                                            O",
+            "N                                                                            O",
             "IMMMMMME  DMMMMMME  DMMMMMME  DMMMMMME  DMMMMMME  DMMMMMME  DMMMMMME  DMMMMMMI",
             "IIIIIIIN  OIIIIIIN  OIIIIIIN  OIIIIIIN  OIIIIIIN  OIIIIIIN  OIIIIIIN  OIIIIIII",
             "IIIIIIIN  OIIIIIIN  OIIIIIIN  OIIIIIIN  OIIIIIIN  OIIIIIIN  OIIIIIIN  OIIIIIII",
@@ -141,6 +154,8 @@ def generateTypePlateform(num):
         typePl = "herbe"
     elif num == 2:
         typePl = "glace"
+    elif num == 4:
+        typePl = "terre"
     else:
-	typePl = "brique"
+        typePl = "brique"
     return typePl

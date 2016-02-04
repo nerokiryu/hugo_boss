@@ -28,8 +28,18 @@ DEPTH = 32
 FLAGS = 0
 CAMERA_SLACK = 30
 
+def end(message, screen):
+    basicfont = font.SysFont(None, 48)
+    text = basicfont.render(message, True, (255, 0, 0))
+    textrect = text.get_rect()
+    textrect.centerx = screen.get_rect().centerx
+    textrect.centery = screen.get_rect().centery
+    screen.blit(text, textrect)
+    display.flip()
+    screen.blit
+    time.wait(1000)
 
-def end(num,win):
+def Menu(num,win):
     while True:
         scr.blit(bg,bg.get_rect(center=scr.get_rect().center))
         #~ scr.fill(-1)
@@ -47,7 +57,6 @@ def end(num,win):
                          u'retour au menu::Retourner au menu',
                          '',
                          u'quitter::Quitter le Jeu'])
-
         if resp[0] == u'retour au menu':
                 execfile("hugoboss.py")
         elif resp[0] == u'rejouer':
@@ -67,7 +76,6 @@ def main():
     level = generateLvl(num)
     lvlBg = generateBg(num)
 
-    print(num)
     global cameraX, cameraY
     init()
     screen = display.set_mode(DISPLAY, FLAGS, DEPTH)
@@ -87,11 +95,11 @@ def main():
     if num == 1 :
         boss = Boss1(500, 32)
     elif num == 2 :
-        boss = Boss2(500, 32)
+        boss = Boss2(500, 32, 1)
     elif num == 3 :
         boss = Boss3(500, 500)
     else:
-        boss = Boss4(500, 32)
+        boss = Boss4(500, 200)
 
     boss.realease()
     player = Player(32, 32)
@@ -136,7 +144,6 @@ def main():
     boucle_de_jeu = True
     while boucle_de_jeu:
         timer.tick(60)
-
         for e in event.get():
             if e.type == QUIT: raise SystemExit, "QUIT"
             if e.type == KEYDOWN and e.key == K_ESCAPE:
@@ -169,13 +176,18 @@ def main():
 
         # update player, draw everything else
         if player.update(up, down, left, right, running, platforms, boss, screen):
+            #Si le update de l'arme devient vraie alors la cause de la sortie de la boucle sera une victoire
             boucle_de_jeu = False
-        if boss.update(up, down, left, right, running, platforms, player, arme, screen,total_level_width,total_level_height,entities) and boucle_de_jeu == True:
+            end('Game Over', screen)
+        if boss.update(up, down, left, right, running, platforms, player, arme, screen,total_level_width,total_level_height, entities) and boucle_de_jeu == True:
+            #Si le update de l'arme devient vraie alors la cause de la sortie de la boucle sera une victoire
             boucle_de_jeu = False
+            end('Game Over', screen)
         if arme.update(up, down, left, right, running, platforms,boss, player, screen) and boucle_de_jeu == True:
             #Si le update de l'arme devient vraie alors la cause de la sortie de la boucle sera une victoire
             boucle_de_jeu = False
             win = True
+            end('Win', screen)
         else:
             atk = arme.atk
 
@@ -184,7 +196,7 @@ def main():
 
         display.update()
 
-    end(num,win)
+    Menu(num,win)
 
 if __name__ == "__main__":
     main()

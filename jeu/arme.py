@@ -79,7 +79,6 @@ class Arme(Entity):
         else :
             return False
 
-
     def hitbox(self, xvel, yvel, boss, screen):
         if pygame.sprite.collide_rect(self, boss):
             pygame.mixer.init(44100, -16, 2, 2048)
@@ -87,22 +86,10 @@ class Arme(Entity):
             son.play()
             if boss.inv==0:
                 boss.hp-=1
-                if boss.xvel > 0:
-                    boss.xvel-=boss.speed*2
-                elif boss.xvel < 0:
-                    boss.xvel+=boss.speed*2
+                boss.xvel*=-1
                 boss.inv = boss.max_inv
 
             if boss.hp==0:
-                basicfont = pygame.font.SysFont(None, 48)
-                text = basicfont.render('You Win', True, (255, 0, 0))
-                textrect = text.get_rect()
-                textrect.centerx = screen.get_rect().centerx
-                textrect.centery = screen.get_rect().centery
-                screen.blit(text, textrect)
-                pygame.display.flip()
-                screen.blit
-                pygame.time.wait(1000)
                 return True
             else:
                 return False

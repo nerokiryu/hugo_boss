@@ -78,31 +78,18 @@ class Player(Entity):
                     event.post(event.Event(QUIT))
                 if xvel > 0:
                     self.rect.right = p.rect.left
-                    print "collide right"
                 if xvel < 0:
                     self.rect.left = p.rect.right
-                    print "collide left"
                 if yvel > 0:
                     self.rect.bottom = p.rect.top
                     self.onGround = True
                     self.yvel = 0
                 if yvel < 0:
                     self.rect.top = p.rect.bottom
-                    print "collide top"
 
     def hitbox(self, xvel, yvel, boss, screen):
-
         if pygame.sprite.collide_rect(self, boss):
             if boss.inv <= 0:
-                basicfont = pygame.font.SysFont(None, 48)
-                text = basicfont.render('Game Over', True, (255, 0, 0))
-                textrect = text.get_rect()
-                textrect.centerx = screen.get_rect().centerx
-                textrect.centery = screen.get_rect().centery
-                screen.blit(text, textrect)
-                pygame.display.flip()
-                screen.blit
-                pygame.time.wait(1000)
                 return True
             else:
                 return False
