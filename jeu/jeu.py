@@ -53,7 +53,7 @@ def main():
     global cameraX, cameraY
     init()
     screen = display.set_mode(DISPLAY, FLAGS, DEPTH)
-    display.set_caption("Use arrows to move!")
+    display.set_caption("Hugo Boss")
     timer = time.Clock()
     pygame.key.set_repeat(1,1000)
     up = down = left = right = running = False
