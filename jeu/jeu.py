@@ -156,7 +156,7 @@ def main():
         # update player, draw everything else
         if player.update(up, down, left, right, running, platforms, boss, screen):
             rep = False
-        if boss.update(up, down, left, right, running, platforms, player, arme, screen,total_level_width,total_level_height) and rep == True:
+        if boss.update(up, down, left, right, running, platforms, player, arme, screen,total_level_width,total_level_height,entities) and rep == True:
                 rep = False
         if arme.update(up, down, left, right, running, platforms,boss, player, screen) and rep == True:
             rep = False

@@ -2,7 +2,7 @@ from pygame import *
 import pygame
 import os
 import sys
-
+from random import *
 sys.path.append(os.path.join('menu'))
 sys.path.append(os.path.join('jeu'))
 sys.path.append(os.path.join('hugo_boss.py'))
@@ -42,7 +42,7 @@ class Boss1(Entity):
         self.yvel = self.speed
 
 
-    def update(self, up, down, left, right, running, platforms, player, arme, screen,width,height):
+    def update(self, up, down, left, right, running, platforms, player, arme, screen,width,height,entities):
         if self.inv > 0:
             self.inv-=1
         if not self.onGround:
@@ -92,18 +92,19 @@ class Boss1(Entity):
     def hitbox(self, xvel, yvel, player,arme, screen):
 
         if sprite.collide_rect(self, player):
-            basicfont = font.SysFont(None, 48)
-            text = basicfont.render('Game Over', True, (255, 0, 0))
-            textrect = text.get_rect()
-            textrect.centerx = screen.get_rect().centerx
-            textrect.centery = screen.get_rect().centery
-            screen.blit(text, textrect)
-            display.flip()
-            screen.blit
-            time.wait(1000)
-            return True
-        else:
-            return False
+            if self.inv<=0:
+                basicfont = font.SysFont(None, 48)
+                text = basicfont.render('Game Over', True, (255, 0, 0))
+                textrect = text.get_rect()
+                textrect.centerx = screen.get_rect().centerx
+                textrect.centery = screen.get_rect().centery
+                screen.blit(text, textrect)
+                display.flip()
+                screen.blit
+                time.wait(1000)
+                return True
+            else:
+                return False
 
 class Boss2(Entity):
     img_bossf="graphics/character/boss/boss4/boss_P2_ecr0.png"
@@ -184,18 +185,19 @@ class Boss2(Entity):
     def hitbox(self, xvel, yvel, player,arme, screen):
 
         if sprite.collide_rect(self, player):
-            basicfont = font.SysFont(None, 48)
-            text = basicfont.render('Game Over', True, (255, 0, 0))
-            textrect = text.get_rect()
-            textrect.centerx = screen.get_rect().centerx
-            textrect.centery = screen.get_rect().centery
-            screen.blit(text, textrect)
-            display.flip()
-            screen.blit
-            time.wait(1000)
-            return True
-        else:
-            return False
+            if self.inv<=0:
+                basicfont = font.SysFont(None, 48)
+                text = basicfont.render('Game Over', True, (255, 0, 0))
+                textrect = text.get_rect()
+                textrect.centerx = screen.get_rect().centerx
+                textrect.centery = screen.get_rect().centery
+                screen.blit(text, textrect)
+                display.flip()
+                screen.blit
+                time.wait(1000)
+                return True
+            else:
+                return False
 
 class Boss3(Entity):
     img_bossf="graphics/character/boss/boss5/spider.png"
@@ -220,7 +222,7 @@ class Boss3(Entity):
         self.xvel = self.speed
         self.yvel = 0
 
-    def update(self, up, down, left, right, running, platforms, player, arme, screen,width,height):
+    def update(self, up, down, left, right, running, platforms, player, arme, screen,width,height,entities):
 
         if self.inv > 0:
             self.inv-=1
@@ -287,18 +289,19 @@ class Boss3(Entity):
     def hitbox(self, xvel, yvel, player,arme, screen):
 
         if sprite.collide_rect(self, player):
-            basicfont = font.SysFont(None, 48)
-            text = basicfont.render('Game Over', True, (255, 0, 0))
-            textrect = text.get_rect()
-            textrect.centerx = screen.get_rect().centerx
-            textrect.centery = screen.get_rect().centery
-            screen.blit(text, textrect)
-            display.flip()
-            screen.blit
-            time.wait(1000)
-            return True
-        else:
-            return False
+            if self.inv<=0:
+                basicfont = font.SysFont(None, 48)
+                text = basicfont.render('Game Over', True, (255, 0, 0))
+                textrect = text.get_rect()
+                textrect.centerx = screen.get_rect().centerx
+                textrect.centery = screen.get_rect().centery
+                screen.blit(text, textrect)
+                display.flip()
+                screen.blit
+                time.wait(1000)
+                return True
+            else:
+                return False
 
 
 class Boss4(Entity):
@@ -306,8 +309,12 @@ class Boss4(Entity):
     coll = False
     inv =0
     hp = 6
-    speed = 7.5
+    speed = 5
     max_inv=30
+    delay=0
+    delay_max=100
+    tir=0
+    res=False
 
     def __init__(self, x, y):
         Entity.__init__(self)
@@ -322,7 +329,7 @@ class Boss4(Entity):
         self.xvel = self.speed
         self.yvel = self.speed
 
-    def update(self, up, down, left, right, running, platforms, player, arme, screen,width,height):
+    def update(self, up, down, left, right, running, platforms, player, arme, screen,width,height,entities):
 
         if self.inv > 0:
             self.inv-=1
@@ -333,17 +340,24 @@ class Boss4(Entity):
         self.rect.top += self.yvel
         # assuming we're in the air
         # do y-axis collisions
+        if self.delay<=0:
+            if isinstance(self.tir, Tir):
+                self.tir.image = pygame.image.load(self.tir.img_bossf).convert()
+                self.tir.image.set_alpha(0)
+            self.tir = Tir(self.rect.right-((self.rect.right-self.rect.left)/2),self.rect.bottom-((self.rect.bottom-self.rect.top)/2))
+            self.tir.realease(randint(-4,4),randint(-4,4))
+            entities.add(self.tir)
+            self.delay=self.delay_max 
+        else:
+            self.delay-=0.5
+            res=self.tir.update(up, down, left, right, running, platforms, player, arme, screen,width,height,entities)
 
 
-        if self.rect.top <=35 or self.rect.bottom >= height-35:
+        if self.rect.top<=32 or self.rect.bottom>=height-32 :
             self.yvel = -self.yvel
-            self.coll = False
-
-        if self.rect.left<=38 or self.rect.right>=width-38:
+        if self.rect.left<=32 or self.rect.right>=width-32 :
             self.xvel = -self.xvel
-            self.coll = False
-
-        return self.hitbox(0, self.yvel, player, arme, screen)
+        return self.hitbox(0, self.yvel, player, arme, screen) or self.res
 
 
     def collide(self, xvel, yvel, platforms):
@@ -367,29 +381,30 @@ class Boss4(Entity):
                 if yvel < 0:
                     self.rect.top = p.rect.bottom
                     print "collide top"
+                    return True
 
     def hitbox(self, xvel, yvel, player,arme, screen):
 
         if sprite.collide_rect(self, player):
-            basicfont = font.SysFont(None, 48)
-            text = basicfont.render('Game Over', True, (255, 0, 0))
-            textrect = text.get_rect()
-            textrect.centerx = screen.get_rect().centerx
-            textrect.centery = screen.get_rect().centery
-            screen.blit(text, textrect)
-            display.flip()
-            screen.blit
-            time.wait(1000)
-            return True
-        else:
-            return False
+            if self.inv<=0:
+                basicfont = font.SysFont(None, 48)
+                text = basicfont.render('Game Over', True, (255, 0, 0))
+                textrect = text.get_rect()
+                textrect.centerx = screen.get_rect().centerx
+                textrect.centery = screen.get_rect().centery
+                screen.blit(text, textrect)
+                display.flip()
+                screen.blit
+                time.wait(1000)
+                return True
+            else:
+                return False
 
 class Tir(Entity):
-    img_bossf="graphics/character/boss/boss3/boss_eye.png"
+    img_bossf="graphics/bullet.gif"
     coll = False
     inv =0
     hp = 6
-    speed = 7.5
     max_inv=30
 
     def __init__(self, x, y):
@@ -401,11 +416,11 @@ class Tir(Entity):
         (hauteur, largeur) = self.image.get_size()
         self.rect = Rect(x, y, hauteur, largeur)
 
-    def realease(self):
-        self.xvel = self.speed
-        self.yvel = self.speed
+    def realease(self,x,y):
+        self.xvel = x
+        self.yvel = y
 
-    def update(self, up, down, left, right, running, platforms, player, arme, screen,width,height):
+    def update(self, up, down, left, right, running, platforms, player, arme, screen,width,height,entities):
 
         if self.inv > 0:
             self.inv-=1
@@ -418,38 +433,8 @@ class Tir(Entity):
         # do y-axis collisions
 
 
-        if self.rect.top <=35 or self.rect.bottom >= height-35:
-            self.yvel = -self.yvel
-            self.coll = False
-
-        if self.rect.left<=38 or self.rect.right>=width-38:
-            self.xvel = -self.xvel
-            self.coll = False
-
         return self.hitbox(0, self.yvel, player, arme, screen)
 
-
-    def collide(self, xvel, yvel, platforms):
-        for p in platforms:
-            if sprite.collide_rect(self, p):
-                if isinstance(p, ExitBlock):
-                    event.post(event.Event(QUIT))
-                if xvel > 0:
-                    self.rect.right = p.rect.left
-                    print "collide right"
-                    return True
-                if xvel < 0:
-                    self.rect.left = p.rect.right
-                    print "collide left"
-                    return True
-                if yvel > 0:
-                    self.rect.bottom = p.rect.top
-                    self.onGround = True
-                    self.yvel = 0
-                    return True
-                if yvel < 0:
-                    self.rect.top = p.rect.bottom
-                    print "collide top"
 
     def hitbox(self, xvel, yvel, player,arme, screen):
 
