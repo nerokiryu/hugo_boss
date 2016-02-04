@@ -121,5 +121,5 @@ def generateTypePlateform(num):
     elif num == 2:
         typePl = "glace"
     else:
-	typePl = "terre"
+	typePl = "brique"
     return typePl
