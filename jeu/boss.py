@@ -127,7 +127,7 @@ class Boss2(Entity):
         self.xvel = self.speed
         self.yvel = self.speed
 
-    def update(self, up, down, left, right, running, platforms, player, arme, screen,width, height):
+    def update(self, up, down, left, right, running, platforms, player, arme, screen,width, height,entities):
         if self.inv > 0:
             self.inv-=1
         if self.onGround :
@@ -303,7 +303,6 @@ class Boss3(Entity):
             else:
                 return False
 
-
 class Boss4(Entity):
     img_bossf="graphics/character/boss/boss3/boss_eye.png"
     coll = False
@@ -387,15 +386,6 @@ class Boss4(Entity):
 
         if sprite.collide_rect(self, player):
             if self.inv<=0:
-                basicfont = font.SysFont(None, 48)
-                text = basicfont.render('Game Over', True, (255, 0, 0))
-                textrect = text.get_rect()
-                textrect.centerx = screen.get_rect().centerx
-                textrect.centery = screen.get_rect().centery
-                screen.blit(text, textrect)
-                display.flip()
-                screen.blit
-                time.wait(1000)
                 return True
             else:
                 return False
@@ -439,15 +429,6 @@ class Tir(Entity):
     def hitbox(self, xvel, yvel, player,arme, screen):
 
         if sprite.collide_rect(self, player):
-            basicfont = font.SysFont(None, 48)
-            text = basicfont.render('Game Over', True, (255, 0, 0))
-            textrect = text.get_rect()
-            textrect.centerx = screen.get_rect().centerx
-            textrect.centery = screen.get_rect().centery
-            screen.blit(text, textrect)
-            display.flip()
-            screen.blit
-            time.wait(1000)
             return True
         else:
             return False

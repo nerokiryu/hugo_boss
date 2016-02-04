@@ -47,28 +47,19 @@ def generateLvl(num):
             "N                                                                            O",
             "N                                                                            O",
             "N                                                                            O",
-            "N  DMMMMMMMMMMMMMMMME                                                        O",
-            "N  F     OIIIIIIIIIIMMMMMMMME                                                O",
-            "N  F     OIIIIIIIIIIIIIIIIIIIMMMMMMME                                        O",
-            "N  F     BPPPPPPPPPPPPPPPPPPPPPPPPPPPKKKKKKKL                                O",
-            "N  F                                                                         O",
-            "N  F                                                    A                    O",
-            "N  F                                                                         O",
-            "N  F                                                                         O",
-            "N  F                                                                         O",
-            "N  F                                                                JKKKKKKKKI",
-            "N  F                                                                         O",
-            "N  F                                                                         O",
-            "N  F                                                                         O",
-            "N  F                                              JKKKKKKL                   O",
-            "N  F                                                                         O",
-            "N  F                                A                                        O",
-            "N  F                                                                         O",
-            "N  G     JKKKKKKKKKKKKL                                                      O",
             "N                                                                            O",
             "N                                                                            O",
             "N                                                                            O",
-            "IMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMI",]
+            "N                                                                            O",
+            "N                                                                            O",
+            "N                                                                            O",
+            "N                                                                            O",
+            "N                                                                            O",
+            "N                                                                            O",
+            "IMMMMMME  DMMMMMME  DMMMMMME  DMMMMMME  DMMMMMME  DMMMMMME  DMMMMMME  DMMMMMMI",
+            "IIIIIIIN  OIIIIIIN  OIIIIIIN  OIIIIIIN  OIIIIIIN  OIIIIIIN  OIIIIIIN  OIIIIIII",
+            "IIIIIIIN  OIIIIIIN  OIIIIIIN  OIIIIIIN  OIIIIIIN  OIIIIIIN  OIIIIIIN  OIIIIIII",
+            "IIIIIIIIMMIIIIIIIIMMIIIIIIIIMMIIIIIIIIMMIIIIIIIIMMIIIIIIIIMMIIIIIIIIMMIIIIIIII",]
 
     elif num == 3 :
         lvl = [
@@ -110,15 +101,15 @@ def generateLvl(num):
             "N                                                                            O",
             "N                                                                            O",
             "N                                                                            O",
-            "N                         JKKKKKKKKKKKKKKKKKKKKKL                            O",
+            "N                          JKKKKKKKKKKKKKKKKKKKKKKL                          O",
             "N                                                                            O",
             "N                                                                            O",
             "N                                                                            O",
-            "N       MM          MM                                 MM         MM         O",
-            "N        MM          MM                               MM         MM          O",
-            "N         MM          MM                             MM         MM           O",
-            "N          MM          MM                           MM         MM            O",
-            "N           MM          MM           MMMM          MM         MM             O",
+            "N        MM         MM                                  MM         MM        O",
+            "N         MM         MM                                MM         MM         O",
+            "N          MM         MM                              MM         MM          O",
+            "N           MM         MM                            MM         MM           O",
+            "N            MM         MM           MMMM           MM         MM            O",
             "N                                                                            O",
             "N                                                                            O",
             "N                                                                            O",
@@ -140,9 +131,9 @@ def generateBg(num):
     elif num == 2:
         bg = ("graphics/background/ice.png")
     elif num == 3:
-        bg = ("graphics/background/hell.png")
-    else :
         bg = ("graphics/background/darkness.png")
+    else :
+        bg = ("graphics/background/hell.png")
     return bg
 
 def generateTypePlateform(num):
