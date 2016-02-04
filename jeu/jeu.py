@@ -18,15 +18,6 @@ from arme import *
 from camera import *
 from exitBlock import *
 
-# Numero du niveau #
-num = sys.argv[1]
-
-# Generation des elements du niveau #
-level = generateLvl(num)
-lvlBg = generateBg(num)
-# Generation des elements du niveau #
-
-
 
 WIN_WIDTH = 800
 WIN_HEIGHT = 640
@@ -51,6 +42,15 @@ def end():
             execfile("jeu/jeu.py")
 
 def main():
+    # Numero du niveau #
+    num = sys.argv[1]
+
+
+    # Generation des elements du niveau #
+    level = generateLvl(num)
+    lvlBg = generateBg(num)
+
+    print(num)
     global cameraX, cameraY
     init()
     screen = display.set_mode(DISPLAY, FLAGS, DEPTH)
@@ -67,7 +67,12 @@ def main():
     entities = sprite.Group()
     arme = Arme(32, 32)
     arme.realease()
-    boss = Boss(500, 32)
+    if num == 1:
+        boss = Boss1(500, 32)
+    elif num == 2:
+        boss = Boss2(500, 32)
+    else:
+        boss = Boss3(500, 32)
     boss.realease()
     player = Player(32, 32)
     player.realease()
@@ -137,7 +142,7 @@ def main():
             if e.type == KEYUP and e.key == K_v or atk !=0:
                 running = False
 
-        # draw background
+        # Dessine background
         """for y in range(32):
             for x in range(32):"""
         screen.blit(pygame.image.load(lvlBg), (0,0))
@@ -147,8 +152,17 @@ def main():
         # update player, draw everything else
         if player.update(up, down, left, right, running, platforms, boss, screen):
             rep = False
-        if boss.update(up, down, left, right, running, platforms, player, arme, screen) and rep == True:
-            rep = False
+
+        if num  == 1:
+            if boss.update(up, down, left, right, running, platforms, player, arme, screen) and rep == True:
+                rep = False
+        elif num == 2:
+            if boss.update(up, down, left, right, running, platforms, player, arme, screen,total_level_height) and rep == True:
+                rep = False
+	else:
+            if boss.update(up, down, left, right, running, platforms, player, arme, screen,total_level_width,total_level_height) and rep == True:
+                rep = False
+
         if arme.update(up, down, left, right, running, platforms,boss, player, screen) and rep == True:
             rep = False
         else:
