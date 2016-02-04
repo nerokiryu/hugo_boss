@@ -317,20 +317,20 @@ if __name__ == '__main__':
             scr.blit(bg,bg.get_rect(center=scr.get_rect().center))
             #~ scr.fill(-1)
             display.flip();print(menu.__doc__)
-            resp1 = menu([u'Niveau 1',
-                     u'Niveau 2',
-                     u'Niveau 3',
-                     u'Niveau 4'])
+            resp1 = menu([u'niveau 1',
+                     u'niveau 2',
+                     u'niveau 3',
+                     u'niveau 4'])
 
-            if resp1[0] == u'Niveau 1' :
+            if resp1[0] == u'niveau 1' :
                 num = 1
-            elif resp1[0] == u'Niveau 2' :
+            elif resp1[0] == u'niveau 2' :
                 num = 2
-            elif resp1[0] == u'Niveau 3' :
+            elif resp1[0] == u'niveau 3' :
                 num = 3
             else :
                 num = 4
-            sys.argv=["toto.py",num]
+            sys.argv=["jeu.py",num]
             execfile('jeu/jeu.py')
 
         if resp[0] == u'options':
