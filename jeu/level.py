@@ -13,7 +13,7 @@ def generateLvl(num):
     # B P C     G   A
     if num == 1:
         lvl = [
-            "DKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKI",
+            "DKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKE",
             "F                                                                       F",
             "F                                                                       F",
             "F                                                                       F",
@@ -103,7 +103,9 @@ def generateLvl(num):
 def generateBg(num):
     if num == 1:
         bg = ("graphics/background/ice.png")
-    elif num == 2:
+    if num == 2:
+        bg = ("graphics/background/ice.png")
+    elif num == 3:
         bg = ("graphics/background/hell.png")
     else :
         bg = ("graphics/background/darkness.png")
@@ -111,7 +113,9 @@ def generateBg(num):
 
 def generateTypePlateform(num):
     if num == 1:
+        typePl = "herbe"
+    elif num == 2:
         typePl = "glace"
     else:
-        typePl = "terre"
+	typePl = "terre"
     return typePl
