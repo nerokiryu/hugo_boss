@@ -35,13 +35,17 @@ def end(num,win):
         #~ scr.fill(-1)
         display.flip();print(menu.__doc__)
         if win:
-            resp = menu([u'rejouer::Faire une nouvelle boucle_de_jeu',
+            resp = menu([u'continuer::Niveau suivant',
+                         ' ',
+                         ' ',
+                         u'rejouer::Faire une nouvelle boucle_de_jeu',
                          u'retour au menu::Retourner au menu',
-                         u'continuer::Niveau suivant',
+                         ' ',
                          u'quitter::Quitter le Jeu'])
         else:
             resp = menu([u'rejouer::Faire une nouvelle boucle_de_jeu',
                          u'retour au menu::Retourner au menu',
+                         ' ',
                          u'quitter::Quitter le Jeu'])
 
         if resp[0] == u'retour au menu':
@@ -69,7 +73,7 @@ def main():
     screen = display.set_mode(DISPLAY, FLAGS, DEPTH)
     display.set_caption("Hugo Boss")
     timer = time.Clock()
-    pygame.key.set_boucle_de_jeueat(1,1000)
+    pygame.key.set_repeat(1,1000)
     up = down = left = right = running = False
     atk = 0
 
