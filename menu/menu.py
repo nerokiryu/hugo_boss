@@ -292,6 +292,7 @@ if __name__ == '__main__':
     from os.path import dirname,join
     here = dirname(__file__)
     scr = pygame.display.set_mode(DISPLAY, FLAGS, DEPTH)
+    display.set_caption("Hugo Boss")
     bg = image.load(join('./graphics/background','menu.png'))
     scr.blit(bg,bg.get_rect(center=scr.get_rect().center))
     #~ scr.fill(-1)
