@@ -7,6 +7,7 @@ import os
 
 sys.path.append(os.path.join('menu'))
 sys.path.append(os.path.join('jeu'))
+sys.path.append(os.path.join('sound'))
 sys.path.append(os.path.join('hugo_boss.py'))
 
 from time import sleep
@@ -82,6 +83,9 @@ class Arme(Entity):
 
     def hitbox(self, xvel, yvel, boss, screen):
         if pygame.sprite.collide_rect(self, boss):
+            pygame.mixer.init(44100, -16, 2, 2048)
+            son=pygame.mixer.Sound("sound/SmallExplosion8-Bit.ogg")
+            son.play()
             if boss.inv==0:
                 boss.hp-=1
                 if boss.xvel > 0:
