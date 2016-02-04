@@ -94,7 +94,7 @@ def main():
         boss = Boss4(500, 32)
 
     boss.realease()
-    player = Player(32, 690)
+    player = Player(32, 32)
     player.realease()
     platforms = []
 
