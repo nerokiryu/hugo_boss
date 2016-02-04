@@ -208,6 +208,8 @@ class Boss3(Entity):
     max_inv=30
     dec =False
     dec_speed=16
+    wait=0
+    wait_max=60
 
     def __init__(self, x, y):
         Entity.__init__(self)
@@ -230,11 +232,15 @@ class Boss3(Entity):
         self.rect.left += self.xvel
         # do x-axis collisions
         if not self.dec:
-            if self.rect.left <= player.rect.left and self.rect.right >= player.rect.right:
-                self.yvel=self.dec_speed
-                self.speed=self.xvel
-                self.xvel=0
-                self.dec=True
+            if self.wait <= 0:
+                if self.rect.left <= player.rect.left and self.rect.right >= player.rect.right:
+                    self.yvel=self.dec_speed
+                    self.speed=self.xvel
+                    self.xvel=0
+                    self.dec=True
+                    self.wait=self.wait_max
+            else:
+                    self.wait-=1
             """if player.xvel > 0 and self.xvel>0:
                 if self.rect.left == player.rect.left:
                     self.yvel=self.dec_speed
