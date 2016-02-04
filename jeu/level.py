@@ -96,10 +96,6 @@ def generateLvl(num):
             "N                                                                            O",
             "N                                                                            O",
             "N                                                                            O",
-            "N                                                                            O",
-            "N                                                                            O",
-            "N                                                                            O",
-            "N                                                                            O",
             "IMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMI",]
 
     return lvl;

@@ -305,7 +305,7 @@ class Boss4(Entity):
     img_bossf="graphics/character/boss/boss3/boss_eye.png"
     coll = False
     inv =0
-    hp = 3
+    hp = 6
     speed = 7.5
     max_inv=30
 
@@ -326,28 +326,20 @@ class Boss4(Entity):
 
         if self.inv > 0:
             self.inv-=1
-        """if not self.onGround:
-            # only accelerate with gravity if in the air
-            self.yvel += 0.3
-            # max falling speed
-            if self.yvel > 100: self.yvel = 100"""
         # increment in x direction
         self.rect.left += self.xvel
         # do x-axis collisions
         # increment in y direction
         self.rect.top += self.yvel
         # assuming we're in the air
-        #self.onGround = False
         # do y-axis collisions
-        self.collide(0, self.yvel, platforms)
 
-        self.coll = self.collide(self.xvel, 0, platforms)
 
-        if self.rect.top <=32 or self.rect.bottom >= height-32:
+        if self.rect.top <=35 or self.rect.bottom >= height-35:
             self.yvel = -self.yvel
             self.coll = False
 
-        if self.rect.left<=32 or self.rect.right>=width-32:
+        if self.rect.left<=38 or self.rect.right>=width-38:
             self.xvel = -self.xvel
             self.coll = False
 
