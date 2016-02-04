@@ -106,8 +106,8 @@ def generateLvl(num):
 
 def generateBg(num):
     if num == 1:
-        bg = ("graphics/background/ice.png")
-    if num == 2:
+        bg = ("graphics/background/forest.png")
+    elif num == 2:
         bg = ("graphics/background/ice.png")
     elif num == 3:
         bg = ("graphics/background/hell.png")
