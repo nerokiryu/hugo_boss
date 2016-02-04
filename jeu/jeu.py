@@ -45,7 +45,6 @@ def main():
     # Numero du niveau #
     num = sys.argv[1]
 
-
     # Generation des elements du niveau #
     level = generateLvl(num)
     lvlBg = generateBg(num)
@@ -56,7 +55,7 @@ def main():
     screen = display.set_mode(DISPLAY, FLAGS, DEPTH)
     display.set_caption("Use arrows to move!")
     timer = time.Clock()
-
+    pygame.key.set_repeat(1,1000)
     up = down = left = right = running = False
     atk = 0
 
@@ -67,9 +66,9 @@ def main():
     entities = sprite.Group()
     arme = Arme(32, 32)
     arme.realease()
-    if num == 1:
+    if num == 1 :
         boss = Boss1(500, 32)
-    elif num == 2:
+    elif num == 2 :
         boss = Boss2(500, 32)
     else:
         boss = Boss3(500, 32)
@@ -130,7 +129,6 @@ def main():
                 right = True
             if e.type == KEYDOWN and e.key == K_v :
                 running = True
-
             if e.type == KEYUP and e.key == K_UP:
                 up = False
             if e.type == KEYUP and e.key == K_DOWN:
@@ -159,10 +157,9 @@ def main():
         elif num == 2:
             if boss.update(up, down, left, right, running, platforms, player, arme, screen,total_level_height) and rep == True:
                 rep = False
-	else:
+        else:
             if boss.update(up, down, left, right, running, platforms, player, arme, screen,total_level_width,total_level_height) and rep == True:
                 rep = False
-
         if arme.update(up, down, left, right, running, platforms,boss, player, screen) and rep == True:
             rep = False
         else:

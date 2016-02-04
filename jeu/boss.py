@@ -126,9 +126,7 @@ class Boss2(Entity):
         self.xvel = self.speed
         self.yvel = self.speed
 
-
     def update(self, up, down, left, right, running, platforms, player, arme, screen, height):
-        
         if self.inv > 0:
             self.inv-=1
         if self.onGround :
@@ -221,9 +219,8 @@ class Boss3(Entity):
         self.xvel = self.speed
         self.yvel = 0
 
-
     def update(self, up, down, left, right, running, platforms, player, arme, screen,width,height):
-        
+
         if self.inv > 0:
             self.inv-=1
         # increment in x direction
