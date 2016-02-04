@@ -72,7 +72,7 @@ def main():
     elif num == 2 :
         boss = Boss2(500, 32)
     elif num == 3 :
-        boss = Boss3(500, 32)
+        boss = Boss4(500, 500)
     boss.realease()
     player = Player(32, 32)
     player.realease()

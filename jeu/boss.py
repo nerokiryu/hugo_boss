@@ -107,7 +107,7 @@ class Boss(Entity):
 
 
 class Boss2(Entity):
-    img_bossf="graphics/character/boss/boss2/boss2r.png"
+    img_bossf="graphics/character/boss/boss4/boss_P2_ecr0.png"
     coll = False
     inv =0
     hp = 3
@@ -200,14 +200,14 @@ class Boss2(Entity):
             return False
 
 class Boss3(Entity):
-    img_bossf="graphics/character/boss/boss3/boss_eye.png"
+    img_bossf="graphics/character/boss/boss5/Spider.png"
     coll = False
     inv =0
     hp = 3
     speed = 6
     max_inv=30
     dec =False
-    dec_speed=4
+    dec_speed=16
 
     def __init__(self, x, y):
         Entity.__init__(self)
@@ -303,69 +303,56 @@ class Boss3(Entity):
             return False
 
 
-class Boss3(Entity):
+class Boss4(Entity):
     img_bossf="graphics/character/boss/boss3/boss_eye.png"
     coll = False
     inv =0
     hp = 3
-    speed = 6
+    speed = 7.5
     max_inv=30
-    dec =False
-    dec_speed=16
 
     def __init__(self, x, y):
         Entity.__init__(self)
         self.xvel = x
-        self.yvel = 0
+        self.yvel = y
         self.onGround = False
         self.image = pygame.image.load(self.img_bossf)
         (hauteur, largeur) = self.image.get_size()
-        self.rect = Rect(x, 32, hauteur, largeur)
+        self.rect = Rect(x, y, hauteur, largeur)
 
     def realease(self):
         self.xvel = self.speed
-        self.yvel = 0
+        self.yvel = self.speed
 
     def update(self, up, down, left, right, running, platforms, player, arme, screen,width,height):
 
         if self.inv > 0:
             self.inv-=1
+        """if not self.onGround:
+            # only accelerate with gravity if in the air
+            self.yvel += 0.3
+            # max falling speed
+            if self.yvel > 100: self.yvel = 100"""
         # increment in x direction
         self.rect.left += self.xvel
         # do x-axis collisions
-        if not self.dec:
-            if self.rect.left <= player.rect.left and self.rect.right >= player.rect.right:
-                self.yvel=self.dec_speed
-                self.speed=self.xvel
-                self.xvel=0
-                self.dec=True
-            """if player.xvel > 0 and self.xvel>0:
-                if self.rect.left == player.rect.left:
-                    self.yvel=self.dec_speed
-                    self.dec=True
-            elif player.xvel > 0 and self.xvel<0:
-                if self.rect.left+50 == player.rect.left:
-                    self.yvel=self.dec_speed
-                    self.dec=True
-            elif player.xvel < 0 and self.xvel<0:
-                if self.rect.right == player.rect.right:
-                    self.yvel=self.dec_speed
-                    self.dec=True
-            elif player.xvel < 0 and self.xvel>0:
-                if self.rect.right+50 == player.rect.right:
-                    self.yvel=self.dec_speed
-                    self.dec=True"""
         # increment in y direction
         self.rect.top += self.yvel
         # assuming we're in the air
-        if self.rect.bottom >= player.rect.bottom and self.dec:
-            self.yvel=-self.dec_speed/2
-        if self.rect.top ==32 and self.dec:
-            self.yvel=0
-            self.dec=False
-            self.xvel=self.speed
+        #self.onGround = False
+        # do y-axis collisions
+        self.collide(0, self.yvel, platforms)
+
+        self.coll = self.collide(self.xvel, 0, platforms)
+
+        if self.rect.top <=32 or self.rect.bottom >= height-32:
+            self.yvel = -self.yvel
+            self.coll = False
+
         if self.rect.left<=32 or self.rect.right>=width-32:
             self.xvel = -self.xvel
+            self.coll = False
+
         return self.hitbox(0, self.yvel, player, arme, screen)
 
 
@@ -386,6 +373,7 @@ class Boss3(Entity):
                     self.rect.bottom = p.rect.top
                     self.onGround = True
                     self.yvel = 0
+                    return True
                 if yvel < 0:
                     self.rect.top = p.rect.bottom
                     print "collide top"

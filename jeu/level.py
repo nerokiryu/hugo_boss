@@ -60,7 +60,7 @@ def generateLvl(num):
             "N  F                                                                         O",
             "N  F                                A                                        O",
             "N  F                                                                         O",
-            "N  F     BKKKKKKKKKKKKL                                                      O",
+            "N  F     JKKKKKKKKKKKKL                                                      O",
             "N                                                                            O",
             "N                                                                            O",
             "N                                                                            O",
