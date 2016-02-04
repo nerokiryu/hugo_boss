@@ -278,8 +278,16 @@ class Boss3(Entity, Stats):
 class Boss4(Entity, Stats):
     delay=0
     delay_max=100
-    tir=0
-    res=False
+    tir1=0
+    tir2=0
+    tir3=0
+    tir4=0
+    tir5=0
+    res1=False
+    res2=False
+    res3=False
+    res4=False
+    res5=False
 
     def __init__(self, x, y):
         Entity.__init__(self)
@@ -313,16 +321,46 @@ class Boss4(Entity, Stats):
         # do y-axis collisions
 
         if self.delay<=0:
-            if isinstance(self.tir, Tir):
-                self.tir.image = pygame.image.load(self.tir.img_bossf).convert()
-                self.tir.image.set_alpha(0)
-            self.tir = Tir(self.rect.right-((self.rect.right-self.rect.left)/2),self.rect.bottom-((self.rect.bottom-self.rect.top)/2))
-            self.tir.realease(randint(-4,4),randint(-4,4))
-            entities.add(self.tir)
+            if isinstance(self.tir1, Tir):
+                self.tir1.image = pygame.image.load(self.tir1.img_bossf).convert()
+                self.tir1.image.set_alpha(0)
+            self.tir1 = Tir(self.rect.right-((self.rect.right-self.rect.left)/2),self.rect.bottom-((self.rect.bottom-self.rect.top)/2))
+            self.tir1.realease(randint(-4,4),randint(-4,4))
+            entities.add(self.tir1)
+            if isinstance(self.tir2, Tir):
+                self.tir2.image = pygame.image.load(self.tir2.img_bossf).convert()
+                self.tir2.image.set_alpha(0)
+            self.tir2 = Tir(self.rect.right-((self.rect.right-self.rect.left)/2),self.rect.bottom-((self.rect.bottom-self.rect.top)/2))
+            self.tir2.realease(randint(-4,4),randint(-4,4))
+            entities.add(self.tir2)
+            if isinstance(self.tir3, Tir):
+                self.tir3.image = pygame.image.load(self.tir3.img_bossf).convert()
+                self.tir3.image.set_alpha(0)
+            self.tir3 = Tir(self.rect.right-((self.rect.right-self.rect.left)/2),self.rect.bottom-((self.rect.bottom-self.rect.top)/2))
+            self.tir3.realease(randint(-4,4),randint(-4,4))
+            entities.add(self.tir3)
+            if isinstance(self.tir4, Tir):
+                self.tir4.image = pygame.image.load(self.tir4.img_bossf).convert()
+                self.tir4.image.set_alpha(0)
+            self.tir4 = Tir(self.rect.right-((self.rect.right-self.rect.left)/2),self.rect.bottom-((self.rect.bottom-self.rect.top)/2))
+            self.tir4.realease(randint(-4,4),randint(-4,4))
+            entities.add(self.tir4)
+            if isinstance(self.tir5, Tir):
+                self.tir5.image = pygame.image.load(self.tir5.img_bossf).convert()
+                self.tir5.image.set_alpha(0)
+            self.tir5 = Tir(self.rect.right-((self.rect.right-self.rect.left)/2),self.rect.bottom-((self.rect.bottom-self.rect.top)/2))
+            self.tir5.realease(randint(-4,4),randint(-4,4))
+            entities.add(self.tir5)
+
+
             self.delay=self.delay_max
         else:
             self.delay-=0.5
-            self.res = self.tir.update(up, down, left, right, running, platforms, player, arme, screen,width,height,entities)
+            self.res1 = self.tir1.update(up, down, left, right, running, platforms, player, arme, screen,width,height,entities)
+            self.res2 = self.tir2.update(up, down, left, right, running, platforms, player, arme, screen,width,height,entities)
+            self.res3 = self.tir3.update(up, down, left, right, running, platforms, player, arme, screen,width,height,entities)
+            self.res4 = self.tir4.update(up, down, left, right, running, platforms, player, arme, screen,width,height,entities)
+            self.res5 = self.tir5.update(up, down, left, right, running, platforms, player, arme, screen,width,height,entities)
 
 
         if self.rect.top <=32 or self.rect.bottom >= height-32:
@@ -331,7 +369,7 @@ class Boss4(Entity, Stats):
         if self.rect.left<=32 or self.rect.right>=width-32:
             self.xvel = -self.xvel
 
-        return self.hitbox(0, self.yvel, player, arme, screen) or self.res
+        return self.hitbox(0, self.yvel, player, arme, screen) or self.res1 or self.res2 or self.res3 or self.res4 or self.res5
 
     def collide(self, xvel, yvel, platforms):
         for p in platforms:
