@@ -96,7 +96,7 @@ def generateLvl(num):
     else :
         lvl = [
             "IPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPI",
-            "NC                                                                          BO",
+            "N                                                                            O",
             "N                                                                            O",
             "N                                                                            O",
             "N                                                                            O",

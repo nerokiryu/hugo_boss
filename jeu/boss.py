@@ -300,7 +300,6 @@ class Boss3(Entity):
         else:
             return False
 
-
 class Boss4(Entity):
     img_bossf="graphics/character/boss/boss3/boss_eye.png"
     coll = False
