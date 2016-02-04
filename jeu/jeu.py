@@ -89,12 +89,12 @@ def main():
     elif num == 2 :
         boss = Boss2(500, 32)
     elif num == 3 :
-        boss = Boss4(500, 500)
+        boss = Boss3(500, 500)
     else:
-        boss = Boss3(500, 32)
+        boss = Boss4(500, 32)
 
     boss.realease()
-    player = Player(32, 32)
+    player = Player(32, 690)
     player.realease()
     platforms = []
 

@@ -105,7 +105,7 @@ def generateLvl(num):
     else :
         lvl = [
             "IPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPI",
-            "N                                                                            O",
+            "NC                                                                          BO",
             "N                                                                            O",
             "N                                                                            O",
             "N                                                                            O",
@@ -140,9 +140,9 @@ def generateBg(num):
     elif num == 2:
         bg = ("graphics/background/ice.png")
     elif num == 3:
-        bg = ("graphics/background/hell.png")
-    else :
         bg = ("graphics/background/darkness.png")
+    else :
+        bg = ("graphics/background/hell.png")
     return bg
 
 def generateTypePlateform(num):
