@@ -98,7 +98,7 @@ class Boss2(Entity, Stats):
     T2 = True
     def __init__(self, x, y, img):
         Entity.__init__(self)
-        Stats.__init__(self, "graphics/character/boss/boss4/boss_P" + str(img) + "_ecr0.png", 9, 3)
+        Stats.__init__(self, "graphics/character/boss/boss2/boss_P" + str(img) + "_ecr0.png", 9, 3)
         self.xvel = x
         self.yvel = y
         self.onGround = False
@@ -112,7 +112,7 @@ class Boss2(Entity, Stats):
 
     def update(self, up, down, left, right, running, platforms, player, arme, screen,width, height, entities):
         if self.T1 and self.hp == 6:
-            self.img_bossf = "graphics/character/boss/boss4/boss_P2_ecr0.png"
+            self.img_bossf = "graphics/character/boss/boss2/boss_P2_ecr0.png"
             self.image = pygame.image.load(self.img_bossf)
             (hauteur, largeur) = self.image.get_size()
             self.rect = Rect(self.rect.left, self.rect.top, hauteur, largeur)
@@ -120,7 +120,7 @@ class Boss2(Entity, Stats):
             self.T1 = False
 
         if self.T2 and self.hp == 3:
-            self.img_bossf = "graphics/character/boss/boss4/boss_P3_ecr0.png"
+            self.img_bossf = "graphics/character/boss/boss2/boss_P3_ecr0.png"
             self.image = pygame.image.load(self.img_bossf)
             (hauteur, largeur) = self.image.get_size()
             self.rect = Rect(self.rect.left, self.rect.top, hauteur, largeur)
@@ -192,7 +192,7 @@ class Boss3(Entity, Stats):
 
     def __init__(self, x, y):
         Entity.__init__(self)
-        Stats.__init__(self, "graphics/character/boss/boss5/spider.png", 6, 6)
+        Stats.__init__(self, "graphics/character/boss/boss3/spider.png", 6, 6)
         self.xvel = x
         self.yvel = 0
         self.onGround = False
@@ -221,22 +221,6 @@ class Boss3(Entity, Stats):
                     self.wait=self.wait_max
             else:
                     self.wait-=1
-            """if player.xvel > 0 and self.xvel>0:
-                if self.rect.left == player.rect.left:
-                    self.yvel=self.dec_speed
-                    self.dec=True
-            elif player.xvel > 0 and self.xvel<0:
-                if self.rect.left+50 == player.rect.left:
-                    self.yvel=self.dec_speed
-                    self.dec=True
-            elif player.xvel < 0 and self.xvel<0:
-                if self.rect.right == player.rect.right:
-                    self.yvel=self.dec_speed
-                    self.dec=True
-            elif player.xvel < 0 and self.xvel>0:
-                if self.rect.right+50 == player.rect.right:
-                    self.yvel=self.dec_speed
-                    self.dec=True"""
         # increment in y direction
         self.rect.top += self.yvel
         # assuming we're in the air
@@ -291,7 +275,7 @@ class Boss4(Entity, Stats):
 
     def __init__(self, x, y):
         Entity.__init__(self)
-        Stats.__init__(self, "graphics/character/boss/boss3/boss_eye.png", 6, 5)
+        Stats.__init__(self, "graphics/character/boss/boss4/boss_eye.png", 6, 5)
         self.xvel = x
         self.yvel = y
         self.onGround = False
@@ -306,11 +290,6 @@ class Boss4(Entity, Stats):
     def update(self, up, down, left, right, running, platforms, player, arme, screen,width,height, entities):
         if self.inv > 0:
             self.inv-=1
-        """if not self.onGround:
-            # only accelerate with gravity if in the air
-            self.yvel += 0.3
-            # max falling speed
-            if self.yvel > 100: self.yvel = 100"""
         # increment in x direction
         self.rect.left += self.xvel
         # do x-axis collisions
