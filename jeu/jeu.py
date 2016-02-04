@@ -34,12 +34,15 @@ def end():
         #~ scr.fill(-1)
         display.flip();print(menu.__doc__)
         resp = menu([u'rejouer::Faire une nouvelle partie',
-                     u'retour au menu::Quitter le jeu'])
+                     u'retour au menu::Retourner au menu',
+		     u'quitter::Quitter le Jeu'])
 
         if resp[0] == u'retour au menu':
                 execfile("hugoboss.py")
         elif resp[0] == u'rejouer':
             execfile("jeu/jeu.py")
+	elif resp[0] == u'quitter':
+		sys.exit()
 
 def main():
     # Numero du niveau #
