@@ -16,7 +16,8 @@ img_swordr="graphics/arme/sword/ironsword.png"
 img_swordl="graphics/arme/sword/ironswordl.png"
 
 class Arme(Entity):
-    atk=30
+    atk_max= 20
+    atk=atk_max
     r = False
     l = False
 
@@ -41,9 +42,8 @@ class Arme(Entity):
             boss.image.set_alpha(0)
         elif boss.inv%10 == 0:
             boss.image = pygame.image.load(boss.img_bossf)
-        print(boss.hp)
-        if running==True:
-            self.atk=30
+        if running==True and self.atk==0:
+            self.atk=self.atk_max
         if left:
             self.l=True
             self.r=False
@@ -72,6 +72,8 @@ class Arme(Entity):
         else:
             self.rect.top = player.rect.top
             self.rect.left = player.rect.left
+            self.image = pygame.image.load(img_swordr).convert()
+            self.image.set_alpha(0)
         if self.atk > 0:
             return self.hitbox(0, self.yvel, boss, screen)
         else :

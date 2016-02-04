@@ -91,9 +91,9 @@ class Player(Entity):
                     print "collide top"
 
     def hitbox(self, xvel, yvel, boss, screen):
-     
+
         if pygame.sprite.collide_rect(self, boss):
-            if boss.inv <= 0:   
+            if boss.inv <= 0:
                 basicfont = pygame.font.SysFont(None, 48)
                 text = basicfont.render('Game Over', True, (255, 0, 0))
                 textrect = text.get_rect()

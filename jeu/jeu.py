@@ -56,7 +56,7 @@ def main():
     screen = display.set_mode(DISPLAY, FLAGS, DEPTH)
     display.set_caption("Use arrows to move!")
     timer = time.Clock()
-
+    pygame.key.set_repeat(1,1000)
     up = down = left = right = running = False
     atk = 0
 
@@ -67,7 +67,10 @@ def main():
     entities = sprite.Group()
     arme = Arme(32, 32)
     arme.realease()
-    boss = Boss(500, 32)
+    if num == 1 :
+        boss = Boss(500, 32)
+    else :
+        boss = Boss2(500, 32)
     boss.realease()
     player = Player(32, 32)
     player.realease()
@@ -125,7 +128,6 @@ def main():
                 right = True
             if e.type == KEYDOWN and e.key == K_v :
                 running = True
-
             if e.type == KEYUP and e.key == K_UP:
                 up = False
             if e.type == KEYUP and e.key == K_DOWN:
@@ -138,8 +140,7 @@ def main():
                 running = False
 
         # draw background
-        """for y in range(32):
-            for x in range(32):"""
+
         screen.blit(pygame.image.load(lvlBg), (0,0))
 
         camera.update(player)
@@ -147,7 +148,7 @@ def main():
         # update player, draw everything else
         if player.update(up, down, left, right, running, platforms, boss, screen):
             rep = False
-        if boss.update(up, down, left, right, running, platforms, player, arme, screen) and rep == True:
+        if boss.update(up, down, left, right, running, platforms, player, arme, screen,total_level_height) and rep == True:
             rep = False
         if arme.update(up, down, left, right, running, platforms,boss, player, screen) and rep == True:
             rep = False
