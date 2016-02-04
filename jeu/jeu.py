@@ -187,7 +187,7 @@ def main():
             #Si le update de l'arme devient vraie alors la cause de la sortie de la boucle sera une victoire
             boucle_de_jeu = False
             win = True
-            end('Win', screen)
+            end('You Win', screen)
         else:
             atk = arme.atk
 
