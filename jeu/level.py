@@ -70,7 +70,7 @@ def generateLvl(num):
             "N                                                                            O",
             "IMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMI",]
 
-    else :
+    elif num == 3 :
         lvl = [
             "IPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPI",
             "N                                                                            O",
@@ -96,14 +96,48 @@ def generateLvl(num):
             "N                                                                            O",
             "N                                                                            O",
             "N                                                                            O",
+            "N                                                                            O",
+            "N                                                                            O",
+            "N                                                                            O",
+            "N      MMMMMM      MMMMMM      MMMMMM      MMMMMM      MMMMMM      MMMMMM    O",
+            "IMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMI",]
+
+    else :
+        lvl = [
+            "IPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPI",
+            "N                                                                            O",
+            "N                                                                            O",
+            "N                                                                            O",
+            "N                                                                            O",
+            "N                                                                            O",
+            "N                         JKKKKKKKKKKKKKKKKKKKKKL                            O",
+            "N                                                                            O",
+            "N                                                                            O",
+            "N                                                                            O",
+            "N       MM          MM                                 MM         MM         O",
+            "N        MM          MM                               MM         MM          O",
+            "N         MM          MM                             MM         MM           O",
+            "N          MM          MM                           MM         MM            O",
+            "N           MM          MM           MMMM          MM         MM             O",
+            "N                                                                            O",
+            "N                                                                            O",
+            "N                                                                            O",
+            "N              MM         MM                      MM         MM              O",
+            "N             MM         MM                        MM         MM             O",
+            "N            MM         MM                          MM         MM            O",
+            "N           MM         MM            MMMM            MM         MM           O",
+            "N          MM         MM                              MM         MM          O",
+            "N                                                                            O",
+            "N                                                                            O",
+            "N                                                                            O",
             "IMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMI",]
 
     return lvl;
 
 def generateBg(num):
     if num == 1:
-        bg = ("graphics/background/ice.png")
-    if num == 2:
+        bg = ("graphics/background/forest.png")
+    elif num == 2:
         bg = ("graphics/background/ice.png")
     elif num == 3:
         bg = ("graphics/background/hell.png")
