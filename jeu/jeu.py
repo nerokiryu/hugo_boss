@@ -36,16 +36,16 @@ def end(num,win):
         display.flip();print(menu.__doc__)
         if win:
             resp = menu([u'continuer::Niveau suivant',
-                         ' ',
-                         ' ',
+                         '',
+                         '',
                          u'rejouer::Faire une nouvelle boucle_de_jeu',
                          u'retour au menu::Retourner au menu',
-                         ' ',
+                         '',
                          u'quitter::Quitter le Jeu'])
         else:
             resp = menu([u'rejouer::Faire une nouvelle boucle_de_jeu',
                          u'retour au menu::Retourner au menu',
-                         ' ',
+                         '',
                          u'quitter::Quitter le Jeu'])
 
         if resp[0] == u'retour au menu':
