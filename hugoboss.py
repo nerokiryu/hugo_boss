@@ -1,6 +1,7 @@
 import sys
 import pygame
 import os
+
 sys._clear_type_cache()
 sys.exc_clear()
 # Importe la classe Invader and MyHero

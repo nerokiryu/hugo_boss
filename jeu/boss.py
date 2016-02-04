@@ -20,7 +20,7 @@ from arme import *
 from camera import *
 from exitBlock import *
 
-class Boss(Entity):
+class Boss1(Entity):
     img_bossf="graphics/character/boss/boss1/boss1r.png"
     coll = False
     inv =0
@@ -42,7 +42,7 @@ class Boss(Entity):
         self.yvel = self.speed
 
 
-    def update(self, up, down, left, right, running, platforms, player, arme, screen,width,height):
+    def update(self, up, down, left, right, running, platforms, player, arme, screen):
         if self.inv > 0:
             self.inv-=1
         if not self.onGround:
@@ -105,7 +105,6 @@ class Boss(Entity):
         else:
             return False
 
-
 class Boss2(Entity):
     img_bossf="graphics/character/boss/boss4/boss_P2_ecr0.png"
     coll = False
@@ -127,9 +126,7 @@ class Boss2(Entity):
         self.xvel = self.speed
         self.yvel = self.speed
 
-
-    def update(self, up, down, left, right, running, platforms, player, arme, screen,width,height):
-
+    def update(self, up, down, left, right, running, platforms, player, arme, screen, height):
         if self.inv > 0:
             self.inv-=1
         if self.onGround :
@@ -200,7 +197,7 @@ class Boss2(Entity):
             return False
 
 class Boss3(Entity):
-    img_bossf="graphics/character/boss/boss5/Spider.png"
+    img_bossf="graphics/character/boss/boss5/spider.png"
     coll = False
     inv =0
     hp = 3
