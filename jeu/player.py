@@ -86,6 +86,8 @@ class Player(Entity):
                     self.rect.bottom = p.rect.top
                     self.onGround = True
                     self.yvel = 0
+                    pygame.mixer.init(44100, -16, 2, 2048)
+                    son=pygame.mixer.Sound("sound/Hit_Hurt4.wav")
                 if yvel < 0:
                     self.rect.top = p.rect.bottom
                     print "collide top"
