@@ -12,6 +12,6 @@ sys.path.append(os.path.join('menu'))
 
 pygame.init()
 pygame.mixer.music.load('menu.mp3')
-pygame.mixer.music.play()
+pygame.mixer.music.play(-1)
 
 execfile("menu/menu.py")
