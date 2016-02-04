@@ -42,7 +42,7 @@ class Boss1(Entity):
         self.yvel = self.speed
 
 
-    def update(self, up, down, left, right, running, platforms, player, arme, screen):
+    def update(self, up, down, left, right, running, platforms, player, arme, screen,width,height):
         if self.inv > 0:
             self.inv-=1
         if not self.onGround:
@@ -126,11 +126,12 @@ class Boss2(Entity):
         self.xvel = self.speed
         self.yvel = self.speed
 
-    def update(self, up, down, left, right, running, platforms, player, arme, screen, height):
+    def update(self, up, down, left, right, running, platforms, player, arme, screen,width, height):
         if self.inv > 0:
             self.inv-=1
         if self.onGround :
-            self.yvel -= 9
+            if self.rect.right < width-64 and self.rect.left > 64:
+                self.yvel -= 9
         print(self.rect.top)
         if not self.onGround:
             # only accelerate with gravity if in the air
@@ -200,7 +201,7 @@ class Boss3(Entity):
     img_bossf="graphics/character/boss/boss5/spider.png"
     coll = False
     inv =0
-    hp = 3
+    hp = 6
     speed = 6
     max_inv=30
     dec =False
