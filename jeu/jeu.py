@@ -28,20 +28,31 @@ DEPTH = 32
 FLAGS = 0
 CAMERA_SLACK = 30
 
-def end():
+
+def end(num,win):
     while True:
         scr.blit(bg,bg.get_rect(center=scr.get_rect().center))
         #~ scr.fill(-1)
         display.flip();print(menu.__doc__)
-        resp = menu([u'rejouer::Faire une nouvelle partie',
-                     u'retour au menu::Retourner au menu',
-		     u'quitter::Quitter le Jeu'])
+        if win:
+            resp = menu([u'rejouer::Faire une nouvelle boucle_de_jeu',
+                         u'retour au menu::Retourner au menu',
+                         u'continuer::Niveau suivant',
+                         u'quitter::Quitter le Jeu'])
+        else:
+            resp = menu([u'rejouer::Faire une nouvelle boucle_de_jeu',
+                         u'retour au menu::Retourner au menu',
+                         u'quitter::Quitter le Jeu'])
 
         if resp[0] == u'retour au menu':
                 execfile("hugoboss.py")
         elif resp[0] == u'rejouer':
             execfile("jeu/jeu.py")
-	elif resp[0] == u'quitter':
+        elif resp[0] == u'continuer':
+            num += 1
+            sys.argv=["jeu.py",num]
+            execfile("jeu/jeu.py")
+        else:
 		sys.exit()
 
 def main():
@@ -58,7 +69,7 @@ def main():
     screen = display.set_mode(DISPLAY, FLAGS, DEPTH)
     display.set_caption("Hugo Boss")
     timer = time.Clock()
-    pygame.key.set_repeat(1,1000)
+    pygame.key.set_boucle_de_jeueat(1,1000)
     up = down = left = right = running = False
     atk = 0
 
@@ -117,8 +128,9 @@ def main():
     total_level_width  = len(level[0])*32
     total_level_height = len(level)*32
     #############################MOUVEMENT#######################################
-    rep = True
-    while rep:
+    win = False
+    boucle_de_jeu = True
+    while boucle_de_jeu:
         timer.tick(60)
 
         for e in event.get():
@@ -147,19 +159,19 @@ def main():
                 running = False
 
         # Dessine background
-        """for y in range(32):
-            for x in range(32):"""
         screen.blit(pygame.image.load(lvlBg), (0,0))
 
         camera.update(player)
 
         # update player, draw everything else
         if player.update(up, down, left, right, running, platforms, boss, screen):
-            rep = False
-        if boss.update(up, down, left, right, running, platforms, player, arme, screen,total_level_width,total_level_height) and rep == True:
-                rep = False
-        if arme.update(up, down, left, right, running, platforms,boss, player, screen) and rep == True:
-            rep = False
+            boucle_de_jeu = False
+        if boss.update(up, down, left, right, running, platforms, player, arme, screen,total_level_width,total_level_height) and boucle_de_jeu == True:
+            boucle_de_jeu = False
+        if arme.update(up, down, left, right, running, platforms,boss, player, screen) and boucle_de_jeu == True:
+            #Si le update de l'arme devient vraie alors la cause de la sortie de la boucle sera une victoire
+            boucle_de_jeu = False
+            win = True
         else:
             atk = arme.atk
 
@@ -168,7 +180,7 @@ def main():
 
         display.update()
 
-    end()
+    end(num,win)
 
 if __name__ == "__main__":
     main()

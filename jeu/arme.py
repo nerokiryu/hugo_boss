@@ -32,7 +32,6 @@ class Arme(Entity):
         self.rect = Rect(x, y, hauteur, largeur)
         self.onGround = False
 
-
     def realease(self):
         self.xvel = 8
         self.yvel = 8
